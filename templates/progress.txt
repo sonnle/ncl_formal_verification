@@ -1,0 +1,28 @@
+NCL Gate Boolean Function
+TH12 A + B - Done
+TH22 AB - Done
+TH13 A + B + C - Done
+TH23 AB + AC + BC - Done
+TH33 ABC - Done
+TH23w2 A + BC - Done
+TH33w2 AB + AC - Done
+TH14 A + B + C + D - Done
+TH24 AB + AC + AD + BC + BD + CD - Done
+TH34 ABC + ABD + ACD + BCD - Done
+TH44 ABCD - Done
+TH24w2 A + BC + BD + CD - Done
+TH34w2 AB + AC + AD + BCD - Done
+TH44w2 ABC + ABD + ACD - Done
+TH34w3 A + BCD - Done
+TH44w3 AB + AC + AD - Done
+TH24w22 A + B + CD - Done
+TH34w22 AB + AC + AD + BC + BD - Done
+TH44w22 AB + ACD + BCD - Done
+TH54w22 ABC + ABD - Done
+TH34w32 A + BC + BD - Done
+TH54w32 AB + ACD - Done
+TH44w322 AB + AC + AD + BC - Done
+TH54w322 AB + AC + BCD - Done
+THxor0 AB + CD - Done
+THand0 AB + BC + AD - Done
+TH24comp AC + BC + AD + BD - Done
