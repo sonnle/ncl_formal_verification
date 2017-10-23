@@ -1,3 +1,4 @@
+; Formal verification proof of functional equivalence of NCL 2-bit Full Adder
 (set-logic QF_BV)
 
 ; Inputs
@@ -77,8 +78,8 @@
                 (and
                     (= (concat S1 S0) S)
                     (= (concat Cout1 Cout0) Cout)
-                    (= (concat Cout1 S1) RegS)
-                    (= (concat Cout0 S0) nRegS)
+;                    (= (concat Cout1 S1) RegS)
+;                    (= (concat Cout0 S0) nRegS)
                     (not (= (_ bv3 2) X))
                     (not (= (_ bv3 2) Y))
                     (not (= (_ bv3 2) Cin))
@@ -86,7 +87,12 @@
                     (not (= (_ bv0 2) Y))
                     (not (= (_ bv0 2) Cin)))
                 (and
-                    (= (concat Cout1 S1) (bvadd (concat (_ bv0 1) (rail1 X)) (concat (_ bv0 1) (rail1 Y)) (concat (_ bv0 1) (rail1 Cin))))
+                    (=
+                        (concat Cout1 S1)
+                        (bvadd
+                            (concat (_ bv0 1) (rail1 X))
+                            (concat (_ bv0 1) (rail1 Y))
+                            (concat (_ bv0 1) (rail1 Cin))))
                     (not (= S1 S0))
                     (not (= Cout1 Cout0))))))
 )
@@ -106,8 +112,8 @@
                 (and
                     (= (concat S1 S0) S)
                     (= (concat Cout1 Cout0) Cout)
-                    (= (concat Cout1 S1) RegS)
-                    (= (concat Cout0 S0) nRegS)
+;                    (= (concat Cout1 S1) RegS)
+;                    (= (concat Cout0 S0) nRegS)
                     (= (_ bv0 2) X)
                     (= (_ bv0 2) Y)
                     (= (_ bv0 2) Cin))
