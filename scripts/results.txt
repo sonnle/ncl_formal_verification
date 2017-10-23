@@ -1,0 +1,6 @@
+sat
+(model 
+)
+
+
+Total time: 0.009713 sec
