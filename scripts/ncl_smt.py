@@ -14,6 +14,8 @@ class NclSmt():
     inputs = None
     outputs = None
     num_gates = 0
+    num_levels = 0
+    gate_info = dict()
 
     def __init__(self, netlist, outfile):
         self.netlist = netlist
@@ -27,7 +29,13 @@ class NclSmt():
             self.outputs = netlist_file.readline().split(',')
             for line in netlist_file:
                 self.num_gates += 1
-                (gate, wires) = line.split(' ', 1)
+                (gate, level, wires) = line.split(' ', 2)
+                self.gate_info[self.num_gates] = dict()
+                self.gate_info[self.num_gates]['level'] = level
+                self.gate_info[self.num_gates]['wires'] = wires.split(' ')
+
+                if self.num_levels < level:
+                    self.num_levels = level
                 if not self.gate_used[gate]:
                     self.gate_used[gate] = 1
 
@@ -68,6 +76,43 @@ class NclSmt():
             num for num in range(self.num_gates)) + '\n\n'
 
     @property
+    def let_statements(self):
+        """Returns the assignments of the wires to the correct gate function call"""
+        return ''
+
+    @property
+    def input_not_invalid(self):
+        """Returns the declarations that each input is not invalid"""
+        return '\n\t\t\t\t'.join('(not (= (_ bv3 2) %s))' % \
+            variable.strip() for variable in self.inputs) + '\n'
+
+    @property
+    def threshold_gates_null(self):
+        """Returns the declaration that each threshold gate current value starts at zero"""
+        return '\n\t\t\t\t'.join('(nullp Gc_%d)' % gate for gate in range(self.num_gates))
+
+    @property
+    def one_input_null(self):
+        """Returns the check that at least one of the inputs is null"""
+        return '\n\t\t\t\t(or\n\t\t\t\t\t' + '\n\t\t\t\t\t'.join('(nullp %s)' % \
+            variable.strip() for variable in self.inputs) + ')))\n'
+
+    @property
+    def implication(self):
+        """Returns the implication for the proof"""
+        return '\t\t(=>\n\t\t\t(and\n\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s' % \
+            (self.input_not_invalid, self.threshold_gates_null, self.one_input_null)
+
+    @property
+    def proof_input_complete_smt2(self):
+        """
+        Returns the proof for input completeness based on the
+        gate level/inputs/outputs of the netlist
+        """
+        return '; SAT/UNSAT assertion for %s\n' % self.netlist + \
+            '(assert\n\t(not\n%s\n%s))' % (self.let_statements, self.implication) + '\n'
+
+    @property
     def footer_smt2(self):
         """Returns the check-sat and get-model method calls"""
         return '(check-sat)\n(get-model)\n'
@@ -90,4 +135,5 @@ class NclSmt():
                     smt2_file.write(self.template_smt2(gate_template_file))
 
             smt2_file.write(self.gate_current_smt2)
+            smt2_file.write(self.proof_input_complete_smt2)
             smt2_file.write(self.footer_smt2)

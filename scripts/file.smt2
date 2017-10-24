@@ -156,5 +156,25 @@
 (declare-fun Gc_4 () (_ BitVec 1))
 (declare-fun Gc_5 () (_ BitVec 1))
 
+; SAT/UNSAT assertion for .\test_netlist.txt
+(assert
+	(not
+
+		(=>
+			(and
+				(not (= (_ bv3 2) A))
+				(not (= (_ bv3 2) B))
+				(not (= (_ bv3 2) C))
+				(nullp Gc_0)
+				(nullp Gc_1)
+				(nullp Gc_2)
+				(nullp Gc_3)
+				(nullp Gc_4)
+				(nullp Gc_5)
+				(or
+					(nullp A)
+					(nullp B)
+					(nullp C))))
+))
 (check-sat)
 (get-model)
