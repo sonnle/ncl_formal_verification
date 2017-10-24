@@ -1,34 +1,16 @@
 import os
 
 class NclSmt():
-    """Temp doc string"""
-    gate_used = {'th12'     : 0,
-                 'th13'     : 0,
-                 'th14'     : 0,
-                 'th22'     : 0,
-                 'th23'     : 0,
-                 'th23w2'   : 0,
-                 'th24'     : 0,
-                 'th24comp' : 0,
-                 'th24w2'   : 0,
-                 'th24w22'  : 0,
-                 'th33'     : 0,
-                 'th33w2'   : 0,
-                 'th34'     : 0,
-                 'th34w2'   : 0,
-                 'th34w22'  : 0,
-                 'th34w3'   : 0,
-                 'th34w32'  : 0,
-                 'th44'     : 0,
-                 'th44w2'   : 0,
-                 'th44w22'  : 0,
-                 'th44w3'   : 0,
-                 'th44w322' : 0,
-                 'th54w22'  : 0,
-                 'th54w32'  : 0,
-                 'th54w322' : 0,
-                 'thand0'   : 0,
-                 'thxor0'   : 0,}
+    """Class used to encapsulate the information to be written to smt file"""
+    gate_used = {'th12'     : 0, 'th13'     : 0, 'th14'     : 0,
+                 'th22'     : 0, 'th23'     : 0, 'th23w2'   : 0,
+                 'th24'     : 0, 'th24comp' : 0, 'th24w2'   : 0,
+                 'th24w22'  : 0, 'th33'     : 0, 'th33w2'   : 0,
+                 'th34'     : 0, 'th34w2'   : 0, 'th34w22'  : 0,
+                 'th34w3'   : 0, 'th34w32'  : 0, 'th44'     : 0,
+                 'th44w2'   : 0, 'th44w22'  : 0, 'th44w3'   : 0,
+                 'th44w322' : 0, 'th54w22'  : 0, 'th54w32'  : 0,
+                 'th54w322' : 0, 'thand0'   : 0, 'thxor0'   : 0,}
     inputs = None
     outputs = None
     num_gates = 0
