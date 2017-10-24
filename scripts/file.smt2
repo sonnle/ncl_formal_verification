@@ -1,4 +1,4 @@
-; Formal verification proof - input completeness of .\test_netlist.txt
+; Formal verification proof - input completeness of test_netlist.txt
 (set-logic QF_BV)
 
 ; Inputs: A, B, C
@@ -156,7 +156,7 @@
 (declare-fun Gc_4 () (_ BitVec 1))
 (declare-fun Gc_5 () (_ BitVec 1))
 
-; SAT/UNSAT assertion for .\test_netlist.txt
+; SAT/UNSAT assertion for test_netlist.txt
 (assert
 	(not
 
@@ -174,7 +174,11 @@
 				(or
 					(nullp A)
 					(nullp B)
-					(nullp C))))
-))
+					(nullp C)))
+		(or
+			(nullp X)
+			(nullp Y)))
+	)
+)
 (check-sat)
 (get-model)

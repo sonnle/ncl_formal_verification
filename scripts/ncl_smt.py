@@ -95,13 +95,19 @@ class NclSmt():
     def one_input_null(self):
         """Returns the check that at least one of the inputs is null"""
         return '\n\t\t\t\t(or\n\t\t\t\t\t' + '\n\t\t\t\t\t'.join('(nullp %s)' % \
-            variable.strip() for variable in self.inputs) + ')))\n'
+            variable.strip() for variable in self.inputs) + '))\n'
+
+    @property
+    def one_output_null(self):
+        """Returns the declaration that at least one output is null"""
+        return '\t\t(or\n\t\t\t' + '\n\t\t\t'.join('(nullp %s)' % \
+            variable.strip() for variable in self.outputs) + '))\n'
 
     @property
     def implication(self):
         """Returns the implication for the proof"""
-        return '\t\t(=>\n\t\t\t(and\n\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s' % \
-            (self.input_not_invalid, self.threshold_gates_null, self.one_input_null)
+        return '\t\t(=>\n\t\t\t(and\n\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s%s' % \
+            (self.input_not_invalid, self.threshold_gates_null, self.one_input_null, self.one_output_null)
 
     @property
     def proof_input_complete_smt2(self):
@@ -110,7 +116,7 @@ class NclSmt():
         gate level/inputs/outputs of the netlist
         """
         return '; SAT/UNSAT assertion for %s\n' % self.netlist + \
-            '(assert\n\t(not\n%s\n%s))' % (self.let_statements, self.implication) + '\n'
+            '(assert\n\t(not\n%s\n%s\t)\n)' % (self.let_statements, self.implication) + '\n'
 
     @property
     def footer_smt2(self):
