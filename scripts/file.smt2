@@ -148,5 +148,13 @@
             g_l))
 )
 
+; Current values of threshold gates
+(declare-fun Gc_0 () (_ BitVec 1))
+(declare-fun Gc_1 () (_ BitVec 1))
+(declare-fun Gc_2 () (_ BitVec 1))
+(declare-fun Gc_3 () (_ BitVec 1))
+(declare-fun Gc_4 () (_ BitVec 1))
+(declare-fun Gc_5 () (_ BitVec 1))
+
 (check-sat)
 (get-model)

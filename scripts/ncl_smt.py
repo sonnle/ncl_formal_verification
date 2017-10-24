@@ -31,6 +31,7 @@ class NclSmt():
                  'thxor0'   : 0,}
     inputs = None
     outputs = None
+    num_gates = 0
 
     def __init__(self, netlist, outfile):
         self.netlist = netlist
@@ -43,6 +44,7 @@ class NclSmt():
             self.inputs = netlist_file.readline().split(',')
             self.outputs = netlist_file.readline().split(',')
             for line in netlist_file:
+                self.num_gates += 1
                 (gate, wires) = line.split(' ', 1)
                 if not self.gate_used[gate]:
                     self.gate_used[gate] = 1
@@ -77,6 +79,13 @@ class NclSmt():
             return temp_file.read() + '\n'
 
     @property
+    def gate_current_smt2(self):
+        """Returns the declarations of the current state of the threshold gates"""
+        return '; Current values of threshold gates\n' + \
+            '\n'.join('(declare-fun Gc_%d () (_ BitVec 1))' % \
+            num for num in range(self.num_gates)) + '\n\n'
+
+    @property
     def footer_smt2(self):
         """Returns the check-sat and get-model method calls"""
         return '(check-sat)\n(get-model)\n'
@@ -98,4 +107,5 @@ class NclSmt():
                     gate_template_file = '%s.smt2' % gate
                     smt2_file.write(self.template_smt2(gate_template_file))
 
+            smt2_file.write(self.gate_current_smt2)
             smt2_file.write(self.footer_smt2)
