@@ -1,0 +1,5 @@
+unsat
+(error "line 200 column 10: model is not available")
+
+
+Total time: 0.016128 sec

@@ -146,7 +146,7 @@ class NclSmt():
     @property
     def implication(self):
         """Returns the implication for the proof"""
-        return '\t\t(=>\n\t\t\t(and\n\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s%s' % \
+        return '\t\t(=>\n\t\t\t(and\n\t\t\t\t%s\t\t\t\t%s%s%s' % \
             (self.input_not_invalid, self.threshold_gates_null, self.one_input_null, self.one_output_null)
 
     @property
