@@ -1,4 +1,4 @@
-; Formal verification proof - input completeness of test_netlist.txt
+; Formal verification proof - input completeness of .\test_netlist.txt
 (set-logic QF_BV)
 
 ; Inputs: A, B, C
@@ -29,7 +29,7 @@
 )
 
 ; NCL Gate Boolean Function - THxor0: (AB + CD)
-(define-fun Thxor0 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun thxor0 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
@@ -50,7 +50,7 @@
 )
 
 ; NCL Gate Boolean Function - TH24comp: (AC + BC + AD + BD)
-(define-fun Th24comp ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun th24comp ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
@@ -73,7 +73,7 @@
 )
 
 ; NCL Gate Boolean Function - TH22: (AB)
-(define-fun Th22 ((a (_ BitVec 1)) (b (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun th22 ((a (_ BitVec 1)) (b (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
@@ -90,7 +90,7 @@
 )
 
 ; NCL Gate Boolean Function - TH23w2: (A + BC)
-(define-fun Th23w2 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun th23w2 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
@@ -109,7 +109,7 @@
 )
 
 ; NCL Gate Boolean Function - TH33: (ABC)
-(define-fun Th33 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun th33 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
@@ -127,7 +127,7 @@
 )
 
 ; NCL Gate Boolean Function - THand0: (AB + BC + AD)
-(define-fun Thand0 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun thand0 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
@@ -156,28 +156,44 @@
 (declare-fun Gc_4 () (_ BitVec 1))
 (declare-fun Gc_5 () (_ BitVec 1))
 
-; SAT/UNSAT assertion for test_netlist.txt
+; SAT/UNSAT assertion for .\test_netlist.txt
 (assert
 	(not
-
+		(let
+			(
+				(Gn_0 (th24comp (rail0 B) (rail0 C) (rail1 C) (rail1 B) Gc_0))
+				(Gn_1 (th22 (rail1 A) (rail1 B) Gc_1))
+				(Gn_2 (thxor0 (rail0 A) (rail0 C) (rail1 A) (rail1 C) Gc_2))
+				(Gn_3 (th33 (rail1 C) (rail0 A) (rail0 B) Gc_3))
+			)
+		(let
+			(
+				(Gn_4 (thand0 Gc_1 (rail0 A) (rail0 B) (rail1 C) Gc_4))
+				(Gn_5 (th23w2 Gc_3 Gc_0 (rail0 C) Gc_5))
+			)
+		(let
+			(
+				(X (concat Gn_1 Gn_2))
+				(Y (concat Gn_1 Gn_2))
+			)
 		(=>
 			(and
 				(not (= (_ bv3 2) A))
 				(not (= (_ bv3 2) B))
 				(not (= (_ bv3 2) C))
-				(nullp Gc_0)
-				(nullp Gc_1)
-				(nullp Gc_2)
-				(nullp Gc_3)
-				(nullp Gc_4)
-				(nullp Gc_5)
+				(= (_ bv0 1) Gc_0)
+				(= (_ bv0 1) Gc_1)
+				(= (_ bv0 1) Gc_2)
+				(= (_ bv0 1) Gc_3)
+				(= (_ bv0 1) Gc_4)
+				(= (_ bv0 1) Gc_5)
 				(or
 					(nullp A)
 					(nullp B)
 					(nullp C)))
 		(or
 			(nullp X)
-			(nullp Y)))
+			(nullp Y))))))
 	)
 )
 (check-sat)

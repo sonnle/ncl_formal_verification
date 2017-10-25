@@ -1,4 +1,5 @@
 import os
+import re
 
 class NclSmt():
     """Class used to encapsulate the information to be written to smt file"""
@@ -31,6 +32,7 @@ class NclSmt():
                 self.num_gates += 1
                 (gate, level, wires) = line.split(' ', 2)
                 self.gate_info[self.num_gates] = dict()
+                self.gate_info[self.num_gates]['type'] = gate
                 self.gate_info[self.num_gates]['level'] = level
                 self.gate_info[self.num_gates]['wires'] = wires.split(' ')
 
@@ -38,6 +40,51 @@ class NclSmt():
                     self.num_levels = level
                 if not self.gate_used[gate]:
                     self.gate_used[gate] = 1
+
+    def _helper_let_statements(self, gate_num, gate):
+        ret_str = '\t\t\t\t(Gn_%d (%s ' % (gate_num-1, gate['type'])
+        for wire in gate['wires'][:-1]:
+            mat = re.search(r'(?P<variable>[A-Z]+)(?P<rail>\d+)', wire)
+            if mat.group('variable') == 'I':
+                ret_str += 'Gc_%d ' % int(mat.group('rail'))
+            else:
+                ret_str += '(rail%s %s) ' % (mat.group('rail'), mat.group('variable'))
+        mat = re.search(r'(?P<variable>[A-Z]+)(?P<rail>\d+)', gate['wires'][-1])
+        ret_str += 'Gc_%d))\n' % (gate_num-1)
+        return ret_str
+
+    @property
+    def _process_let_statements(self):
+        """
+        (let
+            (
+                (Gn_0 (Th24comp (rail0 B) (rail0 C) (rail1 C) (rail1 B) Gc_0))
+                (Gn_1 (Th22 (rail1 A) (rail1 B) Gc_1))
+                (Gn_2 (Thxor0 (rail0 A) (rail0 C) (rail1 A) (rail1 C) Gc_2))
+                (Gn_3 (Th33 (rail1 C) (rail0 A) (rail0 B) Gc_3))
+            )
+        (let
+            (
+                (X (concat (Thand0 Gn_1 (rail0 A) (rail0 B) (rail1 C) Gc_4) Gn_0))
+                (Y (concat (Th23w2 Gn_3 Gn_1 (rail0 C) Gc_5) Gn_2))
+            )
+        """
+        ret_str = ''
+        for x in range(int(self.num_levels)):
+            iter_str = '\n\t\t(let\n\t\t\t(\n'
+            for gate_num in self.gate_info:
+                if int(self.gate_info[gate_num]['level']) == (x + 1):
+                    iter_str += self._helper_let_statements(gate_num, self.gate_info[gate_num])
+            iter_str += '\t\t\t)'
+            ret_str += iter_str
+
+        iter_str = '\n\t\t(let\n\t\t\t(\n'
+        for output in self.outputs:
+            iter_str += '\t\t\t\t(%s (concat Gn_%d Gn_%d))\n' % (output.strip(), 1, 2)
+        iter_str += '\t\t\t)'
+        ret_str += iter_str
+
+        return ret_str
 
     @property
     def heading_smt2(self):
@@ -76,11 +123,6 @@ class NclSmt():
             num for num in range(self.num_gates)) + '\n\n'
 
     @property
-    def let_statements(self):
-        """Returns the assignments of the wires to the correct gate function call"""
-        return ''
-
-    @property
     def input_not_invalid(self):
         """Returns the declarations that each input is not invalid"""
         return '\n\t\t\t\t'.join('(not (= (_ bv3 2) %s))' % \
@@ -89,7 +131,7 @@ class NclSmt():
     @property
     def threshold_gates_null(self):
         """Returns the declaration that each threshold gate current value starts at zero"""
-        return '\n\t\t\t\t'.join('(nullp Gc_%d)' % gate for gate in range(self.num_gates))
+        return '\n\t\t\t\t'.join('(= (_ bv0 1) Gc_%d)' % gate for gate in range(self.num_gates))
 
     @property
     def one_input_null(self):
@@ -101,7 +143,7 @@ class NclSmt():
     def one_output_null(self):
         """Returns the declaration that at least one output is null"""
         return '\t\t(or\n\t\t\t' + '\n\t\t\t'.join('(nullp %s)' % \
-            variable.strip() for variable in self.outputs) + '))\n'
+            variable.strip() for variable in self.outputs) + '))' + (')'*(int(self.num_levels)+1)) + '\n'
 
     @property
     def implication(self):
@@ -116,7 +158,7 @@ class NclSmt():
         gate level/inputs/outputs of the netlist
         """
         return '; SAT/UNSAT assertion for %s\n' % self.netlist + \
-            '(assert\n\t(not\n%s\n%s\t)\n)' % (self.let_statements, self.implication) + '\n'
+            '(assert\n\t(not%s\n%s\t)\n)' % (self._process_let_statements, self.implication) + '\n'
 
     @property
     def footer_smt2(self):
