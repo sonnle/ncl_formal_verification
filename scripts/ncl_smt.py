@@ -53,22 +53,18 @@ class NclSmt():
         ret_str += 'Gc_%d))\n' % (gate_num-1)
         return ret_str
 
+    def find_gate_num(self, output):
+        ret_gate = [0, 0]
+        for gate in self.gate_info:
+            mat = re.search(r'(?P<variable>[A-Z]+)(?P<rail>\d+)', self.gate_info[gate]['wires'][-1])
+            if mat.group('variable') == output:
+                ret_gate[int(mat.group('rail'))] = gate - 1
+        return ret_gate
+
+
     @property
     def _process_let_statements(self):
-        """
-        (let
-            (
-                (Gn_0 (Th24comp (rail0 B) (rail0 C) (rail1 C) (rail1 B) Gc_0))
-                (Gn_1 (Th22 (rail1 A) (rail1 B) Gc_1))
-                (Gn_2 (Thxor0 (rail0 A) (rail0 C) (rail1 A) (rail1 C) Gc_2))
-                (Gn_3 (Th33 (rail1 C) (rail0 A) (rail0 B) Gc_3))
-            )
-        (let
-            (
-                (X (concat (Thand0 Gn_1 (rail0 A) (rail0 B) (rail1 C) Gc_4) Gn_0))
-                (Y (concat (Th23w2 Gn_3 Gn_1 (rail0 C) Gc_5) Gn_2))
-            )
-        """
+        """Temp doc string"""
         ret_str = ''
         for x in range(int(self.num_levels)):
             iter_str = '\n\t\t(let\n\t\t\t(\n'
@@ -80,7 +76,9 @@ class NclSmt():
 
         iter_str = '\n\t\t(let\n\t\t\t(\n'
         for output in self.outputs:
-            iter_str += '\t\t\t\t(%s (concat Gn_%d Gn_%d))\n' % (output.strip(), 1, 2)
+            output_gates = self.find_gate_num(output.strip())
+            iter_str += '\t\t\t\t(%s (concat Gn_%d Gn_%d))\n' % \
+                (output.strip(), output_gates[1], output_gates[0])
         iter_str += '\t\t\t)'
         ret_str += iter_str
 

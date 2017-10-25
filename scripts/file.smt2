@@ -173,8 +173,8 @@
 			)
 		(let
 			(
-				(X (concat Gn_1 Gn_2))
-				(Y (concat Gn_1 Gn_2))
+				(X (concat Gn_4 Gn_0))
+				(Y (concat Gn_5 Gn_2))
 			)
 		(=>
 			(and
