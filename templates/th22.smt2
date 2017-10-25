@@ -1,5 +1,5 @@
 ; NCL Gate Boolean Function - TH22: (AB)
-(define-fun Th22 ((a (_ BitVec 1)) (b (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun th22 ((a (_ BitVec 1)) (b (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
