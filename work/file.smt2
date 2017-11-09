@@ -1,4 +1,4 @@
-; Formal verification proof - input completeness of .\test_netlist.txt
+; Formal verification proof - input completeness of ..\test_files\test_netlist.txt
 (set-logic QF_BV)
 
 ; Inputs: A, B, C
@@ -156,16 +156,16 @@
 (declare-fun Gc_4 () (_ BitVec 1))
 (declare-fun Gc_5 () (_ BitVec 1))
 
-; SAT/UNSAT assertion for .\test_netlist.txt
+; SAT/UNSAT assertion for ..\test_files\test_netlist.txt
 (assert
-	(not
+	(not		
 		(let
 			(
 				(Gn_0 (th24comp (rail0 B) (rail0 C) (rail1 C) (rail1 B) Gc_0))
 				(Gn_1 (th22 (rail1 A) (rail1 B) Gc_1))
 				(Gn_2 (thxor0 (rail0 A) (rail0 C) (rail1 A) (rail1 C) Gc_2))
 				(Gn_3 (th33 (rail1 C) (rail0 A) (rail0 B) Gc_3))
-			)
+			)		
 		(let
 			(
 				(Gn_4 (thand0 Gc_1 (rail0 A) (rail0 B) (rail1 C) Gc_4))
@@ -177,24 +177,24 @@
 				(Y (concat Gn_5 Gn_2))
 			)
 		(=>
-			(and
+			(and				
 				(not (= (_ bv3 2) A))
 				(not (= (_ bv3 2) B))
-				(not (= (_ bv3 2) C))
+				(not (= (_ bv3 2) C))				
 				(= (_ bv0 1) Gc_0)
 				(= (_ bv0 1) Gc_1)
 				(= (_ bv0 1) Gc_2)
 				(= (_ bv0 1) Gc_3)
 				(= (_ bv0 1) Gc_4)
 				(= (_ bv0 1) Gc_5)
-				(or
+				(or					
 					(nullp A)
 					(nullp B)
 					(nullp C)))
-		(or
+		(or			
 			(nullp X)
 			(nullp Y))))))
-	)
+	)	
 )
 (check-sat)
 (get-model)

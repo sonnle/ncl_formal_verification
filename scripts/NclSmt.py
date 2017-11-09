@@ -21,9 +21,13 @@ class NclSmt():
     def __init__(self, netlist, outfile):
         self.netlist = netlist
         self.outfile = outfile
-        self._process_netlist()
+        self.process_netlist()
 
-    def _process_netlist(self):
+    def _prepend_tabs(self, prepend_str, num_tabs=1):
+        """Helper function used to clean up code for formatting by prepending tabs to the string"""
+        return '\t'*num_tabs + prepend_str
+
+    def process_netlist(self):
         """Process the netlist file to identify inputs, outputs, and gates used"""
         with open(self.netlist, 'r') as netlist_file:
             self.inputs = netlist_file.readline().split(',')
@@ -41,8 +45,8 @@ class NclSmt():
                 if not self.gate_used[gate]:
                     self.gate_used[gate] = 1
 
-    def _helper_let_statements(self, gate_num, gate):
-        ret_str = '\t\t\t\t(Gn_%d (%s ' % (gate_num-1, gate['type'])
+    def helper_let_statements(self, gate_num, gate):
+        ret_str = self._prepend_tabs('(Gn_%d (%s ' % (gate_num-1, gate['type']), 4)
         for wire in gate['wires'][:-1]:
             mat = re.search(r'(?P<variable>[A-Z]+)(?P<rail>\d+)', wire)
             if mat.group('variable') == 'I':
@@ -61,25 +65,24 @@ class NclSmt():
                 ret_gate[int(mat.group('rail'))] = gate - 1
         return ret_gate
 
-
     @property
-    def _process_let_statements(self):
+    def process_let_statements(self):
         """Temp doc string"""
         ret_str = ''
-        for x in range(int(self.num_levels)):
-            iter_str = '\n\t\t(let\n\t\t\t(\n'
+        for level in range(int(self.num_levels)):
+            iter_str = self._prepend_tabs('\n', 2) + self._prepend_tabs('(let\n', 2) + self._prepend_tabs('(\n', 3)
             for gate_num in self.gate_info:
-                if int(self.gate_info[gate_num]['level']) == (x + 1):
-                    iter_str += self._helper_let_statements(gate_num, self.gate_info[gate_num])
-            iter_str += '\t\t\t)'
+                if int(self.gate_info[gate_num]['level']) == (level + 1):
+                    iter_str += self.helper_let_statements(gate_num, self.gate_info[gate_num])
+            iter_str += self._prepend_tabs(')', 3)
             ret_str += iter_str
 
-        iter_str = '\n\t\t(let\n\t\t\t(\n'
+        iter_str = '\n' + self._prepend_tabs('(let\n', 2) + self._prepend_tabs('(\n', 3)
         for output in self.outputs:
             output_gates = self.find_gate_num(output.strip())
-            iter_str += '\t\t\t\t(%s (concat Gn_%d Gn_%d))\n' % \
-                (output.strip(), output_gates[1], output_gates[0])
-        iter_str += '\t\t\t)'
+            iter_str += self._prepend_tabs('(%s (concat Gn_%d Gn_%d))\n' % \
+                (output.strip(), output_gates[1], output_gates[0]), 4)
+        iter_str += self._prepend_tabs(')', 3)
         ret_str += iter_str
 
         return ret_str
@@ -123,31 +126,48 @@ class NclSmt():
     @property
     def input_not_invalid(self):
         """Returns the declarations that each input is not invalid"""
-        return '\n\t\t\t\t'.join('(not (= (_ bv3 2) %s))' % \
-            variable.strip() for variable in self.inputs) + '\n'
+        not_declaration = []
+        for variable in self.inputs:
+            not_declaration.append(self._prepend_tabs('(not (= (_ bv3 2) %s))' % variable.strip(), 4))
+        return '\n' + '\n'.join(declaration for declaration in not_declaration)
 
     @property
     def threshold_gates_null(self):
         """Returns the declaration that each threshold gate current value starts at zero"""
-        return '\n\t\t\t\t'.join('(= (_ bv0 1) Gc_%d)' % gate for gate in range(self.num_gates))
+        gate_null_declaration = []
+        for gate in range(self.num_gates):
+            gate_null_declaration.append(self._prepend_tabs('(= (_ bv0 1) Gc_%d)' % gate, 4))
+        return '\n' + '\n'.join(declaration for declaration in gate_null_declaration)
 
     @property
     def one_input_null(self):
         """Returns the check that at least one of the inputs is null"""
-        return '\n\t\t\t\t(or\n\t\t\t\t\t' + '\n\t\t\t\t\t'.join('(nullp %s)' % \
-            variable.strip() for variable in self.inputs) + '))\n'
+        input_null_declaration = []
+        for variable in self.inputs:
+            input_null_declaration.append(self._prepend_tabs('(nullp %s)' % variable.strip(), 5))
+        return '\n' + self._prepend_tabs('(or', 4) + self._prepend_tabs('\n', 5) + \
+            '\n'.join(declaration for declaration in input_null_declaration) + '))\n'
 
     @property
     def one_output_null(self):
         """Returns the declaration that at least one output is null"""
-        return '\t\t(or\n\t\t\t' + '\n\t\t\t'.join('(nullp %s)' % \
-            variable.strip() for variable in self.outputs) + '))' + (')'*(int(self.num_levels)+1)) + '\n'
+        output_null_declation = []
+        for variable in self.outputs:
+            output_null_declation.append(self._prepend_tabs('(nullp %s)' % variable.strip(), 3))
+
+        return self._prepend_tabs('(or', 2) + \
+            self._prepend_tabs('\n', 3) + \
+            '\n'.join(declaration for declaration in output_null_declation) + \
+            '))' + \
+            (')'*(int(self.num_levels)+1)) + '\n'
 
     @property
     def implication(self):
         """Returns the implication for the proof"""
-        return '\t\t(=>\n\t\t\t(and\n\t\t\t\t%s\t\t\t\t%s%s%s' % \
-            (self.input_not_invalid, self.threshold_gates_null, self.one_input_null, self.one_output_null)
+        return self._prepend_tabs('(=>\n', 2) + \
+            self._prepend_tabs('(and', 3) + \
+            self._prepend_tabs('%s' % self.input_not_invalid, 4) + \
+            self._prepend_tabs('%s%s%s' % (self.threshold_gates_null, self.one_input_null, self.one_output_null), 4)
 
     @property
     def proof_input_complete_smt2(self):
@@ -156,7 +176,10 @@ class NclSmt():
         gate level/inputs/outputs of the netlist
         """
         return '; SAT/UNSAT assertion for %s\n' % self.netlist + \
-            '(assert\n\t(not%s\n%s\t)\n)' % (self._process_let_statements, self.implication) + '\n'
+            '(assert\n' + self._prepend_tabs('(not%s\n%s' % \
+            (self.process_let_statements, self.implication)) + \
+            self._prepend_tabs(')') + \
+            self._prepend_tabs('\n)\n')
 
     @property
     def footer_smt2(self):

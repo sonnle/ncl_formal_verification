@@ -3,7 +3,7 @@
 import timeit
 import argparse
 import subprocess
-from ncl_smt import NclSmt
+from NclSmt import NclSmt
 
 def main():
     """Main function"""
