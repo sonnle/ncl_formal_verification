@@ -48,19 +48,19 @@ class NclSmt():
     def helper_let_statements(self, gate_num, gate):
         ret_str = self._prepend_tabs('(Gn_%d (%s ' % (gate_num-1, gate['type']), 4)
         for wire in gate['wires'][:-1]:
-            mat = re.search(r'(?P<variable>[A-Z]+)(?P<rail>\d+)', wire)
+            mat = re.search(r'(?P<variable>[A-z]+)(?P<rail>\d+)', wire)
             if mat.group('variable') == 'I':
                 ret_str += 'Gc_%d ' % int(mat.group('rail'))
             else:
                 ret_str += '(rail%s %s) ' % (mat.group('rail'), mat.group('variable'))
-        mat = re.search(r'(?P<variable>[A-Z]+)(?P<rail>\d+)', gate['wires'][-1])
+        mat = re.search(r'(?P<variable>[A-z]+)(?P<rail>\d+)', gate['wires'][-1])
         ret_str += 'Gc_%d))\n' % (gate_num-1)
         return ret_str
 
     def find_gate_num(self, output):
         ret_gate = [0, 0]
         for gate in self.gate_info:
-            mat = re.search(r'(?P<variable>[A-Z]+)(?P<rail>\d+)', self.gate_info[gate]['wires'][-1])
+            mat = re.search(r'(?P<variable>[A-z]+)(?P<rail>\d+)', self.gate_info[gate]['wires'][-1])
             if mat.group('variable') == output:
                 ret_gate[int(mat.group('rail'))] = gate - 1
         return ret_gate
