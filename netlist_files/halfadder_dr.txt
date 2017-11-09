@@ -1,0 +1,6 @@
+X,Y
+S,Co
+th24comp 1 Y0 X1 X0 Y1 S0
+th24comp 1 Y0 X0 Y1 X1 S1
+th12 1 Y0 X0 Co0
+th22 1 Y1 X1 Co1
