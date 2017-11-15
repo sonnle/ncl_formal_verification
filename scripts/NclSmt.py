@@ -12,6 +12,8 @@ class NclSmt():
                  'th44w2'   : 0, 'th44w22'  : 0, 'th44w3'   : 0,
                  'th44w322' : 0, 'th54w22'  : 0, 'th54w32'  : 0,
                  'th54w322' : 0, 'thand0'   : 0, 'thxor0'   : 0,}
+    ha_adder_used = False
+    fa_adder_used = False
     inputs = None
     outputs = None
     num_gates = 0
@@ -33,8 +35,15 @@ class NclSmt():
             self.inputs = netlist_file.readline().split(',')
             self.outputs = netlist_file.readline().split(',')
             for line in netlist_file:
-                self.num_gates += 1
                 (gate, level, wires) = line.split(' ', 2)
+                if gate is 'HA':
+                    self.num_gates += 4
+                    self.ha_adder_used = True
+                elif gate is 'FA':
+                    self.num_gates += 4
+                    self.fa_adder_used = True
+                else:
+                    self.num_gates += 1
                 self.gate_info[self.num_gates] = dict()
                 self.gate_info[self.num_gates]['type'] = gate
                 self.gate_info[self.num_gates]['level'] = level
