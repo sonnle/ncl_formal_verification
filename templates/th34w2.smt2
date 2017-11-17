@@ -12,7 +12,7 @@
         (ite
             (=
                 (_ bv1 1)
-                (bvor 
+                (bvor
                 	(bvand a b)
                 	(bvand a c)
                 	(bvand a d)
