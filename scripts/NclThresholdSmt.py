@@ -1,7 +1,7 @@
 import os
 import re
 
-class NclSmt():
+class NclThresholdSmt():
     """Class used to encapsulate the information to be written to smt file"""
     gate_used = {'th12'     : 0, 'th13'     : 0, 'th14'     : 0,
                  'th22'     : 0, 'th23'     : 0, 'th23w2'   : 0,
