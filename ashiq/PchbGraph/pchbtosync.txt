@@ -1,0 +1,9 @@
+PCHB to Synchronous converted Netlist
+
+Inputs: a b c m
+Outputs: g
+gate_struct: and2 1 d a b
+gate_struct: or2 2 f d c
+gate_struct: xor2 3 g m f
+
+Netlist conversion done 

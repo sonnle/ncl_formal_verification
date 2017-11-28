@@ -1,14 +1,14 @@
 PCHB to Synchronous converted Netlist
 
 Inputs: 1 3 2 4
-Outputs: 5_ 9_ 11 12
-gate_struct: 1 1 1 2  5
-gate_struct: 1 1 3 2  6
-gate_struct: 1 1 1 4  7
-gate_struct: 1 1 3 4  8
-gate_struct: 7 2 6 7  9
-gate_struct: 1 2 6 7  1
-gate_struct: 7 3 1 8  1
-gate_struct: 1 3 1 8  1
+Outputs: 5 9 11 12
+gate_struct: 1 1 5 1 2
+gate_struct: 1 1 6 3 2
+gate_struct: 1 1 7 1 4
+gate_struct: 1 1 8 3 4
+gate_struct: 7 2 9 6 7
+gate_struct: 1 2 1 6 7
+gate_struct: 7 3 1 1 8
+gate_struct: 1 3 1 1 8
 
 Netlist conversion done 

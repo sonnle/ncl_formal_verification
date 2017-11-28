@@ -19,18 +19,18 @@ class PchbSync():
     def _process_netlist(self):
         """Process the netlist file to identify inputs, outputs, and gates used"""
         with open(self.netlist, 'r') as netlist_file:
-#            self.inputs = netlist_file.readline().split(',')
-            
-#            self.inputs = [item[0:2] for item in netlist_file.readline().\
-#            split(',')]
+
             var= netlist_file.readline().split(',')
             for x in var:
-                print x
                 mat= re.search (r'(?P<variable>[1-9]+)_*',x)
                 m= mat.group('variable')
                 self.inputs.append(m)
-            self.outputs = [item[0:2] for item in netlist_file.readline().\
-            split(',')]
+            var= netlist_file.readline().split(',')
+            for x in var:
+                mat= re.search (r'(?P<variable>[1-9]+)_*',x)
+                m= mat.group('variable')
+                self.outputs.append(m)
+            
           
             for line in netlist_file:
                 self.num_gates += 1
@@ -72,11 +72,12 @@ class PchbSync():
                         self.gate_info[self.num_gates][string1] = [item[0] for item in gate_inputs.split(',')][x-1]
                         self.gate_info[self.num_gates]['P'].extend([self.gate_info[self.num_gates][string1]])
                         temp+= 1
-                var= gate_op.split(',') 
-#                print var
-#                mat= re.search (r'(?P<variable>[1-9]+)_1',var)
-#                m= mat.group('variable)
-#                print 
+                var= gate_op.split(',')
+                print var
+                for y in var:
+                    mat= re.search (r'(?P<variables>[1-9]+)_.*',y)
+                    m= mat.group ('variables')
+                    print m 
                 self.gate_info[self.num_gates]['output1'] = [item[0] for item in var]
 
     @property
@@ -96,7 +97,7 @@ class PchbSync():
     
     def gate_struc(self,x):
         """Returns the declarations of the gate variables"""
-        return 'gate_struct:' + ' '+ (self.gate_info[x]['type']) +' ' + (self.gate_info[x]['level']) + ' ' +' '.join(variable.strip() for variable in self.gate_info[x]['P']) + ' ' + ' ' + ' '.join(variable.strip() for variable in self.gate_info[x]['output1'])+ '\n' 
+        return 'gate_struct:' + ' '+ (self.gate_info[x]['type']) +' ' + (self.gate_info[x]['level']) + ' '  + ' '.join(variable.strip() for variable in self.gate_info[x]['output1']) + ' ' + ' '.join(variable.strip() for variable in self.gate_info[x]['P']) + '\n' 
                   
     @property
     def footer_smt2(self):
