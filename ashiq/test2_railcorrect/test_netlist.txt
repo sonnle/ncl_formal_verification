@@ -1,0 +1,5 @@
+a_1a_0,b_1b_0,c_1c_0,m_1m_0
+g_1g_0
+and2 1 a_1a_0,b_1b_0 lack2 lack1 d_1d_0
+or2 2 d_1d_0,c_1c_0 lack3 lack2 f_1f_0
+xor2 3 m_1m_0,f_1f_0 rack lack3 g_1g_0

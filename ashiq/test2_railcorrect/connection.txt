@@ -1,0 +1,8 @@
+Output of node1 is not connected to the Input of node3
+Output of node1 is connected to the input of node2
+No error in Connection between node1 and node2
+Output of node2 is connected to the Input of node3
+NO error in Connection between   node2 and node3
+Output of node2 is not connected to the Input of node1
+
+No other interconnections exist 

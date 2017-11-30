@@ -1,0 +1,7 @@
+Graph structure:{
+START: START_parent: [  ]:::  START_children:[ a b c m ]
+node1: and2 ::: node1_parents: [ a b lack2 ] ::: node1_children: [ d lack1 ]
+node2: or2 ::: node2_parents: [ d c lack3 ] ::: node2_children: [ f lack2 ]
+node3: xor2 ::: node3_parents: [ m f rack ] ::: node3_children: [ g lack3 ]
+Terminate: terminate_parent: [ g ]:::  terminate_children:[  ]
+}
