@@ -1,0 +1,32 @@
+; Formal verification proof - input completeness of test_netlist.txt
+(set-logic QF_BV)
+
+; Inputs: a, b, c, m
+(declare-fun a () (_ BitVec 1))
+(declare-fun b () (_ BitVec 1))
+(declare-fun c () (_ BitVec 1))
+(declare-fun m () (_ BitVec 1))
+
+; Outputs: g
+(declare-fun g () (_ BitVec 1))
+
+; SAT/UNSAT assertion for test_netlist.txt
+(assert
+	(not		
+		(let
+			(
+				(d (bvand a b))			)		
+		(let
+			(
+				(f (bvor d c))			)		
+		(let
+			(
+				(g (bvxor m f))			)
+		(let
+			(
+				(out_sync (bvxor m (bvor  c(bvand a b))))			
+)
+			(= g out_sync ) ))))	)	
+)
+(check-sat)
+(get-model)

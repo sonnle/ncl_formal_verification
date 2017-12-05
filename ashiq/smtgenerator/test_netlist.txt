@@ -1,0 +1,5 @@
+a b c m
+g
+and2 1 d a b
+or2 2 f d c
+xor2 3 g m f
