@@ -3,36 +3,54 @@ import timeit
 import subprocess
 
 from NclDualRailSmt import NclDualRailSmt
-from SMT2UnsignedMultiplier import SMT2UnsignedMultiplier
+from SMT2UnsignedMultiplierNull import SMT2UnsignedMultiplierNull
+from SMT2UnsignedMultiplierData import SMT2UnsignedMultiplierData
 
 def main():
     # Will generate let-statements for n = [1 - bits_to_generate] unsigned multipliers
-    bits_to_generate = 20
-    num = 3
-
-    results_file = open('results.txt', 'w')
+    bits_to_generate = 15
 
     for bits in range(3, bits_to_generate + 1):
-        test = SMT2UnsignedMultiplier(bits)
-        file_name = 'unsigned_mult_%dx%d.smt2' % (bits, bits)
-        num += 1
+        test = SMT2UnsignedMultiplierNull(bits)
+        file_name = '../examples/unsigned_dual_rail_multipliers/generated/unsigned_mult_%dx%d.smt2' % (bits, bits)
         with open(file_name, 'w') as w_file:
-            w_file.write(test.generate_let_statement())
+            w_file.write(test.generate_proof())
 
-        start = timeit.default_timer()
         try:
-            results_file.write('Results for %dx%d unsigned multiplier:\n' % (bits, bits))
-            results_file.write(subprocess.check_output('z3 -smt2 %s' % file_name, shell=True))
+            results_file = open('results.txt', 'a')
+            results_file.write('Results for %dx%d unsigned multiplier NULL:\n' % (bits, bits))
+            start = timeit.default_timer()
+            results_file.write(subprocess.check_output('z3.exe -smt2 %s' % file_name, shell=True))
             print 'Model returned SAT'
         except subprocess.CalledProcessError as e:
             results_file.write(e.output)
             if 'unsat' in e.output:
-                print 'Model returned UNSAT'
+                print 'Model returned UNSAT for %dx%d unsigned multiplier NULL' % (bits, bits)
             else:
                 print 'Model has syntax errors, check results for error'
         results_file.write('Time taken: %f\n\n\n' % (timeit.default_timer() - start))
+        results_file.close()
 
-    results_file.close()
+    for bits in range(3, bits_to_generate + 1):
+        test = SMT2UnsignedMultiplierData(bits)
+        file_name = '../examples/unsigned_dual_rail_multipliers/generated/unsigned_mult_%dx%d_data.smt2' % (bits, bits)
+        with open(file_name, 'w') as w_file:
+            w_file.write(test.generate_proof())
+
+        try:
+            results_file = open('results.txt', 'a')
+            results_file.write('Results for %dx%d unsigned multiplier DATA:\n' % (bits, bits))
+            start = timeit.default_timer()
+            results_file.write(subprocess.check_output('z3.exe -smt2 %s' % file_name, shell=True))
+            print 'Model returned SAT'
+        except subprocess.CalledProcessError as e:
+            results_file.write(e.output)
+            if 'unsat' in e.output:
+                print 'Model returned UNSAT for %dx%d unsigned multiplier DATA' % (bits, bits)
+            else:
+                print 'Model has syntax errors, check results for error'
+        results_file.write('Time taken: %f\n\n\n' % (timeit.default_timer() - start))
+        results_file.close()
 
 if __name__ == '__main__':
     main()

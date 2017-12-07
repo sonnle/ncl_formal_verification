@@ -1,12 +1,12 @@
-class SMT2UnsignedMultiplier():
-    track_nums = dict()
+class SMT2UnsignedMultiplierNull():
+    partial_products = dict()
     templates = ['rail', 'nullp', 'th34w2', 'th24comp', 'th22', 'th23', 'th12', 'thand0', 'and2', 'ha', 'fa']
     num_let = 0
 
     def __init__(self, num_bits):
         self.n = num_bits
 
-    def generate_let_statement(self):
+    def generate_proof(self):
         return self.generate_logic() + \
                self.generate_inputs() + \
                self.generate_templates() + \
@@ -49,24 +49,24 @@ class SMT2UnsignedMultiplier():
         self.num_let += 1
         for row in range(self.n):
             for column in range(self.n):
-                test = row + column
+                index = row + column
                 let_statement += '(and%dx%d (and2 X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
                 try:
-                    self.track_nums[test].append('and%dx%d' % (row, column))
+                    self.partial_products[index].append('and%dx%d' % (row, column))
                 except KeyError:
-                    self.track_nums[test] = ['and%dx%d' % (row, column)]
+                    self.partial_products[index] = ['and%dx%d' % (row, column)]
         let_statement = let_statement.rstrip() + ')\n'
         return let_statement
 
     def generate_adders(self):
-        let_statement = '(let\n(\n(S0x0 %s)\n)\n' % self.track_nums[0].pop()
+        let_statement = '(let\n(\n(S0x0 %s)\n)\n' % self.partial_products[0].pop()
         for row in range(self.n):
             if row == 0:
                 for column in range(self.n-1):
                     let_statement += '(let\n(\n'
                     self.num_let += 1
-                    first_val = self.track_nums[row+column+1].pop()
-                    sec_val = self.track_nums[row+column+1].pop()
+                    first_val = self.partial_products[row+column+1].pop()
+                    sec_val = self.partial_products[row+column+1].pop()
                     if column == 0:
                         let_statement += '(S%dx%d ((_ extract 3 2) (ha %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, sec_val)
@@ -82,7 +82,7 @@ class SMT2UnsignedMultiplier():
                 for column in range(self.n-1):
                     let_statement += '(let\n(\n'
                     self.num_let += 1
-                    first_val = self.track_nums[row+column+1].pop()
+                    first_val = self.partial_products[row+column+1].pop()
                     if column == 0:
                         let_statement += '(S%dx%d ((_ extract 3 2) (ha %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, row, row+column+1)
