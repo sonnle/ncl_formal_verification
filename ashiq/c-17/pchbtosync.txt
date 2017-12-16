@@ -1,0 +1,12 @@
+PCHB to Synchronous converted Netlist
+
+Inputs: n01 n02 n03 n06 n07
+Outputs: n22 n23
+gate_struct: nand2 1 n09 n01 n03
+gate_struct: nand2 1 n08 n03 n06
+gate_struct: nand2 2 n10 n02 n08
+gate_struct: nand2 2 n11 n08 n07
+gate_struct: nand2 3 n22 n09 n10
+gate_struct: nand2 3 n23 n10 n11
+
+Netlist conversion done 

@@ -1,0 +1,10 @@
+n01_1n01_0,n02_1n02_0,n03_1n03_0,n06_1n06_0,n07_1n07_0
+n22_1n22_0,n23_1n23_0
+nand2 1 n01_1n01_0,n03_1n03_0 lack5 lack1 n09_1n09_0
+nand2 1 n03_1n03_0,n06_1n06_0 LACK1 lack2 n08_1n08_0
+nand2 2 n02_1n02_0,n08_1n08_0 LACK2 lack3 n10_1n10_0
+nand2 2 n08_1n08_0,n07_1n07_0 lack6 lack4 n11_1n11_0
+nand2 3 n09_1n09_0,n10_1n10_0 rack lack5 n22_1n22_0
+nand2 3 n10_1n10_0,n11_1n11_0 rack lack6 n23_1n23_0
+comp 1 lack3,lack4 LACK1
+comp 1 lack5,lack6 LACK2

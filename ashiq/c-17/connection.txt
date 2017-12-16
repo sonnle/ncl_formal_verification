@@ -1,0 +1,12 @@
+Output of node1 is connected to the Input of node5
+NO error in Connection between   node1 and node5
+Output of node2 is connected to the Input of node4
+Output of node2 is connected to the Input of node3
+HANDSHAKING CONNECTION ERROR! between node2 and node4
+HANDSHAKING CONNECTION ERROR! between node2 and node3
+Output of node3 is connected to the Input of node6
+Output of node3 is connected to the Input of node5
+NO error in Connection between   node3 and node6
+NO error in Connection between   node3 and node5
+Output of node4 is connected to the Input of node6
+NO error in Connection between   node4 and node6

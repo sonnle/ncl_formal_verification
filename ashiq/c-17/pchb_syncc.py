@@ -81,13 +81,13 @@ class PchbSync():
     #                        print var
     #                        mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',y)
     #                        m= mat.group('variable')
-                            self.gate_info[self.num_gates][string1] = [item[:2] for item in gate_inputs.split(',')][x-1]
+                            self.gate_info[self.num_gates][string1] = [item[:3] for item in gate_inputs.split(',')][x-1]
                             self.gate_info[self.num_gates]['P'].extend([self.gate_info[self.num_gates][string1]])
                             temp+= 1
     #                
                     var= gate_op.split(',')
     ##               
-                    self.gate_info[self.num_gates]['output1'] = [item[:2] for item in var]
+                    self.gate_info[self.num_gates]['output1'] = [item[:3] for item in var]
                 
                 if (gate == 'comp'):
                     self.num_comps += 1
