@@ -1,0 +1,81 @@
+; Formal verification proof of input completeness of 2x2 mult circuit
+(set-logic QF_BV)
+
+; Inputs
+(declare-fun a0 () (_ BitVec 1))
+(declare-fun a1 () (_ BitVec 1))
+(declare-fun a2 () (_ BitVec 1))
+(declare-fun a3 () (_ BitVec 1))
+(declare-fun b0 () (_ BitVec 1))
+(declare-fun b1 () (_ BitVec 1))
+(declare-fun b2 () (_ BitVec 1))
+(declare-fun b3 () (_ BitVec 1))
+
+(declare-fun x () (_ BitVec 2))
+(declare-fun y () (_ BitVec 2))
+
+; Outputs
+(declare-fun out_pchb () (_ BitVec 4))
+(declare-fun out_sync () (_ BitVec 4))
+
+(assert
+    (not
+        (let
+            (
+                (p0 (bvand a0 b0))
+			)
+        (let 
+			(
+				(t0 (bvand a1 b0))
+			)
+        (let
+			(
+			(t1 (bvand a0 b1))
+            )
+		(let
+			(
+			(p1 (bvxor t0 t1))
+            )
+		(let
+			(
+			(t2 (bvand t0 t1))
+            )
+        (let
+			(
+			(t3 (bvand a1 b1))
+            )
+        (let
+			(
+			(p2 (bvxor t2 t3))
+            )
+        (let
+			(
+			(p3 (bvand t2 t3))
+            )	
+		(let
+			(
+			(out_pchb (concat p3 p2 p1 p0))
+            )
+        (let
+            (
+                (x_t (concat (_ bv0 2 ) x)) 
+                
+            )
+		(let
+            (
+                (y_t (concat (_ bv0 2 ) y)) 
+                
+            )
+		(let
+            (
+                (out_sync (bvmult x_t y_t)) 
+                
+            )
+				
+            (= out_pchb out_sync ) ) ) ) ))))))))) 
+	)	
+)
+
+
+(check-sat)
+(get-model)
