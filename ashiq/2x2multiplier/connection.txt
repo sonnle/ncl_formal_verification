@@ -1,0 +1,16 @@
+Output of node2 is connected to the Input of node5
+Output of node2 is connected to the Input of node4
+NO error in Connection between   node2 and node5
+NO error in Connection between   node2 and node4
+Output of node3 is connected to the Input of node5
+Output of node3 is connected to the Input of node4
+NO error in Connection between   node3 and node5
+NO error in Connection between   node3 and node4
+Output of node5 is connected to the Input of node8
+Output of node5 is connected to the Input of node7
+NO error in Connection between   node5 and node8
+NO error in Connection between   node5 and node7
+Output of node6 is connected to the Input of node8
+Output of node6 is connected to the Input of node7
+NO error in Connection between   node6 and node8
+NO error in Connection between   node6 and node7

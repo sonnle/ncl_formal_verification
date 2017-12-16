@@ -1,0 +1,12 @@
+a0_1a0_0,a1_1a1_0,a2_1a2_0,a3_1a3_0,b0_1b0_0,b1_1b1_0,b2_1b2_0,b3_1b3_0
+p0_1p0_0,p1_1p1_0,p2_1P2_0,p3_1p3_0
+and2 1 a0_1a0_0,b0_1b0_0 rack lack1 p0_1p0_0
+and2 1 a1_1a1_0,b0_1b0_0 LACK1 lack2 t0_1t0_0
+and2 1 a0_1a0_0,b1_1b1_0 LACK1 lack3 t1_1t1_0
+xor2 2 t0_1t0_0,t1_1t1_0 rack lack4 p1_1p1_0
+and2 2 t0_1t0_0,t1_1t1_0 LACK2 lack5 t2_1t2_0
+and2 1 a1_1a1_0,b1_1b1_0 LACK2 lack6 t3_1t3_0
+xor2 3 t2_1t2_0,t3_1t3_0 rack lack7 p2_1p2_0
+and2 3 t2_1t2_0,t3_1t3_0 rack lack8 p3_1p3_0
+comp 1 lack4,lack5 LACK1
+comp 1 lack7,lack8 LACK2
