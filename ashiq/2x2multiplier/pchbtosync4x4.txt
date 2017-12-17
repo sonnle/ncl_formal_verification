@@ -1,0 +1,70 @@
+PCHB to Synchronous converted Netlist
+
+Inputs: x0 x1 x2 x3 y0 y1 y2 y3
+Outputs: p0 p1 p2 p3 p4 p5 p6 p7
+gate_struct: and2 1 p0 x0 y0
+gate_struct: and2 1 t0 x1 y0
+gate_struct: and2 1 t1 x0 y1
+gate_struct: xor2 2 p1 t0 t1
+gate_struct: and2 2 c0 t0 t1
+gate_struct: and2 1 t2 x2 y0
+gate_struct: and2 1 t3 x1 y1
+gate_struct: xor2 2 t4 t2 t3
+gate_struct: and2 2 t6 t2 t3
+gate_struct: xor2 3 s1 c0 t4
+gate_struct: and2 3 t5 c0 t4
+gate_struct: or2 4 c1 t6 t5
+gate_struct: and2 1 t7 x3 y0
+gate_struct: and2 1 t8 x2 y1
+gate_struct: xor2 2 t9 t7 t8
+gate_struct: and2 2 m0 t7 t8
+gate_struct: xor2 5 s2 c1 t9
+gate_struct: and2 5 m1 c1 t9
+gate_struct: or2 6 c2 m0 m1
+gate_struct: and2 1 m2 x3 y1
+gate_struct: xor2 7 s3 c2 m2
+gate_struct: and2 7 c3 c2 m2
+gate_struct: and2 1 m3 x0 y2
+gate_struct: xor2 4 p2 s1 m3
+gate_struct: and2 4 c4 s1 m3
+gate_struct: and2 1 m4 x1 y2
+gate_struct: xor2 6 m5 m4 s2
+gate_struct: and2 6 m6 m4 s2
+gate_struct: xor2 7 s4 c4 m5
+gate_struct: and2 7 m7 c4 m5
+gate_struct: or2 8 c5 m7 m6
+gate_struct: and2 1 m8 x2 y2
+gate_struct: xor2 8 m9 s3 m8
+gate_struct: and2 8 n0 s3 m8
+gate_struct: xor2 9 s5 m9 c5
+gate_struct: and2 9 n1 m9 c5
+gate_struct: or2 10 c6 n0 n1
+gate_struct: and2 1 n2 x3 y2
+gate_struct: xor2 8 n3 c3 n2
+gate_struct: and2 8 n4 c3 n2
+gate_struct: xor2 11 s6 c6 n3
+gate_struct: and2 11 n5 c6 n3
+gate_struct: or2 12 c7 n5 n4
+gate_struct: and2 1 n6 x0 y3
+gate_struct: xor2 8 p3 s4 n6
+gate_struct: and2 8 c8 s4 n6
+gate_struct: and2 1 n7 x1 y3
+gate_struct: xor2 10 n8 s5 n7
+gate_struct: and2 10 n9 s5 n7
+gate_struct: xor2 11 p4 c8 n8
+gate_struct: and2 11 q0 c8 n8
+gate_struct: or2 12 c9 q0 n9
+gate_struct: and2 1 q1 x2 y3
+gate_struct: xor2 12 q2 s6 q1
+gate_struct: and2 12 q3 s6 q1
+gate_struct: xor2 13 p5 c9 q2
+gate_struct: and2 13 q4 c9 q2
+gate_struct: or2 14 d0 q3 q4
+gate_struct: and2 1 q5 x3 y3
+gate_struct: xor2 13 q6 q5 c7
+gate_struct: and2 13 q7 q5 c7
+gate_struct: xor2 14 p6 q6 d0
+gate_struct: and2 14 q8 d0 q6
+gate_struct: or2 15 p7 q8 q7
+
+Netlist conversion done 
