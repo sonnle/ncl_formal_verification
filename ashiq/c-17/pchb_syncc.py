@@ -76,18 +76,27 @@ class PchbSync():
                     for x in range (1,(self.gate_inputs_number[0]+1)):
                         while (temp<x):
                             string1 = 'input'+ str(x)
-    #                    for y in var:
-    #                        var= gate_inputs.split(',')
-    #                        print var
-    #                        mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',y)
-    #                        m= mat.group('variable')
-                            self.gate_info[self.num_gates][string1] = [item[:3] for item in gate_inputs.split(',')][x-1]
+#                            var= gate_inputs.split(',')
+#                            print string1
+                            var= gate_inputs.split(',')[x-1]
+#                            print var
+                            
+                            mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',var)
+                            m= mat.group('variable')
+#                            print m
+                            self.gate_info[self.num_gates][string1] = m
                             self.gate_info[self.num_gates]['P'].extend([self.gate_info[self.num_gates][string1]])
                             temp+= 1
-    #                
-                    var= gate_op.split(',')
-    ##               
-                    self.gate_info[self.num_gates]['output1'] = [item[:3] for item in var]
+#                            print self.gate_info[self.num_gates]['P'] 
+                    self.gate_info[self.num_gates]['Q']= list()
+                    var= gate_op.rstrip()
+#                    var1= var.split(',')[0]
+#                    print var
+                    mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',var) 
+                    n= mat.group('variable')
+                    print n
+                    self.gate_info[self.num_gates]['output1'] = n
+                    self.gate_info[self.num_gates]['Q'].extend([self.gate_info[self.num_gates]['output1']])
                 
                 if (gate == 'comp'):
                     self.num_comps += 1
@@ -224,7 +233,7 @@ class PchbSync():
     
     def gate_struc(self,x):
         """Returns the declarations of the gate variables"""
-        return 'gate_struct:' + ' '+ (self.gate_info[x]['type']) +' ' + (self.gate_info[x]['level']) + ' '  + ' '.join(variable.strip() for variable in self.gate_info[x]['output1']) + ' ' + ' '.join(variable.strip() for variable in self.gate_info[x]['P']) + '\n' 
+        return 'gate_struct:' + ' '+ (self.gate_info[x]['type']) +' ' + (self.gate_info[x]['level']) + ' '  + ' '.join(variable.strip() for variable in self.gate_info[x]['Q']) + ' ' + ' '.join(variable.strip() for variable in self.gate_info[x]['P']) + '\n' 
                   
     @property
     def footer_smt2(self):
