@@ -36,16 +36,17 @@ class PchbSmt():
                 self.gate_info[self.num_gates]['gate_op']= gate_op
                 self.gate_info[self.num_gates]['gate_ip']= gate_ip.rstrip()
                 self.gate_info[self.num_gates]['type_without_number']= self.gate_info[self.num_gates]['type'][:-1]
+#                print level   
+                if self.num_levels < int(level):
+                    self.num_levels = int(level)
 
-                if self.num_levels < level:
-                    self.num_levels = level
-
-            print self.gate_info[3]['gate_ip']
+#            print self.gate_info[3]['gate_ip']
+            print self.num_levels
             
     def helper_let_statements(self, gate_num, gate):
         """used to generate the gate functions of the Pchb_sync netlist"""
         ret_str = self._prepend_tabs('(%s (%s ' % (gate['gate_op'], 'bv'+gate['type_without_number']), 4)
-        ret_str += '%s' % gate['gate_ip']+'))'
+        ret_str += '%s' % gate['gate_ip']+'))\n'
 
         return ret_str
     
@@ -61,26 +62,26 @@ class PchbSmt():
             iter_str += self._prepend_tabs(')', 3)
             ret_str += iter_str
         
-        """ writing the specification synchronous function"""
-        iter_str = '\n' + self._prepend_tabs('(let\n', 2) + self._prepend_tabs('(\n', 3)
-        iter_str += self._prepend_tabs('(%s ' % 'out_sync',4)
-        for num_gate in range (self.num_gates,0,-1):
-            iter_str +='(bv%s ' % self.gate_info[num_gate]['type_without_number']
-            for x in self.gate_info[num_gate]['gate_ip']:
-                var=0
-                for y in range (1,self.num_gates+1):
-                    
-                    if x == self.gate_info[y]['gate_op']:
-                        var+=1
-                if var==0 :
-                    iter_str +='%s' %x
-                    
-                    
-        for i in range (1, (int(self.num_levels))+2):
-            iter_str +=')'
-        iter_str+= self._prepend_tabs('\n)',3)
-
-        ret_str += iter_str
+#        """ writing the specification synchronous function"""
+#        iter_str = '\n' + self._prepend_tabs('(let\n', 2) + self._prepend_tabs('(\n', 3)
+#        iter_str += self._prepend_tabs('(%s ' % 'out_sync',4)
+#        for num_gate in range (self.num_gates,0,-1):
+#            iter_str +='(bv%s ' % self.gate_info[num_gate]['type_without_number']
+#            for x in self.gate_info[num_gate]['gate_ip']:
+#                var=0
+#                for y in range (1,self.num_gates+1):
+#                    
+#                    if x == self.gate_info[y]['gate_op']:
+#                        var+=1
+#                if var==0 :
+#                    iter_str +='%s' %x
+#                    
+#                    
+#        for i in range (1, (int(self.num_levels))+2):
+#            iter_str +=')'
+#        iter_str+= self._prepend_tabs('\n)',3)
+#
+#        ret_str += iter_str
 
         return ret_str
 
@@ -110,12 +111,12 @@ class PchbSmt():
 
 
 
-    @property
-    def implication(self):
-        """Returns the implication for the proof"""
-        for x in self.outputs:
-            final_op = x.rstrip()
-        return self._prepend_tabs('(= %s %s )' %(final_op, 'out_sync'), 3)
+#    @property
+#    def implication(self):
+#        """Returns the implication for the proof"""
+#        for x in self.outputs:
+#            final_op = x.rstrip()
+#        return self._prepend_tabs('(= %s %s )' %(final_op, 'out_sync'), 3)
 
 
     @property
@@ -130,8 +131,8 @@ class PchbSmt():
             iter_str+= ')'
         ret_str+= iter_str
         return '; SAT/UNSAT assertion for %s\n' % self.netlist + \
-            '(assert\n' + self._prepend_tabs('(not%s\n%s %s' % \
-            (self.process_let_statements,self.implication, ret_str )) + \
+            '(assert\n' + self._prepend_tabs('(not%s\n' % \
+            (self.process_let_statements )) + \
             self._prepend_tabs(')') + \
             self._prepend_tabs('\n)\n')
 
