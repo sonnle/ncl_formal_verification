@@ -9,7 +9,7 @@ def main():
     """Main function"""
 #    args = parse_arguments()
 
-    pchb_smt_obj = PchbSmt('test_netlistc17.txt', 'conversionc17.txt')
+    pchb_smt_obj = PchbSmt('test_netlist8x8.txt', 'conversion8x8.txt')
     pchb_smt_obj.generate_smt2()
 
 

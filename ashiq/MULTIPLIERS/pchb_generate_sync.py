@@ -10,7 +10,7 @@ def main():
     """Main function"""
     print 'Print information here'
     
-    pchb_sync_obj = PchbSync('test_netlist.txt', 'pchbtosync.txt','connection.txt','graph.txt')
+    pchb_sync_obj = PchbSync('test_netlist8x8.txt', 'pchbtosync8x8.txt','connection8x8.txt','graph.txt')
     
 #    print pchb_sync_obj.inputs
 #    print pchb_sync_obj.outputs
@@ -21,7 +21,7 @@ def main():
 ##    print pchb_sync_obj.gate_info[3]
     
 
-#    pchb_sync_obj.generate_pchbtosyn()
+    pchb_sync_obj.generate_pchbtosyn()
     pchb_sync_obj.connection_file()
 #    pchb_sync_obj.graph_structure()
 

@@ -76,18 +76,42 @@ class PchbSync():
                     for x in range (1,(self.gate_inputs_number[0]+1)):
                         while (temp<x):
                             string1 = 'input'+ str(x)
-    #                    for y in var:
-    #                        var= gate_inputs.split(',')
-    #                        print var
-    #                        mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',y)
-    #                        m= mat.group('variable')
-                            self.gate_info[self.num_gates][string1] = [item[:2] for item in gate_inputs.split(',')][x-1]
+#                            var= gate_inputs.split(',')
+#                            print string1
+                            var= gate_inputs.split(',')[x-1]
+#                            print var
+                            
+                            mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',var)
+                            m= mat.group('variable')
+#                            print m
+                            self.gate_info[self.num_gates][string1] = m
                             self.gate_info[self.num_gates]['P'].extend([self.gate_info[self.num_gates][string1]])
                             temp+= 1
-    #                
-                    var= gate_op.split(',')
-    ##               
-                    self.gate_info[self.num_gates]['output1'] = [item[:2] for item in var]
+#                            print self.gate_info[self.num_gates]['P'] 
+                    self.gate_info[self.num_gates]['Q']= list()
+                    var= gate_op.rstrip()
+#                    var1= var.split(',')[0]
+#                    print var
+                    mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',var) 
+                    n= mat.group('variable')
+#                    print n
+                    self.gate_info[self.num_gates]['output1'] = n
+                    self.gate_info[self.num_gates]['Q'].extend([self.gate_info[self.num_gates]['output1']])
+#                    for x in range (1,(self.gate_inputs_number[0]+1)):
+#                        while (temp<x):
+#                            string1 = 'input'+ str(x)
+#    #                    for y in var:
+#    #                        var= gate_inputs.split(',')
+#    #                        print var
+#    #                        mat= re.search (r'(?P<variable>[A-z][0-9]+)_.*',y)
+#    #                        m= mat.group('variable')
+#                            self.gate_info[self.num_gates][string1] = [item[:2] for item in gate_inputs.split(',')][x-1]
+#                            self.gate_info[self.num_gates]['P'].extend([self.gate_info[self.num_gates][string1]])
+#                            temp+= 1
+#    #                
+#                    var= gate_op.split(',')
+#    ##               
+#                    self.gate_info[self.num_gates]['output1'] = [item[:2] for item in var]
                 
                 if (gate == 'comp'):
                     self.num_comps += 1
@@ -169,19 +193,24 @@ class PchbSync():
                 if (hit==1):
                     for a in var:
                         if self.graph_info['node'+str(a)+'_Lack'] == self.graph_info['node'+str(i)+'_Rack']:
-                            smt2_file.write ("NO error in Connection between   " + 'node'+str(i) + ' ' + 'and'+ ' '+ 'node'+ str(a) + '\n')
+                            smt2_file.write ("NO error in Connection\n")
+#                            smt2_file.write ("NO error in Connection between   " + 'node'+str(i) + ' ' + 'and'+ ' '+ 'node'+ str(a) + '\n')
                         else:
-                           smt2_file.write ("HANDSHAKING CONNECTION ERROR! between " 'node'+str(i) + ' '+'and'+' ' + 'node'+ str(a)+ '\n')
+                            smt2_file.write ("HANDSHAKING CONNECTION ERROR!!!!!!! \n")
+#                           smt2_file.write ("HANDSHAKING CONNECTION ERROR! between " 'node'+str(i) + ' '+'and'+' ' + 'node'+ str(a)+ '\n')
                 if (hit>1):
                     y = self.num_comps
                     for x in range(1,y+1):
+#                        print x
                         for a in var:
 #                            print a
                             if all(element in self.graph_info['comp'+str(x)+'_inputs'] for element in self.graph_info['node'+str(a)+'_Lack'] ): 
                                 if (self.graph_info['comp'+str(x)+'_outputs'] == self.graph_info['node'+str(i)+'_Rack']):
-                                    smt2_file.write ("NO error in Connection between   " + 'node'+str(i) + ' ' + 'and'+ ' '+ 'node'+ str(a) + '\n')
+                                    smt2_file.write ("NO error in Connection\n")
+#                                    smt2_file.write ("NO error in Connection between   " + 'node'+str(i) + ' ' + 'and'+ ' '+ 'node'+ str(j) + '\n')
                                 else:
-                                    smt2_file.write ("HANDSHAKING CONNECTION ERROR! between " 'node'+str(i) + ' '+'and'+' ' + 'node'+ str(a)+ '\n')
+                                    smt2_file.write ("HANDSHAKING CONNECTION ERROR!!!!!!! \n")
+#                                    smt2_file.write ("HANDSHAKING CONNECTION ERROR! between " 'node'+str(i) + ' '+'and'+' ' + 'node'+ str(j)+ '\n')
                            
                                 
                             
@@ -215,16 +244,16 @@ class PchbSync():
     @property
     def inputs_sync(self):
         """Returns the declarations of the input variables"""
-        return 'Inputs:'+ ' '+ ' '.join(variable.strip() for variable in self.inputs) + '\n' 
+        return  ' '.join(variable.strip() for variable in self.inputs) + '\n' 
 #
     @property
     def outputs_sync(self):
         """Returns the declarations of the output variable"""
-        return 'Outputs:'+ ' ' + ' '.join(variable.strip() for variable in self.outputs) + '\n' 
+        return  ' '.join(variable.strip() for variable in self.outputs) + '\n' 
     
     def gate_struc(self,x):
         """Returns the declarations of the gate variables"""
-        return 'gate_struct:' + ' '+ (self.gate_info[x]['type']) +' ' + (self.gate_info[x]['level']) + ' '  + ' '.join(variable.strip() for variable in self.gate_info[x]['output1']) + ' ' + ' '.join(variable.strip() for variable in self.gate_info[x]['P']) + '\n' 
+        return  (self.gate_info[x]['type']) +' ' + (self.gate_info[x]['level']) + ' '  + ' '.join(variable.strip() for variable in self.gate_info[x]['Q']) + ' ' + ' '.join(variable.strip() for variable in self.gate_info[x]['P']) + '\n' 
                   
     @property
     def footer_smt2(self):

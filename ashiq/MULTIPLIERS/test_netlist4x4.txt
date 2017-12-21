@@ -57,12 +57,12 @@ xor2 12 s6_1s6_0,q1_1q1_0 LACK18 lack54 q2_1q2_0
 and2 12 s6_1s6_0,q1_1q1_0 lack58 lack55 q3_1q3_0
 xor2 13 c9_1c9_0,q2_1q2_0 rack lack56 p5_1p5_0
 and2 13 c9_1c9_0,q2_1q2_0 lack58 lack57 q4_1q4_0
-or2 14 q3_1q3_0,q4_1q4_0 LACK20 lack58 d0_1d0_0
+or2 14 q3_1q3_0,q4_1q4_0 LACK20 lack58 c10_1c10_0
 and2 1 x3_1x3_0,y3_1y3_0 LACK19 lack59 q5_1q5_0
 xor2 13 q5_1q5_0,c7_1c7_0 LACK20 lack60 q6_1q6_0
 and2 13 q5_1q5_0,c7_1c7_0 lack64 lack61 q7_1q7_0
-xor2 14 q6_1q6_0,d0_1d0_0 rack lack62 p6_1p6_0
-and2 14 d0_1d0_0,q6_1q6_0 lack64 lack63 q8_1q8_0
+xor2 14 q6_1q6_0,c10_1c10_0 rack lack62 p6_1p6_0
+and2 14 c10_1c10_0,q6_1q6_0 lack64 lack63 q8_1q8_0
 or2 15 q8_1q8_0,q7_1q7_0 rack lack64 p7_1p7_0 
 comp 1 lack4,lack5 LACK1
 comp 1 lack10,lack11 LACK2
