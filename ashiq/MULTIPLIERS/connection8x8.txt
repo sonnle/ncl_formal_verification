@@ -60,12 +60,10 @@ NO error in Connection
 NO error in Connection
 Output of node20 is connected to the Input of node23
 Output of node20 is connected to the Input of node22
-HANDSHAKING CONNECTION ERROR!!!!!!! 
 NO error in Connection
 NO error in Connection
 Output of node21 is connected to the Input of node23
-Output of node21 is connected to the Input of node22
-HANDSHAKING CONNECTION ERROR!!!!!!! 
+Output of node21 is connected to the Input of node22 
 NO error in Connection
 NO error in Connection
 Output of node22 is connected to the Input of node25
