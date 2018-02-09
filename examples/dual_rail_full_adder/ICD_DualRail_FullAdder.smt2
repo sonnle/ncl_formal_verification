@@ -91,28 +91,23 @@
         (let
             (
                 (Gd_0 (Th23 (rail0 Cin) (rail0 X) (rail0 Y) Gc_0))
-                (Gd_1 (Th23 (rail1 Cin) (rail1 X) (rail1 Y) Gc_0))
-            )
+                (Gd_1 (Th23 (rail1 Cin) (rail1 X) (rail1 Y) Gc_0)))
         (let
             (
                 (Gd_2 (Th34w2 Gd_1 (rail0 Cin) (rail0 X) (rail0 Y) Gc_0))
-                (Gd_3 (Th34w2 Gd_0 (rail1 Cin) (rail1 X) (rail1 Y) Gc_0))
-            )
+                (Gd_3 (Th34w2 Gd_0 (rail1 Cin) (rail1 X) (rail1 Y) Gc_0)))
         (let
             (
                 (Gn_0 (Th23 (rail0 Cin_d) (rail0 X_d) (rail0 Y_d) Gd_0))
-                (Gn_1 (Th23 (rail1 Cin_d) (rail1 X_d) (rail1 Y_d) Gd_1))
-            )
+                (Gn_1 (Th23 (rail1 Cin_d) (rail1 X_d) (rail1 Y_d) Gd_1)))
         (let
             (
                 (Gn_2 (Th34w2 Gn_1 (rail0 Cin_d) (rail0 X_d) (rail0 Y_d) Gd_2))
-                (Gn_3 (Th34w2 Gn_0 (rail1 Cin_d) (rail1 X_d) (rail1 Y_d) Gd_3))
-            )
+                (Gn_3 (Th34w2 Gn_0 (rail1 Cin_d) (rail1 X_d) (rail1 Y_d) Gd_3)))
         (let
             (
                 (Cout (concat Gn_1 Gn_0))
-                (S    (concat Gn_3 Gn_2))
-            )
+                (S (concat Gn_3 Gn_2)))
         (=>
             (and
                 (datap X)
@@ -123,19 +118,14 @@
                 (not (= (_ bv3 2) Cin_d))
                 (= (_ bv0 1) Gc_0)
                 (or
-                    (or
-                        (nullp X_d)
-                        (= X X_d)
-                    )
-                    (or
-                        (nullp Y_d)
-                        (= Y Y_d)
-                    )
-                    (or
-                        (nullp Cin_d)
-                        (= Cin Cin_d)
-                    )
-                )
+                    (nullp X_d)
+                    (= X X_d))
+                (or
+                    (nullp Y_d)
+                    (= Y Y_d))
+                (or
+                    (nullp Cin_d)
+                    (= Cin Cin_d))
                 (or
                     (datap X_d)
                     (datap Y_d)

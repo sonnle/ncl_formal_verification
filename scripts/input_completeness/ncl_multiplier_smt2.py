@@ -8,9 +8,9 @@ from SMT2UnsignedMultiplierData import SMT2UnsignedMultiplierData
 
 def main():
     # Will generate let-statements for n = [1 - bits_to_generate] unsigned multipliers
-    bits_to_generate = 15
+    bits_to_generate = 20
 
-    for bits in range(3, bits_to_generate + 1):
+    for bits in range(20, bits_to_generate + 1):
         test = SMT2UnsignedMultiplierNull(bits)
         file_name = '../examples/unsigned_dual_rail_multipliers/generated/unsigned_mult_%dx%d.smt2' % (bits, bits)
         with open(file_name, 'w') as w_file:
@@ -31,7 +31,8 @@ def main():
         results_file.write('Time taken: %f\n\n\n' % (timeit.default_timer() - start))
         results_file.close()
 
-    for bits in range(3, bits_to_generate + 1):
+    bits_to_generate = 16
+    for bits in range(16, bits_to_generate + 1):
         test = SMT2UnsignedMultiplierData(bits)
         file_name = '../examples/unsigned_dual_rail_multipliers/generated/unsigned_mult_%dx%d_data.smt2' % (bits, bits)
         with open(file_name, 'w') as w_file:
