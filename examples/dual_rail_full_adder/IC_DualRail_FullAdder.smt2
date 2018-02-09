@@ -63,7 +63,7 @@
             g_l))
 )
 
-(define-fun Th35w2 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
+(define-fun Th34w2 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (g_l (_ BitVec 1))) (_ BitVec 1)
     (ite
         (=
             (_ bv1 1)
@@ -96,8 +96,8 @@
             (
                 (Gn_0 (Th23 Cin0 X0 Y0 Gc_0))
                 (Gn_1 (Th23 Cin1 X1 Y1 Gc_1))
-                (Gn_2 (Th35w2 Gc_1 Cin0 X0 Y0 Gc_2))
-                (Gn_3 (Th35w2 Gc_0 Cin1 X1 Y1 Gc_3))
+                (Gn_2 (Th34w2 Gc_1 Cin0 X0 Y0 Gc_2))
+                (Gn_3 (Th34w2 Gc_0 Cin1 X1 Y1 Gc_3))
             )
             (let
                 (

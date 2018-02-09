@@ -1,0 +1,205 @@
+Results for 3x3 unsigned multiplier NULL:
+unsat
+(error "line 258 column 10: model is not available")
+Time taken: 0.086969
+
+
+Results for 4x4 unsigned multiplier NULL:
+unsat
+(error "line 301 column 10: model is not available")
+Time taken: 0.038732
+
+
+Results for 5x5 unsigned multiplier NULL:
+unsat
+(error "line 354 column 10: model is not available")
+Time taken: 0.051066
+
+
+Results for 6x6 unsigned multiplier NULL:
+unsat
+(error "line 417 column 10: model is not available")
+Time taken: 0.094360
+
+
+Results for 7x7 unsigned multiplier NULL:
+unsat
+(error "line 490 column 10: model is not available")
+Time taken: 0.194346
+
+
+Results for 8x8 unsigned multiplier NULL:
+unsat
+(error "line 573 column 10: model is not available")
+Time taken: 0.721916
+
+
+Results for 9x9 unsigned multiplier NULL:
+unsat
+(error "line 666 column 10: model is not available")
+Time taken: 1.712593
+
+
+Results for 10x10 unsigned multiplier NULL:
+unsat
+(error "line 769 column 10: model is not available")
+Time taken: 4.642776
+
+
+Results for 11x11 unsigned multiplier NULL:
+unsat
+(error "line 882 column 10: model is not available")
+Time taken: 15.050388
+
+
+Results for 12x12 unsigned multiplier NULL:
+unsat
+(error "line 1005 column 10: model is not available")
+Time taken: 36.745747
+
+
+Results for 13x13 unsigned multiplier NULL:
+unsat
+(error "line 1138 column 10: model is not available")
+Time taken: 99.510154
+
+
+Results for 14x14 unsigned multiplier NULL:
+unsat
+(error "line 1281 column 10: model is not available")
+Time taken: 302.611640
+
+
+Results for 15x15 unsigned multiplier NULL:
+unsat
+(error "line 1434 column 10: model is not available")
+Time taken: 699.700038
+
+
+Results for 3x3 unsigned multiplier DATA:
+unsat
+(error "line 332 column 10: model is not available")
+Time taken: 0.044706
+
+
+Results for 4x4 unsigned multiplier DATA:
+unsat
+(error "line 416 column 10: model is not available")
+Time taken: 0.058437
+
+
+Results for 5x5 unsigned multiplier DATA:
+unsat
+(error "line 520 column 10: model is not available")
+Time taken: 0.095834
+
+
+Results for 6x6 unsigned multiplier DATA:
+unsat
+(error "line 644 column 10: model is not available")
+Time taken: 0.250877
+
+
+Results for 7x7 unsigned multiplier DATA:
+unsat
+(error "line 788 column 10: model is not available")
+Time taken: 0.697115
+
+
+Results for 8x8 unsigned multiplier DATA:
+unsat
+(error "line 952 column 10: model is not available")
+Time taken: 2.307175
+
+
+Results for 9x9 unsigned multiplier DATA:
+unsat
+(error "line 1136 column 10: model is not available")
+Time taken: 8.358262
+
+
+Results for 10x10 unsigned multiplier DATA:
+unsat
+(error "line 1340 column 10: model is not available")
+Time taken: 31.107344
+
+
+Results for 11x11 unsigned multiplier DATA:
+unsat
+(error "line 1564 column 10: model is not available")
+Time taken: 119.432415
+
+
+Results for 12x12 unsigned multiplier DATA:
+unsat
+(error "line 1808 column 10: model is not available")
+Time taken: 460.096547
+
+
+Results for 13x13 unsigned multiplier DATA:
+unsat
+(error "line 2072 column 10: model is not available")
+Time taken: 76985.043916
+
+
+Results for 14x14 unsigned multiplier DATA:
+unsat
+(error "line 2356 column 10: model is not available")
+Time taken: 6854.116471
+
+
+Results for 15x15 unsigned multiplier DATA:
+unsat
+(error "line 2660 column 10: model is not available")
+Time taken: 31426.479637
+
+
+Results for 13x13 unsigned multiplier NULL:
+unsat
+(error "line 1138 column 10: model is not available")
+Time taken: 91.872202
+
+
+Results for 13x13 unsigned multiplier DATA:
+unsat
+(error "line 2072 column 10: model is not available")
+Time taken: 1587.103104
+
+
+Results for 16x16 unsigned multiplier NULL:
+unsat
+(error "line 1597 column 10: model is not available")
+Time taken: 1934.169667
+
+
+Results for 17x17 unsigned multiplier NULL:
+unsat
+(error "line 1770 column 10: model is not available")
+Time taken: 4829.679187
+
+
+Results for 18x18 unsigned multiplier NULL:
+unsat
+(error "line 1953 column 10: model is not available")
+Time taken: 18495.582060
+
+
+Results for 19x19 unsigned multiplier NULL:
+unsat
+(error "line 2146 column 10: model is not available")
+Time taken: 33012.087836
+
+
+Results for 20x20 unsigned multiplier NULL:
+unsat
+(error "line 2349 column 10: model is not available")
+Time taken: 117727.736113
+
+
+Results for 16x16 unsigned multiplier DATA:
+unsat
+(error "line 2984 column 10: model is not available")
+Time taken: 163901.748121
+
+
+Results for 20x20 unsigned multiplier NULL:

@@ -3,13 +3,13 @@
 import timeit
 import argparse
 import subprocess
-from NclSmt import NclSmt
+from NclThresholdSmt import NclThresholdSmt
 
 def main():
     """Main function"""
     args = parse_arguments()
 
-    ncl_smt_obj = NclSmt(args.netlist, args.smt2)
+    ncl_smt_obj = NclThresholdSmt(args.netlist, args.smt2)
     ncl_smt_obj.generate_smt2()
 
     with open(args.results, 'w') as results_file:
