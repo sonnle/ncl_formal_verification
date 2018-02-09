@@ -1,0 +1,6 @@
+X,Y,Ci
+S,Co
+Th23 Co0 Ci0 X0 Y0
+Th23 Co1 Ci1 X1 Y1
+Th34w2 S0 Co1 X0 Y0 Ci0
+Th34w2 S1 Co0 X1 Y1 Ci1
