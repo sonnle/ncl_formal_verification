@@ -1,0 +1,64 @@
+Output of node1 is connected to the Input of node3
+NO error in Connection
+Output of node2 is connected to the Input of node3
+NO error in Connection
+Output of node4 is connected to the Input of node6
+NO error in Connection
+Output of node5 is connected to the Input of node6
+NO error in Connection
+Output of node7 is connected to the Input of node9
+NO error in Connection
+Output of node8 is connected to the Input of node9
+NO error in Connection
+Output of node10 is connected to the Input of node12
+NO error in Connection
+Output of node11 is connected to the Input of node12
+NO error in Connection
+Output of node13 is connected to the Input of node15
+NO error in Connection
+Output of node14 is connected to the Input of node15
+NO error in Connection
+Output of node16 is connected to the Input of node18
+NO error in Connection
+Output of node17 is connected to the Input of node18
+NO error in Connection
+Output of node19 is connected to the Input of node21
+NO error in Connection
+Output of node20 is connected to the Input of node21
+NO error in Connection
+Output of node22 is connected to the Input of node24
+NO error in Connection
+Output of node23 is connected to the Input of node24
+NO error in Connection
+Output of node25 is connected to the Input of node27
+NO error in Connection
+Output of node26 is connected to the Input of node27
+NO error in Connection
+Output of node28 is connected to the Input of node30
+NO error in Connection
+Output of node29 is connected to the Input of node30
+NO error in Connection
+Output of node31 is connected to the Input of node33
+NO error in Connection
+Output of node32 is connected to the Input of node33
+NO error in Connection
+Output of node34 is connected to the Input of node36
+NO error in Connection
+Output of node35 is connected to the Input of node36
+NO error in Connection
+Output of node37 is connected to the Input of node39
+NO error in Connection
+Output of node38 is connected to the Input of node39
+NO error in Connection
+Output of node40 is connected to the Input of node42
+NO error in Connection
+Output of node41 is connected to the Input of node42
+NO error in Connection
+Output of node43 is connected to the Input of node45
+NO error in Connection
+Output of node44 is connected to the Input of node45
+NO error in Connection
+Output of node46 is connected to the Input of node48
+NO error in Connection
+Output of node47 is connected to the Input of node48
+NO error in Connection

@@ -1,0 +1,224 @@
+x0_1x0_0,x1_1x1_0,x2_1x2_0,x3_1x3_0,x4_1x4_0,x5_1x5_0,y0_1y0_0,y1_1y1_0,y2_1y2_0,y3_1y3_0,y4_1y4_0,y5_1y5_0
+p0_1p0_0,p1_1p1_0,p2_1p2_0,p3_1p3_0,p4_1p4_0,p5_1p5_0,p6_1p6_0,p7_1p7_0,p8_1p8_0,p9_1p9_0,p10_1p10_0,p11_1p11_0
+and2 1 x0_1x0_0,y0_1y0_0 rack lack1 p0_1p0_0
+and2 1 x1_1x1_0,y0_1y0_0 LACK1 lack2 t0_1t0_0
+and2 1 x0_1x0_0,y1_1y1_0 LACK1 lack3 t1_1t1_0
+xor2 2 t0_1t0_0,t1_1t1_0 rack lack4 p1_1p1_0
+and2 2 t0_1t0_0,t1_1t1_0 LACK2 lack5 c0_1c0_0
+and2 1 x2_1x2_0,y0_1y0_0 LACK3 lack6 t2_1t2_0
+and2 1 x1_1x1_0,y1_1y1_0 LACK3 lack7 t3_1t3_0
+xor2 2 t2_1t2_0,t3_1t3_0 LACK2 lack8 t4_1t4_0
+and2 2 t2_1t2_0,t3_1t3_0 lack12 lack9 t6_1t6_0
+xor2 3 c0_1c0_0,t4_1t4_0 LACK11 lack10 s1_1s1_0
+and2 3 c0_1c0_0,t4_1t4_0 lack12 lack11 t5_1t5_0
+or2 4 t6_1t6_0,t5_1t5_0 LACK4 lack12 c1_1c1_0
+and2 1 x3_1x3_0,y0_1y0_0 LACK5 lack13 t7_1t7_0
+and2 1 x2_1x2_0,y1_1y1_0 LACK5 lack14 t8_1t8_0
+xor2 2 t7_1t7_0,t8_1t8_0 LACK4 lack15 t9_1t9_0
+and2 2 t7_1t7_0,t8_1t8_0 lack19 lack16 t10_1t10_0
+xor2 5 c1_1c1_0,t9_1t9_0 LACK12 lack17 s2_1s2_0
+and2 5 c1_1c1_0,t9_1t9_0 lack19 lack18 t11_1t11_1
+or2 6 t10_1t10_0,t11_1t11_1 LACK7 lack19 c2_1c2_0
+and2 1 x4_1x4_0,y0_1y0_0 LACK6 lack20 t12_1t12_0
+and2 1 x3_1x3_0,y1_1y1_0 LACK6 lack21 t13_1t13_0
+xor2 2 t12_1t12_0,t13_1t13_0 LACK7 lack22 t14_1t14_0
+and2 2 t12_1t12_0,t13_1t13_0 lack26 lack23 t15_1t15_0
+xor2 7 c2_1c2_0,t14_1t14_0 LACK14 lack24 s3_1s3_0
+and2 7 c2_1c2_0,t14_1t14_0 lack26 lack25 t16_1t16_0
+or2 8 t15_1t15_0,t16_1t16_0 LACK9 lack26 c3_1c3_0
+and2 1 x5_1x5_0,y0_1y0_0 LACK8 lack27 t17_1t17_0
+and2 1 x4_1x4_0,y1_1y1_0 LACK8 lack28 t18_1t18_0
+xor2 2 t17_1t17_0,t18_1t18_0 LACK9 lack29 t19_1t19_0
+and2 2 t17_1t17_0,t18_1t18_0 lack33 lack30 t20_1t20_0
+xor2 9 c3_1c3_0,t19_1t19_0 LACK16 lack31 s4_1s4_0
+and2 9 c3_1c3_0,t19_1t19_0 lack33 lack32 t21_1t21_0
+or2 10 t21_1t21_0,t20_1t20_0 LACK10 lack33 c4_1c4_0
+and2 1 x5_1x5_0,y1_1y1_0 LACK10 lack34 t22_1t22_0
+xor2 11 c4_1c4_0,t22_1t22_0 LACK18 lack35 s5_1s5_0
+and2 11 c4_1c4_0,t22_1t22_0 LACK20 lack36 c5_1c5_0
+and2 1 x0_1x0_0,y2_1y2_0 LACK11 lack37 t23_1t23_0
+xor2 4 s1_1s1_0,t23_1t23_0 rack lack38 p2_1p2_0
+and2 4 s1_1s1_0,t23_1t23_0 LACK13 lack39 c6_1c6_0
+and2 1 x1_1x1_0,y2_1y2_0 LACK12 lack40 t24_1t24_0
+xor2 6 s2_1s2_0,t24_1t24_0 LACK13 lack41 t25_1t25_0
+and2 6 s2_1s2_0,t24_1t24_0 lack45 lack42 t26_1t26_0
+xor2 7 c6_1c6_0,t25_1t25_0 LACK22 lack43 s6_1s6_0
+and2 7 c6_1c6_0,t25_1t25_0 lack45 lack44 t27_1t27_0
+or2 8 t27_1t27_0,t26_1t26_0 LACK15 lack45 c7_1c7_0
+and2 1 x2_1x2_0,y2_1y2_0 LACK14 lack46 t28_1t28_0
+xor2 8 s3_1s3_0,t28_1t28_0 LACK15 lack47 t29_1t29_0
+and2 8 s3_1s3_0,t28_1t28_0 lack51 lack48 t30_1t30_0
+xor2 9 c7_1c7_0,t29_1t29_0 LACK23 lack49 s7_1s7_0
+and2 9 c7_1c7_0,t29_1t29_0 lack51 lack50 t31_1t31_0
+or2 10 t31_1t31_0,t30_1t30_0 LACK17 lack51 c8_1c8_0
+and2 1 x3_1x3_0,y2_1y2_0 LACK16 lack52 t32_1t32_0
+xor2 10 s4_1s4_0,t32_1t32_0 LACK17 lack53 t33_1t33_0
+and2 10 s4_1s4_0,t32_1t32_0 lack57 lack54 t34_1t34_0
+xor2 11 c8_1c8_0,t33_1t33_0 LACK25 lack55 s8_1s8_0
+and2 11 c8_1c8_0,t33_1t33_0 lack57 lack56 t35_1t35_0
+or2 12 t35_1t35_0,t34_1t34_0 LACK19 lack57 c9_1c9_0
+and2 1 x4_1x4_0,y2_1y2_0 LACK18 lack58 t36_1t36_0
+xor2 12 s5_1s5_0,t36_1t36_0 LACK19 lack59 t37_1t37_0
+and2 12 s5_1s5_0,t36_1t36_0 lack63 lack60 t38_1t38_0
+xor2 13 c9_1c9_0,t37_1t37_0 LACK27 lack61 s9_1s9_0
+and2 13 c9_1c9_0,t37_1t37_0 lack63 lack62 t39_1t39_0
+or2 14 t39_1t39_0,t38_1t38_0 LACK21 lack63 c10_1c10_0
+and2 1 x5_1x5_0,y2_1y2_0 LACK20 lack64 t40_1t40_0
+xor2 12 c5_1c5_0,t40_1t40_0 LACK21 lack65 t41_1t41_0
+and2 12 c5_1c5_0,t40_1t40_0 lack69 lack66 t42_1t42_0
+xor2 15 c10_1c10_0,t41_1t41_0 LACK29 lack67 s10_1s10_0
+and2 15 c10_1c10_0,t41_1t41_0 lack69 lack68 t43_1t43_0
+or2 16 t43_1t43_0,t42_1t42_0 LACK31 lack69 c11_1c11_0
+and2 1 x0_1x0_0,y3_1y3_0 LACK22 lack70 t44_1t44_0
+xor2 8 s6_1s6_0,t44_1t44_0 rack lack71 p3_1p3_0
+and2 8 s6_1s6_0,t44_1t44_0 LACK24 lack72 c12_1c12_0
+and2 1 x1_1x1_0,y3_1y3_0 LACK23 lack73 t45_1t45_0
+xor2 10 s7_1s7_0,t45_1t45_0 LACK24 lack74 t46_1t46_0
+and2 10 s7_1s7_0,t45_1t45_0 lack78 lack75 t47_1t47_0
+xor2 11 c12_1c12_0,t46_1t46_0 LACK33 lack76 s11_1s11_0
+and2 11 c12_1c12_0,t46_1t46_0 lack78 lack77 t48_1t48_0
+or2 12 t48_1t48_0,t47_1t47_0 LACK26 lack78 c13_1c13_0
+and2 1 x2_1x2_0,y3_1y3_0 LACK25 lack79 t49_1t49_0
+xor2 12 s8_1s8_0,t49_1t49_0 LACK26 lack80 t50_1t50_0
+and2 12 s8_1s8_0,t49_1t49_0 lack84 lack81 t51_1t51_0
+xor2 13 c13_1c13_0,t50_1t50_0 LACK34 lack82 s12_1s12_0
+and2 13 c13_1c13_0,t50_1t50_0 lack84 lack83 t52_1t52_0
+or2 14 t52_1t52_0,t51_1t51_0 LACK28 lack84 c14_1c14_0
+and2 1 x3_1x3_0,y3_1y3_0 LACK27 lack85 t53_1t53_0
+xor2 14 s9_1s9_0,t53_1t53_0 LACK28 lack86 t54_1t54_0
+and2 14 s9_1s9_0,t53_1t53_0 lack90 lack87 t55_1t55_0
+xor2 15 c14_1c14_0,t54_1t54_0 LACK36 lack88 s13_1s13_0
+and2 15 c14_1c14_0,t54_1t54_0 lack90 lack89 t56_1t56_0
+or2 16 t56_1t56_0,t55_1t55_0 LACK30 lack90 c15_1c15_0
+and2 1 x4_1x4_0,y3_1y3_0 LACK29 lack91 t57_1t57_0
+xor2 16 s10_1s10_0,t57_1t57_0 LACK30 lack92 t58_1t58_0
+and2 16 s10_1s10_0,t57_1t57_0 lack96 lack93 t59_1t59_0
+xor2 17 c15_1c15_0,t58_1t58_0 LACK38 lack94 s14_1s14_0
+and2 17 c15_1c15_0,t58_1t58_0 lack96 lack95 t60_1t60_0
+or2 18 t60_1t60_0,t59_1t59_0 LACK32 lack96 c16_1c16_0
+and2 1 x5_1x5_0,y3_1y3_0 LACK31 lack97 t61_1t61_0
+xor2 17 c11_1c11_0,t61_1t61_0 LACK32 lack98 t62_1t62_0
+and2 17 c11_1c11_0,t61_1t61_0 lack102 lack99 t63_1t63_0
+xor2 19 c16_1c16_0,t62_1t62_0 LACK40 lack100 s15_1s15_0
+and2 19 c16_1c16_0,t62_1t62_0 lack102 lack101 t64_1t64_0
+or2 20 t64_1t64_0,t63_1t63_0 LACK42 lack102 c17_1c17_0
+and2 1 x0_1x0_0,y4_1y4_0 LACK33 lack103 t65_1t65_0
+xor2 12 s11_1s11_0,t65_1t65_0 rack lack104 p4_1p4_0
+and2 12 s11_1s11_0,t65_1t65_0 LACK35 lack105 c18_1c18_0
+and2 1 x1_1x1_0,y4_1y4_0 LACK34 lack106 t66_1t66_0
+xor2 14 s12_1s12_0,t66_1t66_0 LACK35 lack107 t67_1t67_0
+and2 14 s12_1s12_0,t66_1t66_0 lack111 lack108 t68_1t68_0
+xor2 15 c18_1c18_0,t67_1t67_0 LACK44 lack109 s16_1s16_0
+and2 15 c18_1c18_0,t67_1t67_0 lack111 lack110 t69_1t69_0
+or2 16 t69_1t69_0,t68_1t68_0 LACK37 lack111 c19_1c19_0
+and2 1 x2_1x2_0,y4_1y4_0 LACK36 lack112 t70_1t70_0
+xor2 16 s13_1s13_0,t70_1t70_0 LACK37 lack113 t71_1t71_0
+and2 16 s13_1s13_0,t70_1t70_0 lack117 lack114 t72_1t72_0
+xor2 17 c19_1c19_0,t71_1t71_0 LACK45 lack115 s17_1s17_0
+and2 17 c19_1c19_0,t71_1t71_0 lack117 lack116 t73_1t73_0
+or2 18 t73_1t73_0,t72_1t72_0 LACK39 lack117 c20_1c20_0
+and2 1 x3_1x3_0,y4_1y4_0 LACK38 lack118 t74_1t74_0
+xor2 18 s14_1s14_0,t74_1t74_0 LACK39 lack119 t75_1t75_0
+and2 18 s14_1s14_0,t74_1t74_0 lack123 lack120 t76_1t76_0
+xor2 19 c20_1c20_0,t75_1t75_0 LACK47 lack121 s18_1s18_0
+and2 19 c20_1c20_0,t75_1t75_0 lack123 lack122 t77_1t77_0
+or2 20 t77_1t77_0,t76_1t76_0 LACK41 lack123 c21_1c21_0
+and2 1 x4_1x4_0,y4_1y4_0 LACK40 lack124 t78_1t78_0
+xor2 20 s15_1s15_0,t78_1t78_0 LACK41 lack125 t79_1t79_0
+and2 20 s15_1s15_0,t78_1t78_0 lack129 lack126 t80_1t80_0
+xor2 21 c21_1c21_0,t79_1t79_0 LACK49 lack127 s19_1s19_0
+and2 21 c21_1c21_0,t79_1t79_0 lack129 lack128 t81_1t81_0
+or2 22 t81_1t81_0,t80_1t80_0 LACK43 lack129 c22_1c22_0
+and2 1 x5_1x5_0,y4_1y4_0 LACK42 lack130 t82_1t82_0
+xor2 21 c17_1c17_0,t82_1t82_0 LACK43 lack131 t83_1t83_0
+and2 21 c17_1c17_0,t82_1t82_0 lack135 lack132 t84_1t84_0
+xor2 23 c22_1c22_0,t83_1t83_0 LACK51 lack133 s20_1s20_0
+and2 23 c22_1c22_0,t83_1t83_0 lack135 lack134 t85_1t85_0
+or2 24 t85_1t85_0,t84_1t84_0 LACK53 lack135 c23_1c23_0
+and2 1 x0_1x0_0,y5_1y5_0 LACK44 lack136 t86_1t86_0
+xor2 16 s16_1s16_0,t86_1t86_0 rack lack137 p5_1p5_0
+and2 16 s16_1s16_0,t86_1t86_0 LACK46 lack138 c24_1c24_0
+and2 1 x1_1x1_0,y5_1y5_0 LACK45 lack139 t87_1t87_0
+xor2 18 s17_1s17_0,t87_1t87_0 LACK46 lack140 t88_1t88_0
+and2 18 s17_1s17_0,t87_1t87_0 lack144 lack141 t89_1t89_0
+xor2 19 c24_1c24_0,t88_1t88_0 rack lack142 p6_1p6_0
+and2 19 c24_1c24_0,t88_1t88_0 lack144 lack143 t90_1t90_0
+or2 20 t90_1t90_0,t89_1t89_0 LACK48 lack144 c25_1c25_0
+and2 1 x2_1x2_0,y5_1y5_0 LACK47 lack145 t91_1t91_0
+xor2 20 s18_1s18_0,t91_1t91_0 LACK48 lack146 t92_1t92_0
+and2 20 s18_1s18_0,t91_1t91_0 lack150 lack147 t93_1t93_0
+xor2 21 c25_1c25_0,t92_1t92_0 rack lack148 p7_1p7_0
+and2 21 c25_1c25_0,t92_1t92_0 lack150 lack149 t94_1t94_0
+or2 22 t94_1t94_0,t93_1t93_0 LACK50 lack150 c26_1c26_0
+and2 1 x3_1x3_0,y5_1y5_0 LACK49 lack151 t95_1t95_0
+xor2 22 s19_1s19_0,t95_1t95_0 LACK50 lack152 t96_1t96_0
+and2 22 s19_1s19_0,t95_1t95_0 lack156 lack153 t97_1t97_0
+xor2 23 c26_1c26_0,t96_1t96_0 rack lack154 p8_1p8_0
+and2 23 c26_1c26_0,t96_1t96_0 lack156 lack155 t98_1t98_0
+or2 24 t98_1t98_0,t97_1t97_0 LACK52 lack156 c27_1c27_0
+and2 1 x4_1x4_0,y5_1y5_0 LACK51 lack157 t99_1t99_0
+xor2 24 s20_1s20_0,t99_1t99_0 LACK52 lack158 t100_1t100_0
+and2 24 s20_1s20_0,t99_1t99_0 lack162 lack159 t101_1t101_0
+xor2 25 c27_1c27_0,t100_1t100_0 rack lack160 p9_1p9_0
+and2 25 c27_1c27_0,t100_1t100_0 lack162 lack161 t102_1t102_0
+or2 26 t102_1t102_0,t101_1t101_0 LACK54 lack162 c28_1c28_0
+and2 1 x5_1x5_0,y5_1y5_0 LACK53 lack163 t103_1t103_0
+xor2 25 c23_1c23_0,t103_1t103_0 LACK54 lack164 t104_1t104_0
+and2 25 c23_1c23_0,t103_1t103_0 lack168 lack165 t105_1t105_0
+xor2 27 c28_1c28_0,t104_1t104_0 rack lack166 p10_1p10_0
+and2 27 c28_1c28_0,t104_1t104_0 lack168 lack167 t106_1t106_0
+or2 28 t106_1t106_0,t105_1t105_0 rack lack168 p11_1p11_0
+comp 1 lack4,lack5 LACK1
+comp 1 lack10,lack11 LACK2
+comp 1 lack8,lack9 LACK3
+comp 1 lack17,lack18 LACK4
+comp 1 lack15,lack16 LACK5
+comp 1 lack22,lack23 LACK6
+comp 1 lack24,lack25 LACK7
+comp 1 lack29,lack30 LACK8
+comp 1 lack31,lack32 LACK9
+comp 1 lack35,lack36 LACK10
+comp 1 lack38,lack39 LACK11
+comp 1 lack41,lack42 LACK12
+comp 1 lack43,lack44 LACK13
+comp 1 lack47,lack48 LACK14
+comp 1 lack49,lack50 LACK15
+comp 1 lack53,lack54 LACK16
+comp 1 lack55,lack56 LACK17
+comp 1 lack59,lack60 LACK18
+comp 1 lack61,lack62 LACK19
+comp 1 lack65,lack66 LACK20
+comp 1 lack67,lack68 LACK21
+comp 1 lack71,lack72 LACK22
+comp 1 lack74,lack75 LACK23
+comp 1 lack76,lack77 LACK24
+comp 1 lack80,lack81 LACK25
+comp 1 lack82,lack83 LACK26
+comp 1 lack86,lack87 LACK27
+comp 1 lack88,lack89 LACK28
+comp 1 lack92,lack93 LACK29
+comp 1 lack94,lack95 LACK30
+comp 1 lack98,lack99 LACK31
+comp 1 lack100,lack101 LACK32
+comp 1 lack104,lack105 LACK33
+comp 1 lack107,lack108 LACK34
+comp 1 lack109,lack110 LACK35
+comp 1 lack113,lack114 LACK36
+comp 1 lack115,lack116 LACK37
+comp 1 lack119,lack120 LACK38
+comp 1 lack121,lack122 LACK39
+comp 1 lack125,lack126 LACK40
+comp 1 lack127,lack128 LACK41
+comp 1 lack131,lack132 LACK42
+comp 1 lack133,lack134 LACK43
+comp 1 lack137,lack138 LACK44
+comp 1 lack140,lack141 LACK45
+comp 1 lack142,lack143 LACK46
+comp 1 lack146,lack147 LACK47
+comp 1 lack148,lack149 LACK48
+comp 1 lack152,lack153 LACK49
+comp 1 lack154,lack155 LACK50
+comp 1 lack158,lack159 LACK51
+comp 1 lack160,lack161 LACK52
+comp 1 lack164,lack165 LACK53
+comp 1 lack166,lack167 LACK54

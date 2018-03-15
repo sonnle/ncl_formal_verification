@@ -1,0 +1,4 @@
+Output of node1 is connected to the Input of node3
+NO error in Connection
+Output of node2 is connected to the Input of node3
+NO error in Connection

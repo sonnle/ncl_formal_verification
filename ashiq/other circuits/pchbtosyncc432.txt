@@ -1,0 +1,108 @@
+PCHB to Synchronous converted Netlist
+
+a0 a1 a2 a3 a4 a5 a6 a7 a8 e0 e1 e2 e3 e4 e5 e6 e7 e8 b0 b1 b2 b3 b4 b5 b6 b7 b8 c0 c1 c2 c3 c4 c5 c6 c7 c8
+P0 P1 P2 I0 I1 I2 I3 I4 I5 I6 I7 I8
+nand2 1 t0 a0 e0
+nand2 1 t1 a1 e1
+nand2 1 t2 a2 e2
+nand2 1 t3 a3 e3
+nand2 1 t4 a4 e4
+nand2 1 t5 a5 e5
+nand2 1 t6 a6 e6
+nand2 1 t7 a7 e7
+nand2 1 t8 a8 e8
+nand9 2 P0 t0 t1 t2 t3 t4 t5 t6 t7 t8
+xor2 3 x0 t0 P0
+xor2 3 x1 t1 P0
+xor2 3 x2 t2 P0
+xor2 3 x3 t3 P0
+xor2 3 x4 t4 P0
+xor2 3 x5 t5 P0
+xor2 3 x6 t6 P0
+xor2 3 x7 t7 P0
+xor2 3 x8 t8 P0
+nor2 1 t9 b0 e0
+nor2 1 t10 b1 e1
+nor2 1 t11 b2 e2
+nor2 1 t12 b3 e3
+nor2 1 t13 b4 e4
+nor2 1 t14 b5 e5
+nor2 1 t15 b6 e6
+nor2 1 t16 b7 e7
+nor2 1 t17 b8 e8
+nand2 4 t18 x0 t9
+nand2 4 t19 x1 t10
+nand2 4 t20 x2 t11
+nand2 4 t21 x3 t12
+nand2 4 t22 x4 t13
+nand2 4 t23 x5 t14
+nand2 4 t24 x6 t15
+nand2 4 t25 x7 t16
+nand2 4 t26 x8 t17
+nand9 5 P1 t18 t19 t20 t21 t22 t23 t24 t25 t26
+xor2 6 y0 t18 P1
+xor2 6 y1 t19 P1
+xor2 6 y2 t20 P1
+xor2 6 y3 t21 P1
+xor2 6 y4 t22 P1
+xor2 6 y5 t23 P1
+xor2 6 y6 t24 P1
+xor2 6 y7 t25 P1
+xor2 6 y8 t26 P1
+nor2 1 t27 c0 e0
+nor2 1 t28 c1 e1
+nor2 1 t29 c2 e2
+nor2 1 t30 c3 e3
+nor2 1 t31 c4 e4
+nor2 1 t32 c5 e5
+nor2 1 t33 c6 e6
+nor2 1 t34 c7 e7
+nor2 1 t35 c8 e8
+nand3 7 R0 t27 y0 x0
+nand3 7 R1 t28 y1 x1
+nand3 7 R2 t29 y2 x2
+nand3 7 R3 t30 y3 x3
+nand3 7 R4 t31 y4 x4
+nand3 7 R5 t32 y5 x5
+nand3 7 R6 t33 y6 x6
+nand3 7 R7 t34 y7 x7
+nand3 7 R8 t35 y8 x8
+nand9 8 P2 R0 R1 R2 R3 R4 R5 R6 R7 R8
+nand2 3 t36 a0 P0
+nand2 3 t37 a1 P0
+nand2 3 t38 a2 P0
+nand2 3 t39 a3 P0
+nand2 3 t40 a4 P0
+nand2 3 t41 a5 P0
+nand2 3 t42 a6 P0
+nand2 3 t43 a7 P0
+nand2 3 t44 a8 P0
+nand2 6 t45 b0 P1
+nand2 6 t46 b1 P1
+nand2 6 t47 b2 P1
+nand2 6 t48 b3 P1
+nand2 6 t49 b4 P1
+nand2 6 t50 b5 P1
+nand2 6 t51 b6 P1
+nand2 6 t52 b7 P1
+nand2 6 t53 b8 P1
+nand2 9 t54 c0 P2
+nand2 9 t55 c1 P2
+nand2 9 t56 c2 P2
+nand2 9 t57 c3 P2
+nand2 9 t58 c4 P2
+nand2 9 t59 c5 P2
+nand2 9 t60 c6 P2
+nand2 9 t61 c7 P2
+nand2 9 t62 c8 P2
+nand4 10 I0 e0 t36 t45 t54
+nand4 10 I1 e1 t37 t46 t55
+nand4 10 I2 e2 t38 t47 t56
+nand4 10 I3 e3 t39 t48 t57
+nand4 10 I4 e4 t40 t49 t58
+nand4 10 I5 e5 t41 t50 t59
+nand4 10 I6 e6 t42 t51 t60
+nand4 10 I7 e7 t43 t52 t61
+nand4 10 I8 e8 t44 t53 t62
+
+Netlist conversion done 
