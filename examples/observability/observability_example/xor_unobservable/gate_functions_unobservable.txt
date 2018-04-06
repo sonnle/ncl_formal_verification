@@ -1,0 +1,23 @@
+Function for Th12 with output I1:
+(bvor (rail0 Y) (rail0 X))
+
+Function for Th22 with output I0:
+(bvand (rail1 X) (rail1 Y))
+
+Function for Input with output Y1:
+(rail1 Y)
+
+Function for Input with output Y0:
+(rail0 Y)
+
+Function for Input with output X0:
+(rail0 X)
+
+Function for Input with output X1:
+(rail1 X)
+
+Function for Th23w2 with output Z0:
+(bvor (bvand (rail1 X) (rail1 Y)) (bvand (rail0 Y) (rail0 X)))
+
+Function for Th33w2 with output Z1:
+(bvor (bvand (bvor (rail0 Y) (rail0 X)) (rail1 Y)) (bvand (bvor (rail0 Y) (rail0 X)) (rail1 X)))

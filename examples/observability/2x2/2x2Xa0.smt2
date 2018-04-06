@@ -1,21 +1,17 @@
-; Formal verification proof - input completeness of ..\netlist_files\unsigned_mult_3x3.txt
+; Formal verification proof - input completeness of ..\netlist_files\unsigned_mult_2x2.txt
 (set-logic QF_BV)
 
-; Inputs: X0, X1, X2, Y0, Y1, Y2
+; Inputs: X0, X1, Y0, Y1
 (declare-fun X0 () (_ BitVec 2))
 (declare-fun X1 () (_ BitVec 2))
-(declare-fun X2 () (_ BitVec 2))
 (declare-fun Y0 () (_ BitVec 2))
 (declare-fun Y1 () (_ BitVec 2))
-(declare-fun Y2 () (_ BitVec 2))
 
-; Outputs: Z0, Z1, Z2, Z3, Z4, Z5
+; Outputs: Z0, Z1, Z2, Z3
 (declare-fun Z0 () (_ BitVec 2))
 (declare-fun Z1 () (_ BitVec 2))
 (declare-fun Z2 () (_ BitVec 2))
 (declare-fun Z3 () (_ BitVec 2))
-(declare-fun Z4 () (_ BitVec 2))
-(declare-fun Z5 () (_ BitVec 2))
 
 ; Extract rail0 of a dual rail signal
 (define-fun rail0 ((a (_ BitVec 2))) (_ BitVec 1)
@@ -25,6 +21,13 @@
 ; Extract rail1 of a dual rail signal
 (define-fun rail1 ((a (_ BitVec 2))) (_ BitVec 1)
     ((_ extract 1 1) a)
+)
+
+(define-fun datap ((a (_ BitVec 2))) (Bool)
+    (or
+        (= (_ bv1 2) a)
+        (= (_ bv2 2) a)
+    )
 )
 
 ; Determine if the dual rail signal is null (0b00)
@@ -163,27 +166,6 @@
     (concat (th22 (rail1 a) (rail1 b) gl_0) (thand0 (rail0 b) (rail0 a) (rail1 b) (rail1 a) gl_1))
 )
 
-; NCL Full-Adder
-; The output will be concatenated as follows:        | variable - S1, S0, Cout1, Cout0
-;                                                    |      bit -  3,  2,     1,     0
-; The last gate values (gl) will be used as follows: | variable -        gl_0,        gl_1,         gl_2,         gl_3
-;                                                    |     gate - th23 rail 0, th23 rail 1, th35w2 rail0, th35w2 rail1
-; TODO: Make the inputs individual rails so that we can mismash the inputs
-
-(define-fun fa ((x (_ BitVec 2)) (y (_ BitVec 2)) (cin (_ BitVec 2)) (gl_0 (_ BitVec 1)) (gl_1 (_ BitVec 1)) (gl_2 (_ BitVec 1)) (gl_3 (_ BitVec 1))) (_ BitVec 4)
-    (let
-        (
-            (gn_0 (th23 (rail0 x) (rail0 y) (rail0 cin) gl_0))
-            (gn_1 (th23 (rail1 x) (rail1 y) (rail1 cin) gl_1))
-        )
-    (let
-        (
-            (gn_2 (th34w2 gn_1 (rail0 x) (rail0 y) (rail0 cin) gl_2))
-            (gn_3 (th34w2 gn_0 (rail1 x) (rail1 y) (rail1 cin) gl_3))
-        )
-    (concat gn_3 gn_2 gn_1 gn_0)))
-)
-
 ; NCL Half-Adder
 ; The output will be concatenated as follows:        | variable - S1, S0, Cout1, Cout0
 ;                                                    |      bit -  3,  2,     1,     0
@@ -215,95 +197,37 @@
 (declare-fun Gc_13 () (_ BitVec 1))
 (declare-fun Gc_14 () (_ BitVec 1))
 (declare-fun Gc_15 () (_ BitVec 1))
-(declare-fun Gc_16 () (_ BitVec 1))
-(declare-fun Gc_17 () (_ BitVec 1))
-(declare-fun Gc_18 () (_ BitVec 1))
-(declare-fun Gc_19 () (_ BitVec 1))
-(declare-fun Gc_20 () (_ BitVec 1))
-(declare-fun Gc_21 () (_ BitVec 1))
-(declare-fun Gc_22 () (_ BitVec 1))
-(declare-fun Gc_23 () (_ BitVec 1))
-(declare-fun Gc_24 () (_ BitVec 1))
-(declare-fun Gc_25 () (_ BitVec 1))
-(declare-fun Gc_26 () (_ BitVec 1))
-(declare-fun Gc_27 () (_ BitVec 1))
-(declare-fun Gc_28 () (_ BitVec 1))
-(declare-fun Gc_29 () (_ BitVec 1))
-(declare-fun Gc_30 () (_ BitVec 1))
-(declare-fun Gc_31 () (_ BitVec 1))
-(declare-fun Gc_32 () (_ BitVec 1))
-(declare-fun Gc_33 () (_ BitVec 1))
-(declare-fun Gc_34 () (_ BitVec 1))
-(declare-fun Gc_35 () (_ BitVec 1))
-(declare-fun Gc_36 () (_ BitVec 1))
-(declare-fun Gc_37 () (_ BitVec 1))
-(declare-fun Gc_38 () (_ BitVec 1))
-(declare-fun Gc_39 () (_ BitVec 1))
-(declare-fun Gc_40 () (_ BitVec 1))
-(declare-fun Gc_41 () (_ BitVec 1))
 
-; SAT/UNSAT assertion for ..\netlist_files\unsigned_mult_3x3.txt
+; SAT/UNSAT assertion for ..\netlist_files\unsigned_mult_2x2.txt
 (assert
     (not
         (let
             (
-                (I0 (and2 X0 Y0 Gc_0 Gc_1))
+                (I0 (and2 (concat (rail1 X0) (_ bv0 1)) Y0 Gc_0 Gc_1))
                 (I1 (and2 X1 Y0 Gc_2 Gc_3))
-                (I2 (and2 X0 Y1 Gc_4 Gc_5))
-                (I3 (and2 X2 Y0 Gc_6 Gc_7))
-                (I4 (and2 X1 Y1 Gc_8 Gc_9))
-                (I5 (and2 X2 Y1 Gc_10 Gc_11))
-                (I6 (and2 X2 Y2 Gc_12 Gc_13))
-                (I7 (and2 X0 Y2 Gc_14 Gc_15))
-                (I8 (and2 X1 Y2 Gc_16 Gc_17))
-            )
+                (I2 (and2 (concat (rail1 X0) (_ bv0 1)) Y1 Gc_4 Gc_5))
+                (I3 (and2 X1 Y1 Gc_6 Gc_7)))
         (let
             (
-                (I9 ((_ extract 3 2) (ha I1 I2 Gc_18 Gc_19 Gc_20 Gc_21)))
-                (I10 ((_ extract 1 0) (ha I1 I2 Gc_18 Gc_19 Gc_20 Gc_21)))
-            )
+                (I4 ((_ extract 3 2) (ha I1 I2 Gc_8 Gc_9 Gc_10 Gc_11)))
+                (I5 ((_ extract 1 0) (ha I1 I2 Gc_8 Gc_9 Gc_10 Gc_11))))
         (let
             (
-                (I11 ((_ extract 3 2) (fa I3 I4 I10 Gc_22 Gc_23 Gc_24 Gc_25)))
-                (I12 ((_ extract 1 0) (fa I3 I4 I10 Gc_22 Gc_23 Gc_24 Gc_25)))
-            )
-        (let
-            (
-                (I13 ((_ extract 3 2) (ha I7 I11 Gc_26 Gc_27 Gc_28 Gc_29)))
-                (I14 ((_ extract 1 0) (ha I7 I11 Gc_26 Gc_27 Gc_28 Gc_29)))
-            )
-        (let
-            (
-                (I15 ((_ extract 3 2) (fa I5 I12 I14 Gc_30 Gc_31 Gc_32 Gc_33)))
-                (I16 ((_ extract 1 0) (fa I5 I12 I14 Gc_30 Gc_31 Gc_32 Gc_33)))
-            )
-        (let
-            (
-                (I17 ((_ extract 3 2) (ha I8 I15 Gc_34 Gc_35 Gc_36 Gc_37)))
-                (I18 ((_ extract 1 0) (ha I8 I15 Gc_34 Gc_35 Gc_36 Gc_37)))
-            )
-        (let
-            (
-                (I19 ((_ extract 3 2) (fa I6 I16 I18 Gc_38 Gc_39 Gc_40 Gc_41)))
-                (I20 ((_ extract 1 0) (fa I6 I16 I18 Gc_38 Gc_39 Gc_40 Gc_41)))
-            )
+                (I6 ((_ extract 3 2) (ha I3 I5 Gc_8 Gc_9 Gc_10 Gc_11)))
+                (I7 ((_ extract 1 0) (ha I3 I5 Gc_8 Gc_9 Gc_10 Gc_11))))
         (let
             (
                 (Z0 I0)
-                (Z1 I9)
-                (Z2 I13)
-                (Z3 I17)
-                (Z4 I19)
-                (Z5 I20)
-            )
+                (Z1 I4)
+                (Z2 I6)
+                (Z3 I7))
         (=>
             (and
-                (not (= (_ bv3 2) X0))
-                (not (= (_ bv3 2) X1))
-                (not (= (_ bv3 2) X2))
-                (not (= (_ bv3 2) Y0))
-                (not (= (_ bv3 2) Y1))
-                (not (= (_ bv3 2) Y2))
+                (datap X0)
+                (datap X1)
+                (datap Y0)
+                (datap Y1)
+                (= (rail0 X0) (_ bv1 1))
                 (= (_ bv0 1) Gc_0)
                 (= (_ bv0 1) Gc_1)
                 (= (_ bv0 1) Gc_2)
@@ -319,47 +243,13 @@
                 (= (_ bv0 1) Gc_12)
                 (= (_ bv0 1) Gc_13)
                 (= (_ bv0 1) Gc_14)
-                (= (_ bv0 1) Gc_15)
-                (= (_ bv0 1) Gc_16)
-                (= (_ bv0 1) Gc_17)
-                (= (_ bv0 1) Gc_18)
-                (= (_ bv0 1) Gc_19)
-                (= (_ bv0 1) Gc_20)
-                (= (_ bv0 1) Gc_21)
-                (= (_ bv0 1) Gc_22)
-                (= (_ bv0 1) Gc_23)
-                (= (_ bv0 1) Gc_24)
-                (= (_ bv0 1) Gc_25)
-                (= (_ bv0 1) Gc_26)
-                (= (_ bv0 1) Gc_27)
-                (= (_ bv0 1) Gc_28)
-                (= (_ bv0 1) Gc_29)
-                (= (_ bv0 1) Gc_30)
-                (= (_ bv0 1) Gc_31)
-                (= (_ bv0 1) Gc_32)
-                (= (_ bv0 1) Gc_33)
-                (= (_ bv0 1) Gc_34)
-                (= (_ bv0 1) Gc_35)
-                (= (_ bv0 1) Gc_36)
-                (= (_ bv0 1) Gc_37)
-                (= (_ bv0 1) Gc_38)
-                (= (_ bv0 1) Gc_39)
-                (= (_ bv0 1) Gc_40)
-                (= (_ bv0 1) Gc_41)
-                (or
-                    (nullp X0)
-                    (nullp X1)
-                    (nullp X2)
-                    (nullp Y0)
-                    (nullp Y1)
-                    (nullp Y2)))
-            (or
-                (nullp Z0)
-                (nullp Z1)
-                (nullp Z2)
-                (nullp Z3)
-                (nullp Z4)
-                (nullp Z5)))))))))))
+                (= (_ bv0 1) Gc_15))
+            (not
+                (and
+                    (datap Z0)
+                    (datap Z1)
+                    (datap Z2)
+                    (datap Z3))))))))
     )
 )
 
