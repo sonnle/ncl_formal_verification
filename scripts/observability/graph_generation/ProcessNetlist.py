@@ -16,13 +16,14 @@ def main():
         output_vars = netlist_file.readline().strip().split(',') # placeholder to read out the outputs, not sure if needed yet for line in netlist_file:
 
         for line in netlist_file:
-            gate, output, inputs = line.split(' ', 2)
+            if not (line.startswith('#') or len(line.strip()) == 0):
+                gate, output, inputs = line.split(' ', 2)
 
-            gate_class = gate + 'Node'
-            handle_gates = getattr(GateNodes, gate_class)
+                gate_class = gate + 'Node'
+                handle_gates = getattr(GateNodes, gate_class)
 
-            nl_inputs[output] = inputs.split()
-            nl_graph[output] = handle_gates(inputs.split())
+                nl_inputs[output] = inputs.split()
+                nl_graph[output] = handle_gates(inputs.split())
 
     # This for loop iterates through the circuit and replaces the placeholder objects (strings representing the object)
     # with the actual object by doing a lookup in the graph, once this is done the full graph of the NCL circuit is set-up

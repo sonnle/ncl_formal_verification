@@ -1,11 +1,15 @@
+import random
+
 class SMT2UnsignedMultiplierData():
     partial_products = dict()
     partial_products_d = dict()
     templates = ['rail', 'nullp', 'datap', 'th34w2', 'th24comp', 'th22', 'th23', 'th12', 'thand0', 'and2', 'ha', 'fa']
     num_let = 0
 
-    def __init__(self, num_bits):
+    def __init__(self, num_bits, bug=False):
         self.n = num_bits
+        self.inject_bug = bug
+        self.bug_bit = random.randint(0, num_bits-1)
 
     def generate_proof(self):
         return self.generate_logic() + \
@@ -21,7 +25,7 @@ class SMT2UnsignedMultiplierData():
                self.generate_check_model()
 
     def generate_logic(self):
-        return '(set-logic QF_BV)\n'
+        return ';Random bug bit is: %d\n(set-logic QF_BV)\n' % (self.bug_bit)
 
     def generate_inputs(self):
         x_in = '; Inputs X:\n'
@@ -41,9 +45,13 @@ class SMT2UnsignedMultiplierData():
     def generate_templates(self):
         template_str = ''
         for template in self.templates:
-            file_name = '../templates/%s.smt2' % template
+            file_name = '../../templates/%s.smt2' % template
             with open(file_name, 'r') as r_file:
                 template_str += r_file.read()
+        if self.inject_bug:
+            with open('../../templates/and2_bug.smt2', 'r') as r_file:
+                template_str += r_file.read()
+
         return template_str
 
     def generate_assert(self):
@@ -55,7 +63,10 @@ class SMT2UnsignedMultiplierData():
         for row in range(self.n):
             for column in range(self.n):
                 test = row + column
-                let_statement += '(and%dx%d (and2 X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
+                if row == self.bug_bit:
+                    let_statement += '(and%dx%d (and2_bug X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
+                else:
+                    let_statement += '(and%dx%d (and2 X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
                 try:
                     self.partial_products[test].append('and%dx%d' % (row, column))
                 except KeyError:
@@ -112,7 +123,10 @@ class SMT2UnsignedMultiplierData():
         for row in range(self.n):
             for column in range(self.n):
                 test = row + column
-                let_statement += '(and{0}x{1}_d (and2 X{0}_d Y{1}_d (rail1 and{0}x{1}) (rail0 and{0}x{1})))\n'.format(row, column)
+                if row == self.bug_bit:
+                    let_statement += '(and{0}x{1}_d (and2_bug X{0}_d Y{1}_d (rail1 and{0}x{1}) (rail0 and{0}x{1})))\n'.format(row, column)
+                else:
+                    let_statement += '(and{0}x{1}_d (and2 X{0}_d Y{1}_d (rail1 and{0}x{1}) (rail0 and{0}x{1})))\n'.format(row, column)
                 try:
                     self.partial_products_d[test].append('and{0}x{1}_d'.format(row, column))
                 except KeyError:

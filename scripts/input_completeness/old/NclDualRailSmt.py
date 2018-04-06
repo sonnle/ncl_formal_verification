@@ -123,7 +123,7 @@ class NclDualRailSmt():
 
     def template_smt2(self, file_name):
         """Returns what is read from the template file"""
-        with open(os.path.join('..', 'templates', file_name), 'r') as temp_file:
+        with open(os.path.join('..', '..', 'templates', file_name), 'r') as temp_file:
             self.print_lines.append(temp_file.read() + '\n')
 
     @property
