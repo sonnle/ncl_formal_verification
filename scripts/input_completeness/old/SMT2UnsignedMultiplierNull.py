@@ -2,7 +2,7 @@ import random
 
 class SMT2UnsignedMultiplierNull():
     partial_products = dict()
-    templates = ['rail', 'nullp', 'th34w2', 'th24comp', 'th22', 'th23', 'th12', 'thand0', 'and2', 'ha', 'fa']
+    templates = ['rail', 'nullp', 'th34w2', 'th24comp', 'th22', 'th23', 'th12', 'thand0', 'and2', 'ha_relax_buggy', 'fa']
     num_let = 0
 
     def __init__(self, num_bits, bug=False):
@@ -58,7 +58,7 @@ class SMT2UnsignedMultiplierNull():
         for row in range(self.n):
             for column in range(self.n):
                 index = row + column
-                if row == self.bug_bit:
+                if row == self.bug_bit and self.inject_bug:
                     let_statement += '(and%dx%d (and2_bug X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
                 else:
                     let_statement += '(and%dx%d (and2 X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
@@ -79,9 +79,9 @@ class SMT2UnsignedMultiplierNull():
                     first_val = self.partial_products[row+column+1].pop()
                     sec_val = self.partial_products[row+column+1].pop()
                     if column == 0:
-                        let_statement += '(S%dx%d ((_ extract 3 2) (ha %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(S%dx%d ((_ extract 3 2) (ha_relax_buggy %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, sec_val)
-                        let_statement += '(C%dx%d ((_ extract 1 0) (ha %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(C%dx%d ((_ extract 1 0) (ha_relax_buggy %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, sec_val)
                     else:
                         let_statement += '(S%dx%d ((_ extract 3 2) (fa %s %s C%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
@@ -95,9 +95,9 @@ class SMT2UnsignedMultiplierNull():
                     self.num_let += 1
                     first_val = self.partial_products[row+column+1].pop()
                     if column == 0:
-                        let_statement += '(S%dx%d ((_ extract 3 2) (ha %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(S%dx%d ((_ extract 3 2) (ha_relax_buggy %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, row, row+column+1)
-                        let_statement += '(C%dx%d ((_ extract 1 0) (ha %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(C%dx%d ((_ extract 1 0) (ha_relax_buggy %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, row, row+column+1)
                     elif column == self.n-2:
                         let_statement += '(S%dx%d ((_ extract 3 2) (fa %s C%dx%d C%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \

@@ -46,7 +46,8 @@ class InputCompleteN2D(InputComplete.InputComplete):
                 statement += '(%s (%s ' % (output, graph[output].get_gate_name().lower())
                 for i in graph_node[output]:
                     if isinstance(graph[i], InputNode):
-                        statement += '(rail{0} {1}) '.format(i[-1], i[:-1])
+                        m = self.input_re.match(i)
+                        statement += '(rail{0} {1}) '.format(m.group(2), m.group(1))
                     else:
                         statement += i + ' '
                 statement += 'Gc_0))\n'
@@ -61,7 +62,7 @@ class InputCompleteN2D(InputComplete.InputComplete):
         statement += '(let\n'
         statement += '(\n'
         for output in outputs:
-            statement += '({0} (concat {0}1 {0}0))\n'.format(output)
+            statement += '({0} (concat {0}_1 {0}_0))\n'.format(output)
         statement += ')\n'
 
         return statement

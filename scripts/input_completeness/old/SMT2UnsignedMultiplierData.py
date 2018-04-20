@@ -3,7 +3,7 @@ import random
 class SMT2UnsignedMultiplierData():
     partial_products = dict()
     partial_products_d = dict()
-    templates = ['rail', 'nullp', 'datap', 'th34w2', 'th24comp', 'th22', 'th23', 'th12', 'thand0', 'and2', 'ha', 'fa']
+    templates = ['rail', 'nullp', 'datap', 'th34w2', 'th24comp', 'th22', 'th23', 'th12', 'thand0', 'and2', 'ha_relax_buggy', 'fa']
     num_let = 0
 
     def __init__(self, num_bits, bug=False):
@@ -63,7 +63,7 @@ class SMT2UnsignedMultiplierData():
         for row in range(self.n):
             for column in range(self.n):
                 test = row + column
-                if row == self.bug_bit:
+                if row == self.bug_bit and self.inject_bug:
                     let_statement += '(and%dx%d (and2_bug X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
                 else:
                     let_statement += '(and%dx%d (and2 X%d Y%d Gc_0 Gc_0))\n' % (row, column, row, column)
@@ -84,9 +84,9 @@ class SMT2UnsignedMultiplierData():
                     first_val = self.partial_products[row+column+1].pop()
                     sec_val = self.partial_products[row+column+1].pop()
                     if column == 0:
-                        let_statement += '(S%dx%d ((_ extract 3 2) (ha %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(S%dx%d ((_ extract 3 2) (ha_relax_buggy %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, sec_val)
-                        let_statement += '(C%dx%d ((_ extract 1 0) (ha %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(C%dx%d ((_ extract 1 0) (ha_relax_buggy %s %s Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, sec_val)
                     else:
                         let_statement += '(S%dx%d ((_ extract 3 2) (fa %s %s C%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
@@ -100,9 +100,9 @@ class SMT2UnsignedMultiplierData():
                     self.num_let += 1
                     first_val = self.partial_products[row+column+1].pop()
                     if column == 0:
-                        let_statement += '(S%dx%d ((_ extract 3 2) (ha %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(S%dx%d ((_ extract 3 2) (ha_relax_buggy %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, row, row+column+1)
-                        let_statement += '(C%dx%d ((_ extract 1 0) (ha %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
+                        let_statement += '(C%dx%d ((_ extract 1 0) (ha_relax_buggy %s S%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
                             (row+1, row+column+1, first_val, row, row+column+1)
                     elif column == self.n-2:
                         let_statement += '(S%dx%d ((_ extract 3 2) (fa %s C%dx%d C%dx%d Gc_0 Gc_0 Gc_0 Gc_0)))\n' % \
@@ -123,7 +123,7 @@ class SMT2UnsignedMultiplierData():
         for row in range(self.n):
             for column in range(self.n):
                 test = row + column
-                if row == self.bug_bit:
+                if row == self.bug_bit and self.inject_bug:
                     let_statement += '(and{0}x{1}_d (and2_bug X{0}_d Y{1}_d (rail1 and{0}x{1}) (rail0 and{0}x{1})))\n'.format(row, column)
                 else:
                     let_statement += '(and{0}x{1}_d (and2 X{0}_d Y{1}_d (rail1 and{0}x{1}) (rail0 and{0}x{1})))\n'.format(row, column)
@@ -144,9 +144,9 @@ class SMT2UnsignedMultiplierData():
                     first_val = self.partial_products_d[row+column+1].pop()
                     sec_val = self.partial_products_d[row+column+1].pop()
                     if column == 0:
-                        let_statement += '(S{0}x{1}_d ((_ extract 3 2) (ha {2} {3} (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
+                        let_statement += '(S{0}x{1}_d ((_ extract 3 2) (ha_relax_buggy {2} {3} (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
 (rail1 C{0}x{1}) (rail0 C{0}x{1}))))\n'.format(row+1, row+column+1, first_val, sec_val)
-                        let_statement += '(C{0}x{1}_d ((_ extract 1 0) (ha {2} {3} (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
+                        let_statement += '(C{0}x{1}_d ((_ extract 1 0) (ha_relax_buggy {2} {3} (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
 (rail1 C{0}x{1}) (rail0 C{0}x{1}))))\n'.format(row+1, row+column+1, first_val, sec_val)
                     else:
                         let_statement += '(S{0}x{1}_d ((_ extract 3 2) (fa {2} {3} C{0}x{4}_d (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
@@ -160,9 +160,9 @@ class SMT2UnsignedMultiplierData():
                     self.num_let += 1
                     first_val = self.partial_products_d[row+column+1].pop()
                     if column == 0:
-                        let_statement += '(S{0}x{1}_d ((_ extract 3 2) (ha {2} S{3}x{1}_d (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
+                        let_statement += '(S{0}x{1}_d ((_ extract 3 2) (ha_relax_buggy {2} S{3}x{1}_d (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
 (rail1 C{0}x{1}) (rail0 C{0}x{1}))))\n'.format(row+1, row+column+1, first_val, row)
-                        let_statement += '(C{0}x{1}_d ((_ extract 1 0) (ha {2} S{3}x{1}_d (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
+                        let_statement += '(C{0}x{1}_d ((_ extract 1 0) (ha_relax_buggy {2} S{3}x{1}_d (rail1 S{0}x{1}) (rail0 S{0}x{1}) \
 (rail1 C{0}x{1}) (rail0 C{0}x{1}))))\n'.format(row+1, row+column+1, first_val, row)
                     elif column == self.n-2:
                         let_statement += '(S{0}x{1}_d ((_ extract 3 2) (fa {2} C{3}x{4}_d C{0}x{4}_d (rail1 S{0}x{1}) (rail0 S{0}x{1}) \

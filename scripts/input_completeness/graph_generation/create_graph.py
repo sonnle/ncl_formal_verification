@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import argparse
 
 import InputCompleteN2D
@@ -10,7 +11,7 @@ def main():
     with open(args.netlist, 'r') as netlist_file:
         netlist = netlist_file.read()
 
-    myCirGraph = CircuitGraph.CircuitGraph(netlist)
+    # myCirGraph = CircuitGraph.CircuitGraph(netlist)
 
     # print myCirGraph.get_graph()
     # print '\n'
@@ -43,22 +44,24 @@ def main():
 
     myIcProof = InputCompleteN2D.InputCompleteN2D(netlist)
 
-    print myIcProof.generate_logic_type()
+    # print myIcProof.generate_logic_type()
 
-    print myIcProof.generate_input_functions()
+    # print myIcProof.generate_input_functions()
 
-    print myIcProof.generate_output_functions()
+    # print myIcProof.generate_output_functions()
 
-    print myIcProof.generate_current_gate_functions()
+    # print myIcProof.generate_current_gate_functions()
 
-    print myIcProof.generate_required_templates()
+    # print myIcProof.generate_required_templates()
 
-    print myIcProof.generate_required_gate_templates()
+    # print myIcProof.generate_required_gate_templates()
 
-    print myIcProof.generate_proof_obligation()
+    # print myIcProof.generate_proof_obligation()
 
-    print myIcProof.generate_check_model()
+    # print myIcProof.generate_check_model()
 
+    with open(args.smt, 'w') as w_file:
+        w_file.write(myIcProof.generate_smt_proof())
 
 
 def parse_arguments():
@@ -66,6 +69,7 @@ def parse_arguments():
         circuit and generate the graph, allowing for evaulation of the boolean \
         function leading up to each gate.')
     parser.add_argument('netlist', help='Netlist of the ncl circuit')
+    parser.add_argument('smt', help='SMT2 file to write proof to')
     return parser.parse_args()
 
 if __name__ == '__main__':

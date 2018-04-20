@@ -1,11 +1,23 @@
 import os
+import re
 import CircuitGraph
 
 class InputComplete:
     required_templates = set(['rail', 'nullp', 'datap'])
+    input_re = re.compile('([A-z]+\d+)_(\d+)')
 
     def __init__(self, netlist):
         self.circuit_graph = CircuitGraph.CircuitGraph(netlist)
+
+    def generate_smt_proof(self):
+        return self.generate_logic_type() + \
+        self.generate_input_functions() + \
+        self.generate_output_functions() + \
+        self.generate_current_gate_functions() + \
+        self.generate_required_templates() + \
+        self.generate_required_gate_templates() + \
+        self.generate_proof_obligation() + \
+        self.generate_check_model()
 
     def generate_logic_type(self):
         logic_statement = '(set-logic QF_BV)\n'

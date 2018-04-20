@@ -56,15 +56,15 @@ class CircuitGraph:
     def add_default_output_available(self):
         for i in self.inputs:
             # Add both rails of each input
-            self.output_available.add(i + '0')
-            self.output_available.add(i + '1')
+            self.output_available.add(i + '_0')
+            self.output_available.add(i + '_1')
 
     def add_inputs_to_graph(self):
         create_input_node = getattr(GateNodes, 'InputNode')
         for i in self.inputs:
             # Add both rails of each input
-            self.graph[i + '0'] = create_input_node([i + '0'])
-            self.graph[i + '1'] = create_input_node([i + '1'])
+            self.graph[i + '_0'] = create_input_node([i + '_0'])
+            self.graph[i + '_1'] = create_input_node([i + '_1'])
 
     def generate_required_gates(self, gatelist):
         for gate_desc in gatelist:
