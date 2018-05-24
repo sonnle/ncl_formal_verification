@@ -56,7 +56,7 @@ class InputComplete:
         statement = ''
         for template in self.required_templates:
             template_file_name = template + '.smt2'
-            with open(os.path.join('templates', template_file_name), 'r') as template_file:
+            with open(os.path.join('..', '..', '..', 'templates', template_file_name), 'r') as template_file:
                 statement += template_file.read()
 
         return statement
@@ -65,7 +65,7 @@ class InputComplete:
         statement = ''
         for template in self.circuit_graph.get_required_gates():
             template_file_name = template + '.smt2'
-            with open(os.path.join('templates', template_file_name), 'r') as template_file:
+            with open(os.path.join('..', '..', '..', 'templates', template_file_name), 'r') as template_file:
                 statement += template_file.read()
 
         return statement
