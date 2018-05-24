@@ -43,7 +43,7 @@ class InputCompleteN2D(InputComplete.InputComplete):
             statement += '(\n'
 
             for output in graph_levels[level]:
-                statement += '(%s (%s ' % (output, graph[output].get_gate_name().lower())
+                statement += '({0} ({1} '.format(output, graph[output].get_gate_name().lower())
                 for i in graph_node[output]:
                     if isinstance(graph[i], InputNode):
                         m = self.input_re.match(i)

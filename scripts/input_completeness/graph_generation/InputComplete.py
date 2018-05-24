@@ -29,7 +29,7 @@ class InputComplete:
 
         for i in self.circuit_graph.get_inputs():
             comment += i + ' '
-            declarations += '(declare-fun %s () (_ BitVec 2))\n' % i
+            declarations += '(declare-fun {0} () (_ BitVec 2))\n'.format(i)
 
         statement = comment + '\n' + declarations
         return statement
@@ -40,7 +40,7 @@ class InputComplete:
 
         for i in self.circuit_graph.get_outputs():
             comment += i + ' '
-            declarations += '(declare-fun %s () (_ BitVec 2))\n' % i
+            declarations += '(declare-fun {0} () (_ BitVec 2))\n'.format(i)
 
         statement = comment + '\n' + declarations
         return statement

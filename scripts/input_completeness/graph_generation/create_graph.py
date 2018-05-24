@@ -2,6 +2,7 @@
 import argparse
 
 import InputCompleteN2D
+import InputCompleteD2N
 import CircuitGraph
 
 def main():
@@ -42,7 +43,25 @@ def main():
     # print myCirGraph.get_graph_levels()
     # print '\n'
 
-    myIcProof = InputCompleteN2D.InputCompleteN2D(netlist)
+    # myIcProof = InputCompleteN2D.InputCompleteN2D(netlist)
+
+    # print myIcProof.generate_logic_type()
+
+    # print myIcProof.generate_input_functions()
+
+    # print myIcProof.generate_output_functions()
+
+    # print myIcProof.generate_current_gate_functions()
+
+    # print myIcProof.generate_required_templates()
+
+    # print myIcProof.generate_required_gate_templates()
+
+    # print myIcProof.generate_proof_obligation()
+
+    # print myIcProof.generate_check_model()
+
+    myIcProof = InputCompleteD2N.InputCompleteD2N(netlist)
 
     # print myIcProof.generate_logic_type()
 
