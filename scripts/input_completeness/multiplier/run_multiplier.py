@@ -15,8 +15,9 @@ from UMultProofDataRelaxBuggy import UMultProofDataRelaxBuggy
 
 def main():
     start_bit = 3
-    num_bits_end = 15
-    num_bits = num_bits_end + 1
+    end_bit = 20
+
+    num_bits = end_bit + 1
 
     test_times = [
         [],[],
@@ -88,6 +89,7 @@ def main():
             with open(time_file_name, 'a') as w_file:
                 for time in time_list:
                     w_file.write(time + '\n')
+                w_file.write('\n')
 
 if __name__ == '__main__':
     main()
