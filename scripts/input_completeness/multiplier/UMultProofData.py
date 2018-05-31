@@ -1,6 +1,19 @@
 import UMultProof
 
 class UMultProofData(UMultProof.UMultProof):
+    and2_str = 'and2'
+    and2_incomplete_str = 'and2_incomplete'
+    ha_str = 'ha'
+    fa_str = 'fa'
+
+    gc_0 = 'Gc_0'
+    extract32 = '(_ extract 3 2)'
+    extract10 = '(_ extract 1 0)'
+    rail1 = 'rail1'
+    rail0 = 'rail0'
+
+    bug_bit = None
+
     partial_products_d = dict()
 
     def __init__(self, bits):
@@ -60,7 +73,6 @@ class UMultProofData(UMultProof.UMultProof):
         return statement
 
     def _generate_and_let(self):
-        gc_0 = 'Gc_0'
         statement = ''
         statement += '(let\n'
         statement += '(\n'
@@ -68,10 +80,10 @@ class UMultProofData(UMultProof.UMultProof):
         for row in range(self.bits):
             for column in range(self.bits):
                 index = row + column
-                if row == column:
-                    statement += '(and{0}x{1} ({2} X{0} Y{1} {3} {3}))\n'.format(row, column, 'and2', gc_0)
+                if row != column or row == self.bug_bit:
+                    statement += '(and{0}x{1} ({2} X{0} Y{1} {3} {3}))\n'.format(row, column, self.and2_incomplete_str, self.gc_0)
                 else:
-                    statement += '(and{0}x{1} ({2} X{0} Y{1} {3} {3}))\n'.format(row, column, 'and2_incomplete', gc_0)
+                    statement += '(and{0}x{1} ({2} X{0} Y{1} {3} {3}))\n'.format(row, column, self.and2_str, self.gc_0)
                 try:
                     self.partial_products[index].append('and{0}x{1}'.format(row,column))
                 except KeyError:
@@ -81,9 +93,6 @@ class UMultProofData(UMultProof.UMultProof):
         return statement
 
     def _generate_adder_let(self):
-        extract32 = '(_ extract 3 2)'
-        extract10 = '(_ extract 1 0)'
-        gc_0 = 'Gc_0'
         statement = ''
         statement += '(let\n'
         statement += '(\n'
@@ -101,30 +110,27 @@ class UMultProofData(UMultProof.UMultProof):
                     val1 = self.partial_products[index + 1].pop()
                     val2 = self.partial_products[index + 1].pop()
                     if column == 0:
-                        statement += '(S{0}x{1} ({2} ({3} {4} {5} {6} {6} {6} {6})))\n'.format(row+1, index+1, extract32, 'ha', val1, val2, gc_0)
-                        statement += '(C{0}x{1} ({2} ({3} {4} {5} {6} {6} {6} {6})))\n'.format(row+1, index+1, extract10, 'ha', val1, val2, gc_0)
+                        statement += '(S{0}x{1} ({2} ({3} {4} {5} {6} {6} {6} {6})))\n'.format(row+1, index+1, self.extract32, self.ha_str, val1, val2, self.gc_0)
+                        statement += '(C{0}x{1} ({2} ({3} {4} {5} {6} {6} {6} {6})))\n'.format(row+1, index+1, self.extract10, self.ha_str, val1, val2, self.gc_0)
                     else:
-                        statement += '(S{0}x{1} ({2} ({3} {4} {5} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, extract32, 'fa', val1, val2, index, gc_0)
-                        statement += '(C{0}x{1} ({2} ({3} {4} {5} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, extract10, 'fa', val1, val2, index, gc_0)
+                        statement += '(S{0}x{1} ({2} ({3} {4} {5} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, self.extract32, self.fa_str, val1, val2, index, self.gc_0)
+                        statement += '(C{0}x{1} ({2} ({3} {4} {5} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, self.extract10, self.fa_str, val1, val2, index, self.gc_0)
                 else:
                     val = self.partial_products[index + 1].pop()
                     if column == 0:
-                        statement += '(S{0}x{1} ({2} ({3} {4} S{5}x{0} {6} {6} {6} {6})))\n'.format(row+1, index+1, extract32, 'ha', val, row, gc_0)
-                        statement += '(C{0}x{1} ({2} ({3} {4} S{5}x{0} {6} {6} {6} {6})))\n'.format(row+1, index+1, extract10, 'ha', val, row, gc_0)
+                        statement += '(S{0}x{1} ({2} ({3} {4} S{5}x{0} {6} {6} {6} {6})))\n'.format(row+1, index+1, self.extract32, self.ha_str, val, row, self.gc_0)
+                        statement += '(C{0}x{1} ({2} ({3} {4} S{5}x{0} {6} {6} {6} {6})))\n'.format(row+1, index+1, self.extract10, self.ha_str, val, row, self.gc_0)
                     elif column == self.bits - 2:
-                        statement += '(S{0}x{1} ({2} ({3} {4} C{5}x{6} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, extract32, 'fa', val, row, index, gc_0)
-                        statement += '(C{0}x{1} ({2} ({3} {4} C{5}x{6} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, extract10, 'fa', val, row, index, gc_0)
+                        statement += '(S{0}x{1} ({2} ({3} {4} C{5}x{6} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, self.extract32, self.fa_str, val, row, index, self.gc_0)
+                        statement += '(C{0}x{1} ({2} ({3} {4} C{5}x{6} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, self.extract10, self.fa_str, val, row, index, self.gc_0)
                     else:
-                        statement += '(S{0}x{1} ({2} ({3} {4} S{5}x{1} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, extract32, 'fa', val, row, index, gc_0)
-                        statement += '(C{0}x{1} ({2} ({3} {4} S{5}x{1} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, extract10, 'fa', val, row, index, gc_0)
+                        statement += '(S{0}x{1} ({2} ({3} {4} S{5}x{1} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, self.extract32, self.fa_str, val, row, index, self.gc_0)
+                        statement += '(C{0}x{1} ({2} ({3} {4} S{5}x{1} C{0}x{6} {7} {7} {7} {7})))\n'.format(row+1, index+1, self.extract10, self.fa_str, val, row, index, self.gc_0)
                 statement += ')\n'
 
         return statement
 
     def _generate_and_d_let(self):
-        gc_0 = 'Gc_0'
-        rail1 = 'rail1'
-        rail0 = 'rail0'
         statement = ''
         statement += '(let\n'
         statement += '(\n'
@@ -132,10 +138,10 @@ class UMultProofData(UMultProof.UMultProof):
         for row in range(self.bits):
             for column in range(self.bits):
                 index = row + column
-                if row == column:
-                    statement += '(and{0}x{1}_d ({2} X{0}_d Y{1}_d ({3} and{0}x{1}) ({4} and{0}x{1})))\n'.format(row, column, 'and2', rail1, rail0)
+                if row != column or row == self.bug_bit:
+                    statement += '(and{0}x{1}_d ({2} X{0}_d Y{1}_d ({3} and{0}x{1}) ({4} and{0}x{1})))\n'.format(row, column, self.and2_incomplete_str, self.rail1, self.rail0)
                 else:
-                    statement += '(and{0}x{1}_d ({2} X{0}_d Y{1}_d ({3} and{0}x{1}) ({4} and{0}x{1})))\n'.format(row, column, 'and2_incomplete', rail1, rail0)
+                    statement += '(and{0}x{1}_d ({2} X{0}_d Y{1}_d ({3} and{0}x{1}) ({4} and{0}x{1})))\n'.format(row, column, self.and2_str, self.rail1, self.rail0)
                 try:
                     self.partial_products_d[index].append('and{0}x{1}_d'.format(row,column))
                 except KeyError:
@@ -145,10 +151,6 @@ class UMultProofData(UMultProof.UMultProof):
         return statement
 
     def _generate_adder_d_let(self):
-        extract32 = '(_ extract 3 2)'
-        extract10 = '(_ extract 1 0)'
-        rail1 = 'rail1'
-        rail0 = 'rail0'
         statement = ''
         statement += '(let\n'
         statement += '(\n'
@@ -166,22 +168,22 @@ class UMultProofData(UMultProof.UMultProof):
                     val1 = self.partial_products_d[index + 1].pop()
                     val2 = self.partial_products_d[index + 1].pop()
                     if column == 0:
-                        statement += '(S{0}x{1}_d ({2} ({3} {4} {5} ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, extract32, 'ha', val1, val2, rail1, rail0)
-                        statement += '(C{0}x{1}_d ({2} ({3} {4} {5} ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, extract10, 'ha', val1, val2, rail1, rail0)
+                        statement += '(S{0}x{1}_d ({2} ({3} {4} {5} ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, self.extract32, self.ha_str, val1, val2, self.rail1, self.rail0)
+                        statement += '(C{0}x{1}_d ({2} ({3} {4} {5} ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, self.extract10, self.ha_str, val1, val2, self.rail1, self.rail0)
                     else:
-                        statement += '(S{0}x{1}_d ({2} ({3} {4} {5} C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, extract32, 'fa', val1, val2, index, rail1, rail0)
-                        statement += '(C{0}x{1}_d ({2} ({3} {4} {5} C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, extract10, 'fa', val1, val2, index, rail1, rail0)
+                        statement += '(S{0}x{1}_d ({2} ({3} {4} {5} C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, self.extract32, self.fa_str, val1, val2, index, self.rail1, self.rail0)
+                        statement += '(C{0}x{1}_d ({2} ({3} {4} {5} C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, self.extract10, self.fa_str, val1, val2, index, self.rail1, self.rail0)
                 else:
                     val = self.partial_products_d[index + 1].pop()
                     if column == 0:
-                        statement += '(S{0}x{1}_d ({2} ({3} {4} S{5}x{0}_d ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, extract32, 'ha', val, row, rail1, rail0)
-                        statement += '(C{0}x{1}_d ({2} ({3} {4} S{5}x{0}_d ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, extract10, 'ha', val, row, rail1, rail0)
+                        statement += '(S{0}x{1}_d ({2} ({3} {4} S{5}x{0}_d ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, self.extract32, self.ha_str, val, row, self.rail1, self.rail0)
+                        statement += '(C{0}x{1}_d ({2} ({3} {4} S{5}x{0}_d ({6} S{0}x{1}) ({7} S{0}x{1}) ({6} C{0}x{1}) ({7} C{0}x{1}))))\n'.format(row+1, index+1, self.extract10, self.ha_str, val, row, self.rail1, self.rail0)
                     elif column == self.bits - 2:
-                        statement += '(S{0}x{1}_d ({2} ({3} {4} C{5}x{6}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, extract32, 'fa', val, row, index, rail1, rail0)
-                        statement += '(C{0}x{1}_d ({2} ({3} {4} C{5}x{6}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, extract10, 'fa', val, row, index, rail1, rail0)
+                        statement += '(S{0}x{1}_d ({2} ({3} {4} C{5}x{6}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, self.extract32, self.fa_str, val, row, index, self.rail1, self.rail0)
+                        statement += '(C{0}x{1}_d ({2} ({3} {4} C{5}x{6}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, self.extract10, self.fa_str, val, row, index, self.rail1, self.rail0)
                     else:
-                        statement += '(S{0}x{1}_d ({2} ({3} {4} S{5}x{1}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, extract32, 'fa', val, row, index, rail1, rail0)
-                        statement += '(C{0}x{1}_d ({2} ({3} {4} S{5}x{1}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, extract10, 'fa', val, row, index, rail1, rail0)
+                        statement += '(S{0}x{1}_d ({2} ({3} {4} S{5}x{1}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, self.extract32, self.fa_str, val, row, index, self.rail1, self.rail0)
+                        statement += '(C{0}x{1}_d ({2} ({3} {4} S{5}x{1}_d C{0}x{6}_d ({7} S{0}x{1}) ({8} S{0}x{1}) ({7} C{0}x{1}) ({8} C{0}x{1}))))\n'.format(row+1, index+1, self.extract10, self.fa_str, val, row, index, self.rail1, self.rail0)
                 statement += ')\n'
 
         return statement

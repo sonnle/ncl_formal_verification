@@ -10,7 +10,6 @@ class UMultProofNull(UMultProof.UMultProof):
     extract32 = '(_ extract 3 2)'
     extract10 = '(_ extract 1 0)'
 
-
     bug_bit = None
 
     def __init__(self, bits):
