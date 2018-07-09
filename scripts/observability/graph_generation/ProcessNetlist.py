@@ -10,8 +10,8 @@ def main():
         handle_inputs = getattr(GateNodes, 'InputNode')
         input_vars = netlist_file.readline().strip().split(',')
         for var in input_vars:
-            nl_graph[var + '0'] = handle_inputs([var + '0'])
-            nl_graph[var + '1'] = handle_inputs([var + '1'])
+            nl_graph[var + '_0'] = handle_inputs([var + '_0'])
+            nl_graph[var + '_1'] = handle_inputs([var + '_1'])
 
         output_vars = netlist_file.readline().strip().split(',') # placeholder to read out the outputs, not sure if needed yet for line in netlist_file:
 

@@ -64,7 +64,7 @@ class InputNode(GateNode):
     num_inputs_required = 1
     gate_name = 'Input'
     def evaluate_smt(self):
-        m = re.search('([A-z]+)(\d+)', self.inputs[0])
+        m = re.search('([A-z]+\d+)_(\d+)', self.inputs[0])
         return '(rail{0} {1})'.format(m.group(2), m.group(1))
 
 
