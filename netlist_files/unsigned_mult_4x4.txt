@@ -1,0 +1,18 @@
+X0,X1,Y0,Y1
+Z0,Z1,Z2,Z3
+Th22 Z0_1 X0_1 Y0_1
+Thand0 Z0_0 Y0_0 X0_0 Y0_1 X0_1
+Th22 I_0 X0_1 Y1_1
+Thand0 I_1 Y1_0 X0_0 Y1_1 X0_1
+Th22 I_2 X1_1 Y0_1
+Thand0 I_3 Y0_0 X1_0 Y0_1 X1_1
+Th22 I_4 X1_1 Y1_1
+Thand0 I_5 Y1_0 X1_0 Y1_1 X1_1
+Th24comp Z1_1 I_3 I_1 I_2 I_0
+Th24comp Z1_0 I_3 I_0 I_1 I_2
+Th22 I_6 I_2 I_0
+Th12 I_7 I_3 I_1
+Th24comp Z2_1 I_7 I_5 I_6 I_4
+Th24comp Z2_0 I_7 I_4 I_5 I_6
+Th22 Z3_1 I_6 I_4
+Th12 Z3_0 I_7 I_5

@@ -1,0 +1,8 @@
+A,B,C
+X,Y
+Th24comp X_0 B_0 C_0 C_1 B_1
+Th22 I_1 A_1 B_1
+Thxor0 Y_0 A_0 C_0 A_1 C_1
+Th33 I_3 C_1 A_0 B_0
+Thand0 X_1 I_1 A_0 B_0 C_1
+Th23w2 Y_1 I_3 X_0 C_0

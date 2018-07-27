@@ -23,9 +23,6 @@ class GateNode:
     def evaluate_smt(self):
         raise NotImplementedError()
 
-    def evaluate_boolean(self):
-        raise NotImplementedError()
-
     def get_input(self, input_num):
         if input_num < self.num_inputs_required:
             return self.inputs[input_num]
@@ -64,7 +61,7 @@ class InputNode(GateNode):
     num_inputs_required = 1
     gate_name = 'Input'
     def evaluate_smt(self):
-        m = re.search('([A-z]+\d+)_(\d+)', self.inputs[0])
+        m = re.search('([A-z]+\d*)_(\d+)', self.inputs[0])
         return '(rail{0} {1})'.format(m.group(2), m.group(1))
 
 
@@ -121,7 +118,7 @@ class Th14Node(FourVariableNode):
 
 class Th24Node(FourVariableNode):
     gate_name = 'Th24'
-    gate_template = '(bvor {0} {1} {2} {3})'
+    gate_template = '(bvor (bvand {0} {1}) (bvand {0} {2}) (bvand {0} {3}) (bvand {1} {2}) (bvand {1} {3}) (bvand {2} {3}))'
 
 class Th34Node(FourVariableNode):
     gate_name = 'Th34'
@@ -224,3 +221,4 @@ class Thand0Node(FourVariableNode):
 class Th24compNode(FourVariableNode):
     gate_name = 'Th24comp'
     gate_template = '(bvor (bvand {0} {2}) (bvand {1} {2}) (bvand {0} {3}) (bvand {1} {3}))'
+

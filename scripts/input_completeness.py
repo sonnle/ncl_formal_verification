@@ -43,7 +43,7 @@ def main():
     # print myCirGraph.get_graph_levels()
     # print '\n'
 
-    # myIcProof = InputCompleteN2D.InputCompleteN2D(netlist)
+    myIcProof = InputCompleteN2D.InputCompleteN2D(netlist)
 
     # print myIcProof.generate_logic_type()
 
@@ -61,7 +61,7 @@ def main():
 
     # print myIcProof.generate_check_model()
 
-    myIcProof = InputCompleteD2N.InputCompleteD2N(netlist)
+    # myIcProof = InputCompleteD2N.InputCompleteD2N(netlist)
 
     # print myIcProof.generate_logic_type()
 

@@ -1,8 +1,0 @@
-A,B,C
-X,Y
-th24comp 1 B0 C0 C1 B1 X0
-th22 1 A1 B1 I1
-thxor0 1 A0 C0 A1 C1 Y0
-th33 1 C1 A0 B0 I3
-thand0 2 I1 A0 B0 C1 X1
-th23w2 2 I3 I0 C0 Y1
