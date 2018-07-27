@@ -2,7 +2,7 @@ import os
 import re
 import CircuitGraph
 
-class InputComplete:
+class SMTProofGenerator:
     required_templates = set(['rail', 'nullp', 'datap'])
     input_re = re.compile('([A-z]+\d*)_(\d+)')
 

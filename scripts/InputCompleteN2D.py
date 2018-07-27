@@ -1,8 +1,8 @@
 from GateNodes import InputNode
 
-import InputComplete
+import SMTProofGenerator
 
-class InputCompleteN2D(InputComplete.InputComplete):
+class InputCompleteN2D(SMTProofGenerator.SMTProofGenerator):
 
     def generate_proof_obligation(self):
         statement = self._generate_assert()
