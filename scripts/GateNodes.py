@@ -1,4 +1,5 @@
 import re
+import gc
 
 """
 Exception used to catch invalid number of inputs when creating nodes.
@@ -41,16 +42,19 @@ Generic classes used to represent NCL gates with X variable inputs.
 class TwoVariableNode(GateNode):
     num_inputs_required = 2
     def evaluate_smt(self):
+        gc.collect()
         return self.gate_template.format(self.inputs[0].evaluate_smt(), self.inputs[1].evaluate_smt())
 
 class ThreeVariableNode(GateNode):
     num_inputs_required = 3
     def evaluate_smt(self):
+        gc.collect()
         return self.gate_template.format(self.inputs[0].evaluate_smt(), self.inputs[1].evaluate_smt(), self.inputs[2].evaluate_smt())
 
 class FourVariableNode(GateNode):
     num_inputs_required = 4
     def evaluate_smt(self):
+        gc.collect()
         return self.gate_template.format(self.inputs[0].evaluate_smt(), self.inputs[1].evaluate_smt(), self.inputs[2].evaluate_smt(), self.inputs[3].evaluate_smt())
 
 

@@ -35,7 +35,8 @@ def main():
                 nl_graph[key].set_input(var, node_object)
 
     for key in nl_graph.keys():
-        print 'Function for {0} with output {1}:\n{2}\n'.format(nl_graph[key].get_gate_name(), key, nl_graph[key].evaluate_smt())
+        with open('{0}_{1}.txt'.format(args.netlist[:-4], key), 'w') as w_file:
+            w_file.write('Function for {0} with output {1}:\n{2}\n'.format(nl_graph[key].get_gate_name(), key, nl_graph[key].evaluate_smt()))
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Process a netlist of a ncl \
