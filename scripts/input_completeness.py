@@ -3,6 +3,7 @@ import argparse
 
 import InputCompleteN2D
 import InputCompleteD2N
+import Observable
 import CircuitGraph
 
 def main():
@@ -43,7 +44,9 @@ def main():
     # print myCirGraph.get_graph_levels()
     # print '\n'
 
-    myIcProof = InputCompleteN2D.InputCompleteN2D(netlist)
+    #myIcProof = InputCompleteN2D.InputCompleteN2D(netlist)
+
+    myIcProof = Observable.Observable(netlist, 'Co_0')
 
     # print myIcProof.generate_logic_type()
 

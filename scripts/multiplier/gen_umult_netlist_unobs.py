@@ -1,15 +1,6 @@
 def main():
     bits = 4
 
-    and2_str = 'and2'
-    and2_incomplete_str = 'and2_incomplete'
-    ha_str = 'ha'
-    fa_str = 'fa'
-
-    gc_0 = 'Gc_0'
-    extract32 = '(_ extract 3 2)'
-    extract10 = '(_ extract 1 0)'
-
     statement = ''
 
     bug_bit = None
@@ -52,8 +43,14 @@ def main():
                 val2 = partial_products[index + 1].pop()
                 if column == 0:
                     # val1 = x, val2 = y
-                    statement += 'Th24comp S{0}x{1}_1 {3}_0 {2}_0 {3}_1 {2}_1\n'.format(row+1, index+1, val1, val2)
-                    statement += 'Th24comp S{0}x{1}_0 {3}_0 {2}_1 {2}_0 {3}_1\n'.format(row+1, index+1, val1, val2)
+                    statement += 'Th22 I{0} {1}_1 {2}_1\n'.format(i, val1, val2)
+                    i += 1
+                    statement += 'Th12 I{0} {1}_0 {2}_0\n'.format(i, val1, val2)
+                    i += 1
+                    statement += 'Th23w2 S{0}x{1}_1 I{2} {3}_0 {4}_0\n'.format(row+1, index+1, i-2, val1, val2)
+                    statement += 'Th33w2 S{0}x{1}_0 I{2} {3}_1 {4}_1\n'.format(row+1, index+1, i-1, val1, val2)
+                    # statement += 'Th24comp S{0}x{1}_1 {3}_0 {2}_0 {3}_1 {2}_1\n'.format(row+1, index+1, val1, val2)
+                    # statement += 'Th24comp S{0}x{1}_0 {3}_0 {2}_1 {2}_0 {3}_1\n'.format(row+1, index+1, val1, val2)
                     statement += 'Th22 C{0}x{1}_1 {3}_1 {2}_1\n'.format(row+1, index+1, val1, val2)
                     statement += 'Th12 C{0}x{1}_0 {3}_0 {2}_0\n'.format(row+1, index+1, val1, val2)
                 else:
@@ -68,8 +65,14 @@ def main():
                 if column == 0:
                     # val = x, summ = y
                     summ = 'S{0}x{1}'.format(row, index+1)
-                    statement += 'Th24comp S{0}x{1}_1 {3}_0 {2}_0 {3}_1 {2}_1\n'.format(row+1, index+1, val, summ)
-                    statement += 'Th24comp S{0}x{1}_0 {3}_0 {2}_1 {2}_0 {3}_1\n'.format(row+1, index+1, val, summ)
+                    statement += 'Th22 I{0} {1}_1 {2}_1\n'.format(i, val, summ)
+                    i += 1
+                    statement += 'Th12 I{0} {1}_0 {2}_0\n'.format(i, val, summ) 
+                    i += 1
+                    statement += 'Th23w2 S{0}x{1}_1 I{2} {3}_0 {4}_0\n'.format(row+1, index+1, i-2, val, summ)
+                    statement += 'Th33w2 S{0}x{1}_0 I{2} {3}_1 {4}_1\n'.format(row+1, index+1, i-1, val, summ)
+                    # statement += 'Th24comp S{0}x{1}_1 {3}_0 {2}_0 {3}_1 {2}_1\n'.format(row+1, index+1, val, summ)
+                    # statement += 'Th24comp S{0}x{1}_0 {3}_0 {2}_1 {2}_0 {3}_1\n'.format(row+1, index+1, val, summ)
                     statement += 'Th22 C{0}x{1}_1 {3}_1 {2}_1\n'.format(row+1, index+1, val, summ)
                     statement += 'Th12 C{0}x{1}_0 {3}_0 {2}_0\n'.format(row+1, index+1, val, summ)
                 elif column == bits-2:
