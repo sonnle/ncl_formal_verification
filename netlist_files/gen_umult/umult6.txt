@@ -1,0 +1,195 @@
+X0,X1,X2,X3,X4,X5,Y0,Y1,Y2,Y3,Y4,Y5
+Z0,Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9,Z10,Z11
+Th22 Z0_1 X0_1 Y0_1
+Th12 Z0_0 X0_0 Y0_0
+Th22 and0x1_1 X0_1 Y1_1
+Thand0 and0x1_0 Y1_0 X0_0 Y1_1 X0_1
+Th22 and0x2_1 X0_1 Y2_1
+Thand0 and0x2_0 Y2_0 X0_0 Y2_1 X0_1
+Th22 and0x3_1 X0_1 Y3_1
+Thand0 and0x3_0 Y3_0 X0_0 Y3_1 X0_1
+Th22 and0x4_1 X0_1 Y4_1
+Thand0 and0x4_0 Y4_0 X0_0 Y4_1 X0_1
+Th22 and0x5_1 X0_1 Y5_1
+Thand0 and0x5_0 Y5_0 X0_0 Y5_1 X0_1
+Th22 and1x0_1 X1_1 Y0_1
+Thand0 and1x0_0 Y0_0 X1_0 Y0_1 X1_1
+Th22 and1x1_1 X1_1 Y1_1
+Th12 and1x1_0 X1_0 Y1_0
+Th22 and1x2_1 X1_1 Y2_1
+Thand0 and1x2_0 Y2_0 X1_0 Y2_1 X1_1
+Th22 and1x3_1 X1_1 Y3_1
+Thand0 and1x3_0 Y3_0 X1_0 Y3_1 X1_1
+Th22 and1x4_1 X1_1 Y4_1
+Thand0 and1x4_0 Y4_0 X1_0 Y4_1 X1_1
+Th22 and1x5_1 X1_1 Y5_1
+Thand0 and1x5_0 Y5_0 X1_0 Y5_1 X1_1
+Th22 and2x0_1 X2_1 Y0_1
+Thand0 and2x0_0 Y0_0 X2_0 Y0_1 X2_1
+Th22 and2x1_1 X2_1 Y1_1
+Thand0 and2x1_0 Y1_0 X2_0 Y1_1 X2_1
+Th22 and2x2_1 X2_1 Y2_1
+Th12 and2x2_0 X2_0 Y2_0
+Th22 and2x3_1 X2_1 Y3_1
+Thand0 and2x3_0 Y3_0 X2_0 Y3_1 X2_1
+Th22 and2x4_1 X2_1 Y4_1
+Thand0 and2x4_0 Y4_0 X2_0 Y4_1 X2_1
+Th22 and2x5_1 X2_1 Y5_1
+Thand0 and2x5_0 Y5_0 X2_0 Y5_1 X2_1
+Th22 and3x0_1 X3_1 Y0_1
+Thand0 and3x0_0 Y0_0 X3_0 Y0_1 X3_1
+Th22 and3x1_1 X3_1 Y1_1
+Thand0 and3x1_0 Y1_0 X3_0 Y1_1 X3_1
+Th22 and3x2_1 X3_1 Y2_1
+Thand0 and3x2_0 Y2_0 X3_0 Y2_1 X3_1
+Th22 and3x3_1 X3_1 Y3_1
+Th12 and3x3_0 X3_0 Y3_0
+Th22 and3x4_1 X3_1 Y4_1
+Thand0 and3x4_0 Y4_0 X3_0 Y4_1 X3_1
+Th22 and3x5_1 X3_1 Y5_1
+Thand0 and3x5_0 Y5_0 X3_0 Y5_1 X3_1
+Th22 and4x0_1 X4_1 Y0_1
+Thand0 and4x0_0 Y0_0 X4_0 Y0_1 X4_1
+Th22 and4x1_1 X4_1 Y1_1
+Thand0 and4x1_0 Y1_0 X4_0 Y1_1 X4_1
+Th22 and4x2_1 X4_1 Y2_1
+Thand0 and4x2_0 Y2_0 X4_0 Y2_1 X4_1
+Th22 and4x3_1 X4_1 Y3_1
+Thand0 and4x3_0 Y3_0 X4_0 Y3_1 X4_1
+Th22 and4x4_1 X4_1 Y4_1
+Th12 and4x4_0 X4_0 Y4_0
+Th22 and4x5_1 X4_1 Y5_1
+Thand0 and4x5_0 Y5_0 X4_0 Y5_1 X4_1
+Th22 and5x0_1 X5_1 Y0_1
+Thand0 and5x0_0 Y0_0 X5_0 Y0_1 X5_1
+Th22 and5x1_1 X5_1 Y1_1
+Thand0 and5x1_0 Y1_0 X5_0 Y1_1 X5_1
+Th22 and5x2_1 X5_1 Y2_1
+Thand0 and5x2_0 Y2_0 X5_0 Y2_1 X5_1
+Th22 and5x3_1 X5_1 Y3_1
+Thand0 and5x3_0 Y3_0 X5_0 Y3_1 X5_1
+Th22 and5x4_1 X5_1 Y4_1
+Thand0 and5x4_0 Y4_0 X5_0 Y4_1 X5_1
+Th22 and5x5_1 X5_1 Y5_1
+Th12 and5x5_0 X5_0 Y5_0
+Th24comp Z1_1 and0x1_0 and1x0_0 and0x1_1 and1x0_1
+Th24comp Z1_0 and0x1_0 and1x0_1 and1x0_0 and0x1_1
+Th22 C1x1_1 and0x1_1 and1x0_1
+Th12 C1x1_0 and0x1_0 and1x0_0
+Th23 C1x2_0 and2x0_0 and1x1_0 C1x1_0
+Th23 C1x2_1 and2x0_1 and1x1_1 C1x1_1
+Th34w2 S1x2_1 C1x2_0 and2x0_1 and1x1_1 C1x1_1
+Th34w2 S1x2_0 C1x2_1 and2x0_0 and1x1_0 C1x1_0
+Th23 C1x3_0 and3x0_0 and2x1_0 C1x2_0
+Th23 C1x3_1 and3x0_1 and2x1_1 C1x2_1
+Th34w2 S1x3_1 C1x3_0 and3x0_1 and2x1_1 C1x2_1
+Th34w2 S1x3_0 C1x3_1 and3x0_0 and2x1_0 C1x2_0
+Th23 C1x4_0 and4x0_0 and3x1_0 C1x3_0
+Th23 C1x4_1 and4x0_1 and3x1_1 C1x3_1
+Th34w2 S1x4_1 C1x4_0 and4x0_1 and3x1_1 C1x3_1
+Th34w2 S1x4_0 C1x4_1 and4x0_0 and3x1_0 C1x3_0
+Th23 C1x5_0 and5x0_0 and4x1_0 C1x4_0
+Th23 C1x5_1 and5x0_1 and4x1_1 C1x4_1
+Th34w2 S1x5_1 C1x5_0 and5x0_1 and4x1_1 C1x4_1
+Th34w2 S1x5_0 C1x5_1 and5x0_0 and4x1_0 C1x4_0
+Th24comp Z2_1 S1x2_0 and0x2_0 S1x2_1 and0x2_1
+Th24comp Z2_0 S1x2_0 and0x2_1 and0x2_0 S1x2_1
+Th22 C2x2_1 S1x2_1 and0x2_1
+Th12 C2x2_0 S1x2_0 and0x2_0
+Th23 C2x3_0 and1x2_0 S1x3_0 C2x2_0
+Th23 C2x3_1 and1x2_1 S1x3_1 C2x2_1
+Th34w2 S2x3_1 C2x3_0 and1x2_1 S1x3_1 C2x2_1
+Th34w2 S2x3_0 C2x3_1 and1x2_0 S1x3_0 C2x2_0
+Th23 C2x4_0 and2x2_0 S1x4_0 C2x3_0
+Th23 C2x4_1 and2x2_1 S1x4_1 C2x3_1
+Th34w2 S2x4_1 C2x4_0 and2x2_1 S1x4_1 C2x3_1
+Th34w2 S2x4_0 C2x4_1 and2x2_0 S1x4_0 C2x3_0
+Th23 C2x5_0 and3x2_0 S1x5_0 C2x4_0
+Th23 C2x5_1 and3x2_1 S1x5_1 C2x4_1
+Th34w2 S2x5_1 C2x5_0 and3x2_1 S1x5_1 C2x4_1
+Th34w2 S2x5_0 C2x5_1 and3x2_0 S1x5_0 C2x4_0
+Th23 C2x6_0 and5x1_0 C1x5_0 C2x5_0
+Th23 C2x6_1 and5x1_1 C1x5_1 C2x5_1
+Th34w2 S2x6_1 C2x6_0 and5x1_1 C1x5_1 C2x5_1
+Th34w2 S2x6_0 C2x6_1 and5x1_0 C1x5_0 C2x5_0
+Th24comp Z3_1 S2x3_0 and0x3_0 S2x3_1 and0x3_1
+Th24comp Z3_0 S2x3_0 and0x3_1 and0x3_0 S2x3_1
+Th22 C3x3_1 S2x3_1 and0x3_1
+Th12 C3x3_0 S2x3_0 and0x3_0
+Th23 C3x4_0 and1x3_0 S2x4_0 C3x3_0
+Th23 C3x4_1 and1x3_1 S2x4_1 C3x3_1
+Th34w2 S3x4_1 C3x4_0 and1x3_1 S2x4_1 C3x3_1
+Th34w2 S3x4_0 C3x4_1 and1x3_0 S2x4_0 C3x3_0
+Th23 C3x5_0 and2x3_0 S2x5_0 C3x4_0
+Th23 C3x5_1 and2x3_1 S2x5_1 C3x4_1
+Th34w2 S3x5_1 C3x5_0 and2x3_1 S2x5_1 C3x4_1
+Th34w2 S3x5_0 C3x5_1 and2x3_0 S2x5_0 C3x4_0
+Th23 C3x6_0 and4x2_0 S2x6_0 C3x5_0
+Th23 C3x6_1 and4x2_1 S2x6_1 C3x5_1
+Th34w2 S3x6_1 C3x6_0 and4x2_1 S2x6_1 C3x5_1
+Th34w2 S3x6_0 C3x6_1 and4x2_0 S2x6_0 C3x5_0
+Th23 C3x7_0 and5x2_0 C2x6_0 C3x6_0
+Th23 C3x7_1 and5x2_1 C2x6_1 C3x6_1
+Th34w2 S3x7_1 C3x7_0 and5x2_1 C2x6_1 C3x6_1
+Th34w2 S3x7_0 C3x7_1 and5x2_0 C2x6_0 C3x6_0
+Th24comp Z4_1 S3x4_0 and0x4_0 S3x4_1 and0x4_1
+Th24comp Z4_0 S3x4_0 and0x4_1 and0x4_0 S3x4_1
+Th22 C4x4_1 S3x4_1 and0x4_1
+Th12 C4x4_0 S3x4_0 and0x4_0
+Th23 C4x5_0 and1x4_0 S3x5_0 C4x4_0
+Th23 C4x5_1 and1x4_1 S3x5_1 C4x4_1
+Th34w2 S4x5_1 C4x5_0 and1x4_1 S3x5_1 C4x4_1
+Th34w2 S4x5_0 C4x5_1 and1x4_0 S3x5_0 C4x4_0
+Th23 C4x6_0 and3x3_0 S3x6_0 C4x5_0
+Th23 C4x6_1 and3x3_1 S3x6_1 C4x5_1
+Th34w2 S4x6_1 C4x6_0 and3x3_1 S3x6_1 C4x5_1
+Th34w2 S4x6_0 C4x6_1 and3x3_0 S3x6_0 C4x5_0
+Th23 C4x7_0 and4x3_0 S3x7_0 C4x6_0
+Th23 C4x7_1 and4x3_1 S3x7_1 C4x6_1
+Th34w2 S4x7_1 C4x7_0 and4x3_1 S3x7_1 C4x6_1
+Th34w2 S4x7_0 C4x7_1 and4x3_0 S3x7_0 C4x6_0
+Th23 C4x8_0 and5x3_0 C3x7_0 C4x7_0
+Th23 C4x8_1 and5x3_1 C3x7_1 C4x7_1
+Th34w2 S4x8_1 C4x8_0 and5x3_1 C3x7_1 C4x7_1
+Th34w2 S4x8_0 C4x8_1 and5x3_0 C3x7_0 C4x7_0
+Th24comp Z5_1 S4x5_0 and0x5_0 S4x5_1 and0x5_1
+Th24comp Z5_0 S4x5_0 and0x5_1 and0x5_0 S4x5_1
+Th22 C5x5_1 S4x5_1 and0x5_1
+Th12 C5x5_0 S4x5_0 and0x5_0
+Th23 C5x6_0 and2x4_0 S4x6_0 C5x5_0
+Th23 C5x6_1 and2x4_1 S4x6_1 C5x5_1
+Th34w2 S5x6_1 C5x6_0 and2x4_1 S4x6_1 C5x5_1
+Th34w2 S5x6_0 C5x6_1 and2x4_0 S4x6_0 C5x5_0
+Th23 C5x7_0 and3x4_0 S4x7_0 C5x6_0
+Th23 C5x7_1 and3x4_1 S4x7_1 C5x6_1
+Th34w2 S5x7_1 C5x7_0 and3x4_1 S4x7_1 C5x6_1
+Th34w2 S5x7_0 C5x7_1 and3x4_0 S4x7_0 C5x6_0
+Th23 C5x8_0 and4x4_0 S4x8_0 C5x7_0
+Th23 C5x8_1 and4x4_1 S4x8_1 C5x7_1
+Th34w2 S5x8_1 C5x8_0 and4x4_1 S4x8_1 C5x7_1
+Th34w2 S5x8_0 C5x8_1 and4x4_0 S4x8_0 C5x7_0
+Th23 C5x9_0 and5x4_0 C4x8_0 C5x8_0
+Th23 C5x9_1 and5x4_1 C4x8_1 C5x8_1
+Th34w2 S5x9_1 C5x9_0 and5x4_1 C4x8_1 C5x8_1
+Th34w2 S5x9_0 C5x9_1 and5x4_0 C4x8_0 C5x8_0
+Th24comp Z6_1 S5x6_0 and1x5_0 S5x6_1 and1x5_1
+Th24comp Z6_0 S5x6_0 and1x5_1 and1x5_0 S5x6_1
+Th22 C6x6_1 S5x6_1 and1x5_1
+Th12 C6x6_0 S5x6_0 and1x5_0
+Th23 C6x7_0 and2x5_0 S5x7_0 C6x6_0
+Th23 C6x7_1 and2x5_1 S5x7_1 C6x6_1
+Th34w2 Z7_1 C6x7_0 and2x5_1 S5x7_1 C6x6_1
+Th34w2 Z7_0 C6x7_1 and2x5_0 S5x7_0 C6x6_0
+Th23 C6x8_0 and3x5_0 S5x8_0 C6x7_0
+Th23 C6x8_1 and3x5_1 S5x8_1 C6x7_1
+Th34w2 Z8_1 C6x8_0 and3x5_1 S5x8_1 C6x7_1
+Th34w2 Z8_0 C6x8_1 and3x5_0 S5x8_0 C6x7_0
+Th23 C6x9_0 and4x5_0 S5x9_0 C6x8_0
+Th23 C6x9_1 and4x5_1 S5x9_1 C6x8_1
+Th34w2 Z9_1 C6x9_0 and4x5_1 S5x9_1 C6x8_1
+Th34w2 Z9_0 C6x9_1 and4x5_0 S5x9_0 C6x8_0
+Th23 Z11_0 and5x5_0 C5x9_0 C6x9_0
+Th23 Z11_1 and5x5_1 C5x9_1 C6x9_1
+Th34w2 Z10_1 Z11_0 and5x5_1 C5x9_1 C6x9_1
+Th34w2 Z10_0 Z11_1 and5x5_0 C5x9_0 C6x9_0
+
