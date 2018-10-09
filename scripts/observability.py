@@ -3,10 +3,14 @@ import argparse
 import subprocess
 
 import Observable
+import ObservableData
 import CircuitGraph
 
 
 def main():
+    for proof_file in glob.glob('./proof_files/*'):
+        subprocess.check_output('rm {0}'.format(proof_file), shell=True)
+
     args = parse_arguments()
     netlist = None
     with open(args.netlist, 'r') as r_file:
@@ -16,13 +20,18 @@ def main():
 
     for gate in graph.keys():
         obsProof = Observable.Observable(netlist, gate)
-        smt_file_name = 'proof_files/{0}_{1}.smt2'.format(args.smt2, gate)
+        obsProofData = ObservableData.ObservableData(netlist, gate)
+        smt_file_name = 'proof_files/null_{0}_{1}.smt2'.format(args.smt2, gate)
+        smt_file_name_data = 'proof_files/data_{0}_{1}.smt2'.format(args.smt2, gate)
         with open(smt_file_name, 'w') as w_file:
             w_file.write(obsProof.generate_smt_proof())
+
+        with open(smt_file_name_data, 'w') as w_file:
+            w_file.write(obsProofData.generate_smt_proof())
     
     observable = True
     for proof_file in glob.glob('./proof_files/*'):
-        command = '~/z3 -smt2 {0}'.format(proof_file)
+        command = 'z3 -smt2 {0}'.format(proof_file)
         try:
             subprocess.check_output(command, shell=True)
             print 'Proof file: {0} returned SAT'.format(proof_file)
