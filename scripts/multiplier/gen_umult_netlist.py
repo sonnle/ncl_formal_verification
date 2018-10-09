@@ -34,10 +34,10 @@ def main():
             index = row + column
             if row != column or row == bug_bit:
                 statement += 'Th22 and{0}x{1}_1 X{0}_1 Y{1}_1\n'.format(row, column)
-                statement += 'Thand0 and{0}x{1}_0 Y{1}_0 X{0}_0 Y{1}_1 X{0}_1\n'.format(row, column)
+                statement += 'Th12 and{0}x{1}_0 X{0}_0 Y{1}_0\n'.format(row, column)
             else:
                 statement += 'Th22 and{0}x{1}_1 X{0}_1 Y{1}_1\n'.format(row, column)
-                statement += 'Th12 and{0}x{1}_0 X{0}_0 Y{1}_0\n'.format(row, column)
+                statement += 'Thand0 and{0}x{1}_0 Y{1}_0 X{0}_0 Y{1}_1 X{0}_1\n'.format(row, column)
             try:
                 partial_products[index].append('and{0}x{1}'.format(row,column))
             except KeyError:

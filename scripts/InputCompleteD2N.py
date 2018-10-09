@@ -12,8 +12,8 @@ class InputCompleteD2N(SMTProofGenerator.SMTProofGenerator):
     def generate_input_functions(self):
         comment = '; Inputs: '
         comment_d = '; Data Inputs: '
-        declarations = ''
-        declarations_d = ''
+        declarations = '\n'
+        declarations_d = '\n'
 
         for i in self.circuit_graph.get_inputs():
             comment += i + ' '
@@ -21,7 +21,7 @@ class InputCompleteD2N(SMTProofGenerator.SMTProofGenerator):
             declarations += '(declare-fun {0} () (_ BitVec 2))\n'.format(i)
             declarations_d += '(declare-fun {0}_d () (_ BitVec 2))\n'.format(i)
 
-        statement = comment + '\n' + declarations + '\n' + comment_d + '\n' + declarations_d
+        statement = comment + declarations + comment_d + declarations_d
 
         return statement
 
