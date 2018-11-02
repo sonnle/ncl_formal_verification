@@ -70,7 +70,6 @@ class CircuitGraph:
         for gate_desc in gatelist:
             if not (gate_desc.startswith('#') or len(gate_desc.strip()) == 0):
                 g_type, g_other = gate_desc.split(' ', 1)
-
                 self.required_gates.add(g_type.lower())
 
     def process_gates(self, gatelist):

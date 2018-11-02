@@ -41,18 +41,21 @@ Generic classes used to represent NCL gates with X variable inputs.
 """
 class TwoVariableNode(GateNode):
     num_inputs_required = 2
+    gate_template = None
     def evaluate_smt(self):
         gc.collect()
         return self.gate_template.format(self.inputs[0].evaluate_smt(), self.inputs[1].evaluate_smt())
 
 class ThreeVariableNode(GateNode):
     num_inputs_required = 3
+    gate_template = None
     def evaluate_smt(self):
         gc.collect()
         return self.gate_template.format(self.inputs[0].evaluate_smt(), self.inputs[1].evaluate_smt(), self.inputs[2].evaluate_smt())
 
 class FourVariableNode(GateNode):
     num_inputs_required = 4
+    gate_template = None
     def evaluate_smt(self):
         gc.collect()
         return self.gate_template.format(self.inputs[0].evaluate_smt(), self.inputs[1].evaluate_smt(), self.inputs[2].evaluate_smt(), self.inputs[3].evaluate_smt())
@@ -65,7 +68,7 @@ class InputNode(GateNode):
     num_inputs_required = 1
     gate_name = 'Input'
     def evaluate_smt(self):
-        m = re.search('([A-z]+\d*)_(\d+)', self.inputs[0])
+        m = re.search('([A-z]+\\d*)_(\\d+)', self.inputs[0])
         return '(rail{0} {1})'.format(m.group(2), m.group(1))
 
 

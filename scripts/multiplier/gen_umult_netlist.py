@@ -44,7 +44,7 @@ def main():
                 partial_products[index] = ['and{0}x{1}'.format(row,column)]
 
     # Generate HAs and FAs Netlist
-    for row in range(bits):    
+    for row in range(bits):
         for column in range(bits - 1):
             index = row + column
             if row == 0:
@@ -100,7 +100,8 @@ def main():
 
     statement = statement.replace('and0x0', 'Z0')
 
-    print statement
+    with open('umult{0}.txt'.format(bits), 'wb') as w_file:
+        w_file.write(statement)
 
 if __name__ == '__main__':
     main()
