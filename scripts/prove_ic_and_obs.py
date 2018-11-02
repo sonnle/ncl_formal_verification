@@ -28,14 +28,18 @@ def main():
         with open('{0}_obs_d2n_{1}.smt2'.format(netlist_name, gate), 'wb') as write_file:
             write_file.write(proof_obs.generate_d2n_proof(gate))
 
-    for proof_file in glob.glob('umult3*.smt2'):
+    for proof_file in glob.glob('{0}*.smt2'.format(netlist_name)):
         command = 'z3 -smt2 {0}'.format(proof_file)
         try:
             subprocess.check_output(command, shell=True)
             print 'Proof file: {0} returned SAT'.format(proof_file)
-        except subprocess.CalledProcessError:
-            print 'Proof file: {0} returned UNSAT'.format(proof_file)
-        os.remove(proof_file)
+            break
+        except subprocess.CalledProcessError as e:
+            if 'unsat' in e.output:
+                print 'Proof file: {0} returned UNSAT'.format(proof_file)
+                os.remove(proof_file)
+            else:
+                print 'Error in reading SMT-LIB file returned: {0}'.format(e.output)
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Take in a NCL netlist and generate input-completeness and observability proofs encoded in SMT-LIB and checks them using Z3 solver.')

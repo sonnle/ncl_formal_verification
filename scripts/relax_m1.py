@@ -14,7 +14,7 @@ for name in x:
 z = glob.glob('mod*.smt2')
 for name in z:
     try:
-        subprocess.check_output('~/z3 -smt2 {0}'.format(name), shell=True)
+        subprocess.check_output('z3 -smt2 {0}'.format(name), shell=True)
         print 'sat {0}'.format(name)
     except:
         print 'unsat {0}'.format(name)
