@@ -2,3 +2,4 @@
 *.exe
 work/*
 examples/*
+.DS_Store
