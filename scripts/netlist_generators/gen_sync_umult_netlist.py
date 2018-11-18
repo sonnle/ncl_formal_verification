@@ -33,7 +33,7 @@ def main():
         for row in range(bits):
             for column in range(bits):
                 index = row + column
-                statement += 'AND2 and{0}x{1} X{0} Y{1}\n'.format(row, column)
+                statement += 'AND and{0}x{1} X{0} Y{1}\n'.format(row, column)
                 try:
                     partial_products[index].append('and{0}x{1}'.format(row,column))
                 except KeyError:
@@ -48,43 +48,43 @@ def main():
                     val2 = partial_products[index + 1].pop()
                     if column == 0:
                         # val1 = x, val2 = y
-                        statement += 'XOR2 S{0}x{1} {2} {3}\n'.format(row+1, index+1, val1, val2)
-                        statement += 'AND2 C{0}x{1} {2} {3}\n'.format(row+1, index+1, val1, val2)
+                        statement += 'XOR S{0}x{1} {2} {3}\n'.format(row+1, index+1, val1, val2)
+                        statement += 'AND C{0}x{1} {2} {3}\n'.format(row+1, index+1, val1, val2)
                     else:
                         # val1 = x, val2 = y, carry = cin
                         carry = 'C{0}x{1}'.format(row+1, index)
-                        statement += 'XOR2 I{0} {1} {2}\n'.format(intermediate_index, val1, val2)
-                        statement += 'XOR2 S{0}x{1} I{2} {3}\n'.format(row+1, index+1, intermediate_index, carry)
-                        statement += 'AND2 I{0} I{1} {2}\n'.format(intermediate_index+1, intermediate_index, carry)
-                        statement += 'AND2 I{0} {1} {2}\n'.format(intermediate_index+2, val1, val2)
-                        statement += 'OR2 C{0}x{1} I{2} I{3}\n'.format(row+1, index+1, intermediate_index+1, intermediate_index+2)
+                        statement += 'XOR I{0} {1} {2}\n'.format(intermediate_index, val1, val2)
+                        statement += 'XOR S{0}x{1} I{2} {3}\n'.format(row+1, index+1, intermediate_index, carry)
+                        statement += 'AND I{0} I{1} {2}\n'.format(intermediate_index+1, intermediate_index, carry)
+                        statement += 'AND I{0} {1} {2}\n'.format(intermediate_index+2, val1, val2)
+                        statement += 'OR C{0}x{1} I{2} I{3}\n'.format(row+1, index+1, intermediate_index+1, intermediate_index+2)
                         intermediate_index += 3
                 else:
                     val = partial_products[index + 1].pop()
                     if column == 0:
                         # val = x, summ = y
                         summ = 'S{0}x{1}'.format(row, index+1)
-                        statement += 'XOR2 S{0}x{1} {2} {3}\n'.format(row+1, index+1, val, summ)
-                        statement += 'AND2 C{0}x{1} {2} {3}\n'.format(row+1, index+1, val, summ)
+                        statement += 'XOR S{0}x{1} {2} {3}\n'.format(row+1, index+1, val, summ)
+                        statement += 'AND C{0}x{1} {2} {3}\n'.format(row+1, index+1, val, summ)
                     elif column == bits-2:
                         # val = x, carry1 = y, carry2 = cin
                         carry1 = 'C{0}x{1}'.format(row, index)
                         carry2 = 'C{0}x{1}'.format(row+1, index)
-                        statement += 'XOR2 I{0} {1} {2}\n'.format(intermediate_index, val, carry1)
-                        statement += 'XOR2 S{0}x{1} I{2} {3}\n'.format(row+1, index+1, intermediate_index, carry2)
-                        statement += 'AND2 I{0} I{1} {2}\n'.format(intermediate_index+1, intermediate_index, carry2)
-                        statement += 'AND2 I{0} {1} {2}\n'.format(intermediate_index+2, val, carry1)
-                        statement += 'OR2 C{0}x{1} I{2} I{3}\n'.format(row+1, index+1, intermediate_index+1, intermediate_index+2)
+                        statement += 'XOR I{0} {1} {2}\n'.format(intermediate_index, val, carry1)
+                        statement += 'XOR S{0}x{1} I{2} {3}\n'.format(row+1, index+1, intermediate_index, carry2)
+                        statement += 'AND I{0} I{1} {2}\n'.format(intermediate_index+1, intermediate_index, carry2)
+                        statement += 'AND I{0} {1} {2}\n'.format(intermediate_index+2, val, carry1)
+                        statement += 'OR C{0}x{1} I{2} I{3}\n'.format(row+1, index+1, intermediate_index+1, intermediate_index+2)
                         intermediate_index += 3
                     else:
                         # val = x, summ = y, carry = cin
                         summ = 'S{0}x{1}'.format(row, index+1)
                         carry = 'C{0}x{1}'.format(row+1, index)
-                        statement += 'XOR2 I{0} {1} {2}\n'.format(intermediate_index, val, summ)
-                        statement += 'XOR2 S{0}x{1} I{2} {3}\n'.format(row+1, index+1, intermediate_index, carry)
-                        statement += 'AND2 I{0} I{1} {2}\n'.format(intermediate_index+1, intermediate_index, carry)
-                        statement += 'AND2 I{0} {1} {2}\n'.format(intermediate_index+2, val, summ)
-                        statement += 'OR2 C{0}x{1} I{2} I{3}\n'.format(row+1, index+1, intermediate_index+1, intermediate_index+2)
+                        statement += 'XOR I{0} {1} {2}\n'.format(intermediate_index, val, summ)
+                        statement += 'XOR S{0}x{1} I{2} {3}\n'.format(row+1, index+1, intermediate_index, carry)
+                        statement += 'AND I{0} I{1} {2}\n'.format(intermediate_index+1, intermediate_index, carry)
+                        statement += 'AND I{0} {1} {2}\n'.format(intermediate_index+2, val, summ)
+                        statement += 'OR C{0}x{1} I{2} I{3}\n'.format(row+1, index+1, intermediate_index+1, intermediate_index+2)
 
         # Generate Output Netlist
         for row in range(bits+1):

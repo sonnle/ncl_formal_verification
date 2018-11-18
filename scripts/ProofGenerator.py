@@ -2,8 +2,10 @@ import os
 import re
 
 import CircuitGraph
+import SyncCircuitGraph
 
-from GateNodes import InputNode
+import GateNodes
+import SyncGateNodes
 
 class ProofGenerator(object):
     required_templates = set(['rail', 'nullp', 'datap'])
@@ -15,6 +17,10 @@ class ProofGenerator(object):
         self.graph = self.circuit_graph.get_graph()
         self.graph_node = self.circuit_graph.get_graph_nodes()
         self.graph_level = self.circuit_graph.get_graph_levels()
+        self.sync_circuit_graph = None
+        self.sync_graph = None
+        self.sync_graph_node = None
+        self.sync_graph_level = None
 
     def generate_smt_proof(self):
         return self.generate_logic_type() + \
@@ -79,7 +85,10 @@ class ProofGenerator(object):
         # Two closing parens for each level if circuit is stepped, else one
         # Then one/two for output let, one for the not, one for the assert
         let_multiplier = 2 if self.stepped_circuit else 1
-        statement += ')\n' * ((self.circuit_graph.get_num_levels() + 1) * let_multiplier + 2)
+        if self.sync_circuit_graph.get_num_levels():
+            statement += ')\n' * ((self.circuit_graph.get_num_levels() + self.sync_circuit_graph.get_num_levels() + 1) * let_multiplier + 2)
+        else:
+            statement += ')\n' * ((self.circuit_graph.get_num_levels() + 1) * let_multiplier + 2)
         return statement
 
     def _generate_let(self):
@@ -103,7 +112,7 @@ class ProofGenerator(object):
         output = current_gate_value if gate_output.endswith('_d') else gate_output
         statement = '({0} ({1} '.format(gate_output, self.graph[output].get_gate_name().lower())
         for i in self.graph_node[output]:
-            if isinstance(self.graph[i], InputNode):
+            if isinstance(self.graph[i], GateNodes.InputNode):
                 m = self.input_re.match(i)
                 statement += '(rail{0} {1}{2}) '.format(m.group(2), m.group(1), '_d' if gate_output.endswith('_d') else '')
             else:
@@ -283,7 +292,7 @@ class ObservabilityN2DGate(ProofGenerator):
             if not line.startswith('({0}'.format(self.proof_gate)):
                 if self.proof_gate in line:
                     statement_split[index] = line.replace(self.proof_gate, '(_ bv0 1)')
-            if isinstance(self.graph[self.proof_gate], InputNode) and replacement in line:
+            if isinstance(self.graph[self.proof_gate], GateNodes.InputNode) and replacement in line:
                 statement_split[index] = line.replace(replacement, '(_ bv0 1)')
         return '\n'.join(line for line in statement_split)
 
@@ -317,7 +326,7 @@ class ObservabilityD2NGate(ProofGenerator):
             if not line.startswith('({0}_d'.format(self.proof_gate)):
                 if '{0}_d'.format(self.proof_gate) in line:
                     statement_split[index] = line.replace('{0}_d'.format(self.proof_gate), '(_ bv1 1)')
-            if isinstance(self.graph[self.proof_gate], InputNode) and replacement in line:
+            if isinstance(self.graph[self.proof_gate], GateNodes.InputNode) and replacement in line:
                 statement_split[index] = line.replace(replacement, '(_ bv1 1)')
         return '\n'.join(line for line in statement_split)
 
@@ -352,3 +361,53 @@ class Observability:
     def generate_d2n_proof(self, gate):
         proof = ObservabilityD2NGate(self.netlist, gate)
         return proof.generate_smt_proof()
+
+class Equivalence(ProofGenerator):
+    stepped_circuit = False
+
+    def __init__(self, ncl_netlist, sync_netlist):
+        super(self.__class__, self).__init__(ncl_netlist)
+        self.sync_circuit_graph = SyncCircuitGraph.SyncCircuitGraph(sync_netlist)
+        self.sync_graph = self.sync_circuit_graph.get_graph()
+        self.sync_graph_node = self.sync_circuit_graph.get_graph_nodes()
+        self.sync_graph_level = self.sync_circuit_graph.get_graph_levels()
+
+    def _generate_let(self):
+        statement = super(self.__class__, self)._generate_let()
+        for level in self.sync_graph_level.keys():
+            statement += '(let\n(\n'
+            for gate_output in self.sync_graph_level[level]:
+                statement += self._generate_sync_gate_statement(gate_output)
+            statement += ')\n'
+        return statement
+
+    def _generate_sync_gate_statement(self, gate_output):
+        my_temp_var = ''
+        for i in self.sync_graph_node[gate_output]:
+            if isinstance(self.sync_graph[i], SyncGateNodes.InputNode):
+                my_temp_var += '(rail1 {0}) '.format(i)
+            else:
+                my_temp_var += '{0}_sync '.format(i)
+        gate_statement = self.sync_graph[gate_output].gate_template.format(my_temp_var.rstrip())
+        statement = '({0}_sync {1}) \n'.format(gate_output, gate_statement)
+        return statement
+
+    def _generate_precondition(self):
+        statement = '(and\n'
+        statement += self._generate_condition_inputs_data()
+        statement += self._generate_condition_current_gate_output_zero()
+        statement += ')\n'
+        return statement
+
+    def _generate_postcondition(self):
+        statement = '(and\n'
+        statement += self._generate_condition_rail1_eq_sync()
+        statement += self._generate_condition_rail0_not_rail1()
+        statement += ')\n'
+        return statement
+
+    def _generate_condition_rail1_eq_sync(self):
+        return '\n'.join('(= {0}_1 {0}_sync)'.format(o) for o in self.sync_circuit_graph.get_outputs()) + '\n'
+
+    def _generate_condition_rail0_not_rail1(self):
+        return '\n'.join('(not (= {0}_0 {0}_1))'.format(i) for i in self.circuit_graph.get_outputs()) + '\n'
