@@ -1,5 +1,7 @@
+import re
+
 def main():
-    bits_list = [x for x in range(3, 4)]
+    bits_list = [x for x in range(3, 21)]
     for bits in bits_list:
         and2_str = 'and2'
         and2_incomplete_str = 'and2_incomplete'
@@ -94,11 +96,18 @@ def main():
             for column in range(bits):
                 index = row + column
                 if index == (2 * bits) - 1:
-                    statement = statement.replace('C{0}x{1}'.format(row, index-1), 'Z{0}'.format(index))
+                    output_to_replace = 'C{0}x{1}'.format(row, index-1)
+                    replace_with = 'Z{0}'.format(index)
+                    statement = re.sub(r'\b{0}_0\b'.format(output_to_replace), '{0}_0'.format(replace_with), statement)
+                    statement = re.sub(r'\b{0}_1\b'.format(output_to_replace), '{0}_1'.format(replace_with), statement)
                 elif (row == index) or (row == bits and index > bits):
-                    statement = statement.replace('S{0}x{1}'.format(row, index), 'Z{0}'.format(index))
+                    output_to_replace = 'S{0}x{1}'.format(row, index)
+                    replace_with = 'Z{0}'.format(index)
+                    statement = re.sub(r'\b{0}_0\b'.format(output_to_replace), '{0}_0'.format(replace_with), statement)
+                    statement = re.sub(r'\b{0}_1\b'.format(output_to_replace), '{0}_1'.format(replace_with), statement)
 
-        statement = statement.replace('and0x0', 'Z0')
+        statement = re.sub(r'\band0x0_0\b', 'Z0_0', statement)
+        statement = re.sub(r'\band0x0_1\b', 'Z0_1', statement)
 
         with open('umult{0}.txt'.format(bits), 'wb') as w_file:
             w_file.write(statement)
