@@ -42,3 +42,15 @@ class ORNode(BooleanGateNode):
 class XORNode(BooleanGateNode):
     gate_name = 'XOR'
     gate_template = '(bvxor {0})'
+
+class NOTNode(BooleanGateNode):
+    gate_name = 'NOT'
+    gate_template = '(bvnot {0})'
+
+class NORNode(BooleanGateNode):
+    gate_name = 'NOR'
+    gate_template = '(bvnor {0})'
+
+class NANDNode(BooleanGateNode):
+    gate_name = 'NAND'
+    gate_template = '(bvnand {0})'
