@@ -14,7 +14,7 @@
 (declare-fun acci3 () (_ BitVec 2))
 
 (declare-fun reset () (_ BitVec 1))
-(declare-fun Ki () (_ BitVec 1))
+(declare-fun Ki0 () (_ BitVec 1))
 (declare-fun Ki1 () (_ BitVec 1))
 (declare-fun Ki2 () (_ BitVec 1))
 (declare-fun Ki3 () (_ BitVec 1))
@@ -126,14 +126,14 @@
 	(not
 		(let
 			(
-				(x0 (Reg_NULL Xi0 Ki reset cs))
-				(x1 (Reg_NULL Xi1 Ki reset cs))
-				(y0 (Reg_NULL Yi0 Ki reset cs))
-				(y1 (Reg_NULL Yi1 Ki reset cs))
-				(acc0 (Reg_NULL acci0 Ki reset cs))
-				(acc1 (Reg_NULL acci1 Ki reset cs))
-				(acc2 (Reg_NULL acci2 Ki reset cs))
-				(acc3 (Reg_NULL acci3 Ki reset cs))				
+				(x0 (Reg_NULL Xi0 Ki0 reset cs))
+				(x1 (Reg_NULL Xi1 Ki0 reset cs))
+				(y0 (Reg_NULL Yi0 Ki0 reset cs))
+				(y1 (Reg_NULL Yi1 Ki0 reset cs))
+				(acc0 (Reg_NULL acci0 Ki0 reset cs))
+				(acc1 (Reg_NULL acci1 Ki0 reset cs))
+				(acc2 (Reg_NULL acci2 Ki0 reset cs))
+				(acc3 (Reg_NULL acci3 Ki0 reset cs))				
 			)
 		(let
 			(
@@ -271,7 +271,7 @@
 		(=>
 			(and
 				(= (_ bv0 1) gc)
-				(= (_ bv1 1) Ki)
+				(= (_ bv1 1) Ki0)
 				(= (_ bv1 1) Ki1)
 				(= (_ bv1 1) Ki2)
 				(= (_ bv1 1) Ki3)
