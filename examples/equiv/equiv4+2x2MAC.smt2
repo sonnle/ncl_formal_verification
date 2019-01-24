@@ -25,15 +25,15 @@
 ; NCL Gate Boolean Function - TH12: (A + B)
 (define-fun th12 ((a (_ BitVec 1)) (b (_ BitVec 1)) (gl (_ BitVec 1)) ) (_ BitVec 1)
     (bvor a b)
-)	
+)
 ; NCL Gate Boolean Function - TH22: (AB)
 (define-fun th22 ((a (_ BitVec 1)) (b (_ BitVec 1)) (gl (_ BitVec 1)) ) (_ BitVec 1)
-(bvand a b)
+	(bvand a b)
 )
 ; NCL Gate Boolean Function - TH23: (AB + AC + BC)
 (define-fun th23 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (gl (_ BitVec 1)) ) (_ BitVec 1)
 	(bvor (bvand a b) (bvor (bvand a c) (bvand b c)) )
-)	
+)
 ; NCL Gate Boolean Function - THand0: (AB + BC + AD)
 (define-fun thand0 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (gl (_ BitVec 1))) (_ BitVec 1)
 	(bvor (bvand a b) (bvor (bvand b c) (bvand a d)) )
@@ -45,7 +45,7 @@
 ; NCL Gate Boolean Function - TH34w2: (AB + AC + AD + BCD)
 (define-fun th34w2 ((a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) (gl (_ BitVec 1))) (_ BitVec 1)
 	(bvor (bvand a b) (bvor (bvand a c) (bvor (bvand a d) (bvand b (bvand c d)) ) ) )
-)	
+)
 ; Extract Function of rail0 of a dual rail signal
 (define-fun rail0 ((a (_ BitVec 2))) (_ BitVec 1)
     ((_ extract 0 0) a)
@@ -66,24 +66,24 @@
 
 ; NCL reset-to-NULL register Function
 (define-fun Reg_NULL ((D (_ BitVec 2)) (Ki (_ BitVec 1)) (reset (_ BitVec 1)) (cs (_ BitVec 2))) (_ BitVec 2)
-	(ite (= reset (_ bv0 1)) 
+	(ite (= reset (_ bv0 1))
 				(ite (= Ki (_ bv1 1)) D cs )
-		(_ bv0 2) 
+		(_ bv0 2)
 	)
 )
 
 ; NCL reset-to-DATA0 register Function
 (define-fun Reg_DATA0 ((D (_ BitVec 2)) (Ki (_ BitVec 1)) (reset (_ BitVec 1)) (cs (_ BitVec 2))) (_ BitVec 2)
-	(ite (= reset (_ bv0 1)) 
+	(ite (= reset (_ bv0 1))
 				(ite (= Ki (_ bv1 1)) D cs )
-		(_ bv1 2) 
+		(_ bv1 2)
 	)
 )
 
 ; sync reset-to-0 register Function
 (define-fun sync_Reg0 ((D (_ BitVec 1)) (enable (_ BitVec 1)) (reset (_ BitVec 1)) (cs (_ BitVec 1))) (_ BitVec 1)
 	(ite (= reset (_ bv0 1))
-		(ite (= enable (_ bv1 1)) 
+		(ite (= enable (_ bv1 1))
 			D cs)
 		(_ bv0 1)
 	)
@@ -119,7 +119,7 @@
         (= (_ bv1 2) a)
         (= (_ bv2 2) a)
     )
-) 	
+)
 
 ; SAT/UNSAT assertion for test_netlist_12+6x6MAC.txt
 (assert
@@ -133,7 +133,7 @@
 				(acc0 (Reg_NULL acci0 Ki0 reset cs))
 				(acc1 (Reg_NULL acci1 Ki0 reset cs))
 				(acc2 (Reg_NULL acci2 Ki0 reset cs))
-				(acc3 (Reg_NULL acci3 Ki0 reset cs))				
+				(acc3 (Reg_NULL acci3 Ki0 reset cs))
 			)
 		(let
 			(
@@ -145,7 +145,7 @@
 				(t2_0 (th12 (rail0 x0)  (rail0 y1) gc))
 				(t3_1 (th22 (rail1 x1)  (rail1 y1) gc))
 				(t3_0 (th12 (rail0 x1)  (rail0 y1) gc))
-			)		
+			)
 		(let
 			(
 				(t4_1 (th24comp t1_0  t2_0  t1_1  t2_1 gc))
@@ -156,26 +156,26 @@
 				(c1_0 (th12 t0_0  (rail0 acc0) gc))
 				(t5_1 (th24comp t0_0  (rail0 acc0)  t0_1  (rail1 acc0) gc))
 				(t5_0 (th24comp t0_0  (rail1 acc0)  (rail0 acc0)  t0_1 gc))
-			)		
+			)
 		(let
 			(
 				(t6_1 (th24comp t4_0  (rail0 acc1)  t4_1  (rail1 acc1) gc))
 				(t6_0 (th24comp t4_0  (rail1 acc1)  (rail0 acc1)  t4_1 gc))
 				(c2_0 (th12 t4_0  (rail0 acc1) gc))
 				(c2_1 (th22 t4_1  (rail1 acc1) gc))
-			)		
+			)
 		(let
 			(
 				(c3_0 (th23 t3_0  (rail0 acc2)  c0_0 gc))
 				(c3_1 (th23 t3_1  (rail1 acc2)  c0_1 gc))
-				
-			)		
+
+			)
 		(let
 			(
 				(t7_0 (th34w2 c3_1 t3_0 (rail0 acc2) c0_0 gc))
 				(t7_1 (th34w2 c3_0 t3_1 (rail1 acc2) c0_1 gc))
-				
-			)	
+
+			)
 		(let
 			(
 				(r0 (Reg_NULL (concat t5_1 t5_0) Ki1 reset cs))
@@ -192,14 +192,14 @@
 				(t8_0 (th24comp (rail0 r1) (rail1 r2) (rail0 r2) (rail1 r1) gc))
 				(c4_0 (th12 (rail0 r1) (rail0 r2) gc))
 				(c4_1 (th22 (rail1 r1) (rail1 r2) gc))
-			)		
+			)
 		(let
 			(
-			
+
 				(c5_0 (th23 (rail0 r3)  (rail0 r4)  c4_0 gc))
 				(c5_1 (th23 (rail1 r3)  (rail1 r4)  c4_1 gc))
 			)
-		(let 
+		(let
 			(
 				(t9_0 (th34w2 c5_1  (rail0 r3)  (rail0 r4)  c4_0 gc))
 				(t9_1 (th34w2 c5_0  (rail1 r3)  (rail1 r4)  c4_1 gc))
