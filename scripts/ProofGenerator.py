@@ -85,7 +85,7 @@ class ProofGenerator(object):
         # Two closing parens for each level if circuit is stepped, else one
         # Then one/two for output let, one for the not, one for the assert
         let_multiplier = 2 if self.stepped_circuit else 1
-        if self.sync_circuit_graph.get_num_levels():
+        if self.sync_circuit_graph:
             statement += ')\n' * ((self.circuit_graph.get_num_levels() + self.sync_circuit_graph.get_num_levels() + 1) * let_multiplier + 2)
         else:
             statement += ')\n' * ((self.circuit_graph.get_num_levels() + 1) * let_multiplier + 2)
@@ -247,6 +247,17 @@ class ProofGenerator(object):
         statement += '(= {0} (_ bv1 1))\n'.format(self.graph[proof_gate].evaluate_smt())
         return statement
 
+    def _generate_condition_proof_gate_function_test(self, proof_gate):
+        statement = ''
+        statement += '; Gate function for {0}\n'.format(proof_gate)
+        if isinstance(self.graph[proof_gate], GateNodes.InputNode):
+            m = self.input_re.match(proof_gate)
+            rail = '(rail{0} {1}) '.format(m.group(2), m.group(1))
+            statement += '(= {0} (_ bv1 1))\n'.format(rail)
+        else:
+            statement += '(= {0} (_ bv1 1))\n'.format(proof_gate)
+        return statement
+
 class InputCompleteN2D(ProofGenerator):
     stepped_circuit = False
 
@@ -287,7 +298,12 @@ class ObservabilityN2DGate(ProofGenerator):
     def _generate_let(self):
         statement = super(self.__class__, self)._generate_let()
         statement_split = statement.split('\n')
-        replacement = '(rail{0} {1})'.format(self.proof_gate[-1], self.proof_gate[:2])
+        try:
+            m = self.input_re.match(self.proof_gate)
+            replacement = '(rail{0} {1})'.format(m.group(2),  m.group(1))
+        except:
+            replacement = '(rail{0} {1})'.format(self.proof_gate[-1], self.proof_gate[:2])
+
         for index, line in enumerate(statement_split):
             if not line.startswith('({0}'.format(self.proof_gate)):
                 if self.proof_gate in line:
@@ -299,7 +315,8 @@ class ObservabilityN2DGate(ProofGenerator):
     def _generate_precondition(self):
         statement = '(and\n'
         statement += self._generate_condition_inputs_data()
-        statement += self._generate_condition_proof_gate_function(self.proof_gate)
+        statement += self._generate_condition_proof_gate_function_test(self.proof_gate)
+        # statement += self._generate_condition_proof_gate_function(self.proof_gate)
         statement += self._generate_condition_current_gate_output_zero()
         statement += ')\n'
 
@@ -321,7 +338,12 @@ class ObservabilityD2NGate(ProofGenerator):
     def _generate_let(self):
         statement = super(self.__class__, self)._generate_let()
         statement_split = statement.split('\n')
-        replacement = '(rail{0} {1}_d)'.format(self.proof_gate[-1], self.proof_gate[:2])
+        try:
+            m = self.input_re.match(self.proof_gate)
+            replacement = '(rail{0} {1}_d)'.format(m.group(2),  m.group(1))
+        except:
+            replacement = '(rail{0} {1}_d)'.format(self.proof_gate[-1], self.proof_gate[:2])
+
         for index, line in enumerate(statement_split):
             if not line.startswith('({0}_d'.format(self.proof_gate)):
                 if '{0}_d'.format(self.proof_gate) in line:
@@ -334,7 +356,8 @@ class ObservabilityD2NGate(ProofGenerator):
         statement = '(and\n'
         statement += self._generate_condition_inputs_data()
         statement += self._generate_condition_inputs_null(d_flag=True)
-        statement += self._generate_condition_proof_gate_function(self.proof_gate)
+        # statement += self._generate_condition_proof_gate_function(self.proof_gate)
+        statement += self._generate_condition_proof_gate_function_test(self.proof_gate)
         statement += self._generate_condition_current_gate_output_zero()
         statement += ')\n'
         return statement
