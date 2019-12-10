@@ -229,3 +229,38 @@ class Th24compNode(FourVariableNode):
     gate_name = 'Th24comp'
     gate_template = '(bvor (bvand {0} {2}) (bvand {1} {2}) (bvand {0} {3}) (bvand {1} {3}))'
 
+class BooleanNode(GateNode):
+    gate_template = None
+    def evaluate_smt(self):
+        gc.collect()
+        return self.gate_template.format(' '.join(inpt for inpt in self.inputs))
+
+class BooleanAND(BooleanNode):
+    gate_name = None
+    gate_template = '(bvand {0})'
+
+class AND2(BooleanAND):
+    gate_name = 'AND2'
+
+class AND3(BooleanAND):
+    gate_name = 'AND3'
+
+class AND4(BooleanAND):
+    gate_name = 'AND4'
+
+class BooleanOR(BooleanNode):
+    gate_name = None
+    gate_template = '(bvor {0})'
+
+class OR2(BooleanOR):
+    gate_name = 'OR2'
+
+class OR3(BooleanOR):
+    gate_name = 'OR3'
+
+class OR4(BooleanOR):
+    gate_name = 'OR4'
+
+class NOT2(BooleanNode):
+    gate_name = 'NOT2'
+    gate_template = '(bvnot {0})'
